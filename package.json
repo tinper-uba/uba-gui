@@ -1,0 +1,25 @@
+{
+  "name": "uba-gui",
+  "version": "0.0.1",
+  "description": "A tool for uba developement",
+  "main": "app.js",
+  "scripts": {
+    "start":"electron ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tinper-uba/uba-gui.git"
+  },
+  "keywords": [
+    "uba-gui"
+  ],
+  "author": "Kvkens (yueming@yonyou.com)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/tinper-uba/uba-gui/issues"
+  },
+  "homepage": "https://github.com/tinper-uba/uba-gui#readme",
+  "devDependencies": {
+    "electron": "^1.8.2"
+  }
+}
