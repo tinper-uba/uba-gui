@@ -1,3 +1,7 @@
+const process = require('process');
+
+console.log('ENV:' + process.env.ELECTRON_ENV);
+
 const electron = require('electron');
 // Module to control application life.
 const app = electron.app;
@@ -9,7 +13,7 @@ const url = require('url');
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
-let mainWindow
+let mainWindow;
 
 function createWindow() {
     // Create the browser window.
@@ -25,13 +29,18 @@ function createWindow() {
     });
 
     // and load the index.html of the app.
-    // mainWindow.loadURL(url.format({
-    //     pathname: path.join(__dirname, 'public/index.html'),
-    //     protocol: 'file:',
-    //     slashes: true
-    // }));
+    if (process.env.ELECTRON_ENV == 'develop') {
+        mainWindow.loadURL(url.format({
+            pathname: path.join(__dirname, 'public/index.html'),
+            protocol: 'file:',
+            slashes: true
+        }));
+    }else{
+        mainWindow.loadURL('http://127.0.0.1:3000');
+    }
+    
 
-    mainWindow.loadURL('http://127.0.0.1:3000');
+    
     
     // mainWindow.setProgressBar(0.5);
 

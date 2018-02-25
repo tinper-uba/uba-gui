@@ -111,7 +111,7 @@ const devConfig = {
   devtool: "cheap-module-eval-source-map",
   entry: {
     vendors: getVendors(),
-    app: ["./src/app.jsx", hotMiddlewareScript]
+    app: ["./src/index.jsx", hotMiddlewareScript]
   },
   output: {
     path: path.resolve(__dirname, "./dist"),
@@ -152,7 +152,7 @@ const prodConfig = {
   devtool : "source-map",
   entry: {
     vendors: getVendors(),
-    app: "./src/app.jsx"
+    app: "./src/index.jsx"
   },
   output: {
     path: path.resolve(__dirname, "./public"),
