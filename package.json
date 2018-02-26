@@ -7,7 +7,8 @@
     "start": "cross-env ELECTRON_ENV=develop electron .",
     "dev": "uba server",
     "build": "uba build && cross-env ELECTRON_ENV=production electron .",
-    "debug": "cross-env ELECTRON_ENV=production electron ."
+    "debug": "cross-env ELECTRON_ENV=production electron .",
+    "dist": "cross-env ELECTRON_ENV=production electron-builder -m -w"
   },
   "repository": {
     "type": "git",
@@ -37,6 +38,7 @@
     "css-loader": "^0.28.10",
     "cssnano": "^3.10.0",
     "electron": "^1.8.2",
+    "electron-builder": "^20.2.0",
     "extract-text-webpack-plugin": "^2.1.2",
     "file-loader": "^1.1.9",
     "html-webpack-plugin": "^2.30.1",

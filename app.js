@@ -27,19 +27,19 @@ function createWindow() {
     });
 
     // and load the index.html of the app.
-    if (process.env.ELECTRON_ENV == 'production') {
+    if (process.env.ELECTRON_ENV == 'develop') {
+        mainWindow.loadURL('http://127.0.0.1:3000');
+    } else {
         mainWindow.loadURL(url.format({
             pathname: path.join(__dirname, 'public/index.html'),
             protocol: 'file:',
             slashes: true
         }));
-    }else{
-        mainWindow.loadURL('http://127.0.0.1:3000');
     }
-    
 
-    
-    
+
+
+
     // mainWindow.setProgressBar(0.5);
 
     // Open the DevTools.
