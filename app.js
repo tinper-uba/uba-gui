@@ -23,13 +23,11 @@ function createWindow() {
         center: true,
         resizable: false,
         alwaysOnTop: false,
-        skipTaskbar: true,
-        // backgroundColor: '#2e2c29',        
-        title: 'uba'
+        skipTaskbar: true
     });
 
     // and load the index.html of the app.
-    if (process.env.ELECTRON_ENV == 'develop') {
+    if (process.env.ELECTRON_ENV == 'production') {
         mainWindow.loadURL(url.format({
             pathname: path.join(__dirname, 'public/index.html'),
             protocol: 'file:',

@@ -50,7 +50,7 @@ const resolve = {
     ".jsx", ".js",".less",".css",".json"
   ],
   alias: {
-    components: path.resolve(__dirname, "src/components/")
+    components: path.resolve(__dirname, "app/components/")
   }
 }
 
@@ -58,7 +58,7 @@ const resolve = {
 const rules = [{
   test: /\.js[x]?$/,
   exclude: /(node_modules)/,
-  include: path.resolve("src"),
+  include: path.resolve("app"),
   use: [{
     loader: "babel-loader"
   }]
@@ -111,10 +111,10 @@ const devConfig = {
   devtool: "cheap-module-eval-source-map",
   entry: {
     vendors: getVendors(),
-    app: ["./src/index.jsx", hotMiddlewareScript]
+    app: ["./app/index.jsx", hotMiddlewareScript]
   },
   output: {
-    path: path.resolve(__dirname, "./dist"),
+    path: path.resolve(__dirname, "./public"),
     filename: "[name].js",
     publicPath: "/"
   },
@@ -136,7 +136,7 @@ const devConfig = {
     new webpack.HotModuleReplacementPlugin(),
     new HtmlWebpackPlugin({
       filename: "index.html",
-      template: "./src/index.html",
+      template: "./app/index.html",
       inject: "body",
       hash: false,
       // favicon: "./src/static/images/favicon.png",
@@ -152,7 +152,7 @@ const prodConfig = {
   devtool : "source-map",
   entry: {
     vendors: getVendors(),
-    app: "./src/index.jsx"
+    app: "./app/index.jsx"
   },
   output: {
     path: path.resolve(__dirname, "./public"),
@@ -184,7 +184,7 @@ const prodConfig = {
     new CleanWebpackPlugin(['public']),
     new HtmlWebpackPlugin({
       filename: "index.html",
-      template: "./src/index.html",
+      template: "./app/index.html",
       inject: "body",
       hash: true,
       // favicon: "./src/static/images/favicon.png",
