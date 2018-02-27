@@ -178,9 +178,9 @@ const prodConfig = {
     // new UglifyJSPlugin({
     //   sourceMap : true
     // }),
-    // new webpack.optimize.UglifyJsPlugin({
-    //     sourceMap : true
-    // }),
+    new webpack.optimize.UglifyJsPlugin({
+        sourceMap : false
+    }),
     new CleanWebpackPlugin(['public']),
     new HtmlWebpackPlugin({
       filename: "index.html",
