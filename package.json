@@ -17,6 +17,31 @@
   "keywords": [
     "uba-gui"
   ],
+  "build": {
+    "productName": "Uba-GUI",
+    "appId": "com.yonyou.uba-gui",
+    "win": {
+      "target": [
+        "nsis"
+      ],
+      "icon": "logo"
+    },
+    "mac": {
+      "target": [
+        "dmg"
+      ],
+      "icon": "logo"
+    },
+    "linux": {
+      "target": [
+        "deb"
+      ]
+    },
+    "directories": {
+      "buildResources": "resources",
+      "output": "release"
+    }
+  },
   "author": "Kvkens (yueming@yonyou.com)",
   "license": "MIT",
   "bugs": {
