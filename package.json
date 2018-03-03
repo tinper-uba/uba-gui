@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "A tool for uba developement",
   "scripts": {
-    "start": "cross-env ELECTRON_ENV=production electron ./app/app.js",
+    "start": "cross-env ELECTRON_ENV=production electron ./app/main.js",
     "dev": "uba server",
     "build": "uba build",
     "pack:mac": "cross-env ELECTRON_ENV=production ELECTRON_MIRROR=https://npm.taobao.org/mirrors/electron/ build -m",
