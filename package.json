@@ -2,11 +2,12 @@
   "name": "uba-gui",
   "version": "0.0.1",
   "description": "A tool for uba developement",
-  "main": "app.js",
   "scripts": {
-    "start": "cross-env ELECTRON_ENV=develop electron .",
+    "start": "cross-env ELECTRON_ENV=production electron ./app/app.js",
     "dev": "uba server",
-    "build": "uba build && cross-env ELECTRON_ENV=production electron .",
+    "build": "uba build",
+    "pack:mac": "cross-env ELECTRON_ENV=production ELECTRON_MIRROR=https://npm.taobao.org/mirrors/electron/ build -m",
+    "pack:win": "cross-env ELECTRON_ENV=production ELECTRON_MIRROR=https://npm.taobao.org/mirrors/electron/ build -w",
     "debug": "cross-env ELECTRON_ENV=production electron .",
     "dist": "cross-env ELECTRON_ENV=production electron-builder -m -w"
   },
@@ -19,7 +20,8 @@
   ],
   "build": {
     "productName": "Uba-GUI",
-    "appId": "com.yonyou.uba-gui",
+    "appId": "org.yonyou.fe",
+    "asar": false,
     "win": {
       "target": [
         "nsis"
@@ -69,7 +71,6 @@
     "html-webpack-plugin": "^2.30.1",
     "less": "^3.0.1",
     "less-loader": "^4.0.5",
-    "open-browser-webpack-plugin": "^0.0.5",
     "postcss-loader": "^2.1.0",
     "style-loader": "^0.20.2",
     "uba": "2.3.4",

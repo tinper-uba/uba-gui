@@ -31,7 +31,7 @@ function createWindow() {
         mainWindow.loadURL('http://127.0.0.1:3000');
     } else {
         mainWindow.loadURL(url.format({
-            pathname: path.join(__dirname, 'public/index.html'),
+            pathname: path.join(__dirname, 'renderer/index.html'),
             protocol: 'file:',
             slashes: true
         }));

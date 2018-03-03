@@ -1,0 +1,15 @@
+{
+  "name": "uba-gui",
+  "productName": "uba-gui",
+  "version": "1.0.0",
+  "description": "A tool for uba developement",
+  "main": "./main.js",
+  "keywords": [],
+  "author": {
+    "name": "Kvkens",
+    "email": "yueming@yonyou.com"
+  },
+  "license": "MIT",
+  "devDependencies": {
+  }
+}
