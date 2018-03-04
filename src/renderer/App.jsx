@@ -5,7 +5,9 @@ import LeftMenu from 'components/LeftMenu';
 import Routes from './routes';
 import './App.less';
 const { Header, Content, Footer, Sider } = Layout;
+const remote = require('electron').remote;
 
+console.log(remote);
 
 const App = () => (
   <Router>

@@ -2,7 +2,7 @@
   "name": "uba-gui",
   "productName": "uba-gui",
   "version": "1.0.0",
-  "description": "A tool for uba developement",
+  "description": "uba-gui",
   "main": "./main.js",
   "keywords": [],
   "author": {

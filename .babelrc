@@ -1,18 +1,13 @@
 {
   "presets": [
-    "env",
-    "react",
-    "stage-2"
-  ],
-  "plugins": [
     [
-      "transform-runtime",
+      "env",
       {
-        "helpers": false,
-        "polyfill": true,
-        "regenerator": true
+        "targets": {
+          "node": "current"
+        }
       }
     ],
-    ["import", { "libraryName": "antd", "libraryDirectory": "es", "style": "css" }]
+    "stage-2"
   ]
 }
