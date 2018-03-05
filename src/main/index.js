@@ -6,14 +6,14 @@ let win;
 
 function createWindow() {
   // Create the browser window.
-  win = new BrowserWindow({ 
+  win = new BrowserWindow({
     width: 800,
-        height: 500,
-        center: true,
-        resizable: false,
-        alwaysOnTop: false,
-        skipTaskbar: true
-   });
+    height: 500,
+    center: true,
+    resizable: false,
+    alwaysOnTop: false,
+    skipTaskbar: false
+  });
   // and load the index.html of the app.
 
   if (__isDev__) {
