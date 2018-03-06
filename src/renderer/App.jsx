@@ -14,7 +14,7 @@ const App = () => (
     <div>
       <Layout>
         <Sider style={{ background: '#fff', overflow: 'auto', height: '100vh', position: 'fixed', left: 0 }}>
-          <div className="logo">
+          <div className="logo titlebar">
             我的项目
           </div>
           <Route path="*" component={LeftMenu} />

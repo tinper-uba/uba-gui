@@ -12,6 +12,8 @@ function createWindow() {
     center: true,
     resizable: false,
     alwaysOnTop: false,
+    frame: false,
+    titleBarStyle: 'hiddenInset',
     skipTaskbar: false
   });
   // and load the index.html of the app.
