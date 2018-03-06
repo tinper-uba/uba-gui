@@ -14,18 +14,18 @@ const App = () => (
     <div>
       <Layout>
         <Sider style={{ background: '#fff', overflow: 'auto', height: '100vh', position: 'fixed', left: 0 }}>
-          <div className="logo titlebar">
-            我的项目
-          </div>
+          <div className="logo"></div>
           <Route path="*" component={LeftMenu} />
         </Sider>
         <Layout style={{ marginLeft: 200 }}>
+          <Header className="titlebar" >
+            v1.0.0
+          </Header>
           <Content style={{ margin: '0', overflow: 'initial' }}>
             <div style={{ padding: 10, background: '#fff' }}>
               <Route exact path="/" render={() => (<div>home</div>)} />
               <Route exact path="/menu2" render={() => (<div>menu2</div>)} />
               <Route exact path="/menu3" render={() => (<div>menu3</div>)} />
-
             </div>
           </Content>
         </Layout>
