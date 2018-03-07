@@ -1,4 +1,6 @@
-import { BrowserWindow, app } from 'electron'
+import { BrowserWindow, app } from 'electron';
+import { format } from 'url';
+import { resolve } from 'path';
 
 const createWindow = () => {
     // Create the browser window.

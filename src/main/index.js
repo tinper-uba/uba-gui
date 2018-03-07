@@ -1,6 +1,4 @@
 import { app, BrowserWindow, Menu, shell, ipcMain } from 'electron';
-import { resolve } from 'path';
-import { format } from 'url';
 import createWindow from './createWindow';
 import configureMenu from './menu';
 import ipc from './ipc';
