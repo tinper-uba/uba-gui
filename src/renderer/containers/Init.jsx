@@ -4,8 +4,8 @@
 
 import React, { Component } from 'react';
 import mirror, { actions, connect } from 'mirrorx';
-import Init from '../components/Init';
-import InitModel from '../models/Init';
+import Init from 'components/Init';
+import InitModel from 'models/Init';
 
 mirror.model(InitModel);
 
@@ -13,7 +13,7 @@ mirror.model(InitModel);
 mirror.hook((action, getState) => {
   const { routing: { location } } = getState();
   if (action.type === '@@router/LOCATION_CHANGE' && location.pathname === '/init') {
-    console.log('init');
+    actions.init.loadGithubOrgn();
   }
 });
 

@@ -88,7 +88,9 @@ export default {
     extensions: ['.js', '.jsx', '.json'],
     alias: {
       components: resolve(__dirname, "../src/renderer/components/"),
-      containers: resolve(__dirname, "../src/renderer/containers/")
+      containers: resolve(__dirname, "../src/renderer/containers/"),
+      services: resolve(__dirname, "../src/renderer/services/"),
+      models: resolve(__dirname, "../src/renderer/models/")
     }
   },
   target: 'electron-renderer',

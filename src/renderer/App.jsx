@@ -18,7 +18,7 @@ const App = () => (
           v{pkg.version}
         </Header>
         <Content style={{ margin: '0', overflow: 'initial' }}>
-          <div style={{ padding: 10, background: '#fff' }}>
+          <div style={{ padding: 2, background: '#fff' }}>
             <Routes />
           </div>
         </Content>
