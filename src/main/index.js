@@ -7,8 +7,11 @@ let win;
 
 const onReady = () => {
   win = createWindow();
-  const menu = Menu.buildFromTemplate(configureMenu({ app }));
-  Menu.setApplicationMenu(menu);
+  if (!__isDev__) {
+    const menu = Menu.buildFromTemplate(configureMenu({ app }));
+    Menu.setApplicationMenu(menu);
+  }
+
   ipc();
 }
 

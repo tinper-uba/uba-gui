@@ -19,6 +19,18 @@ class LeftMenu extends Component {
                 <Menu.Item key="/menu4">
                     <NavLink to="/menu4"><Icon type="appstore-o" />演示项目 4</NavLink>
                 </Menu.Item>
+                <Menu.Item key="/menu5">
+                    <NavLink to="/menu5"><Icon type="appstore-o" />演示项目 5</NavLink>
+                </Menu.Item>
+                <Menu.Item key="/menu6">
+                    <NavLink to="/menu6"><Icon type="appstore-o" />演示项目 6</NavLink>
+                </Menu.Item>
+                <Menu.Item key="/menu7">
+                    <NavLink to="/menu7"><Icon type="appstore-o" />演示项目 7</NavLink>
+                </Menu.Item>
+                <Menu.Item key="/menu8">
+                    <NavLink to="/menu8"><Icon type="appstore-o" />演示项目 8</NavLink>
+                </Menu.Item>
             </Menu>
         );
     }
