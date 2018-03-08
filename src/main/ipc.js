@@ -20,9 +20,10 @@ const IPC = () => {
         if (path && path.length !== 0) {
             fs.readFile(join(path[0],'uba.config.js'), 'utf-8', (err, data) => {
                 if (err){
-                    console.log('不是一个uba前端工程')
+                    event.sender.send('uba::import::error','非法的uba前端工程');
                 }else{
                     console.log(data);
+                    event.sender.send('uba::import::success',data);
                 }
             });
         }

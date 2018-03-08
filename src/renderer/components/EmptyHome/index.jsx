@@ -4,7 +4,17 @@ import { Button, notification,message } from 'antd';
 import { ipcRenderer } from 'electron';
 import './index.less';
 
+
+
 const ipc = ipcRenderer;
+
+ipc.on('uba::import::success', (event, data) => {
+    console.log(data);
+});
+ipc.on('uba::import::error', (event, msg) => {
+    message.success(msg);
+});
+
 
 class EmptyHome extends Component {
     openHomePage = () => {
@@ -13,7 +23,6 @@ class EmptyHome extends Component {
     importExisProject = () => {
         console.log('import')
         ipc.send('uba::import');
-        this.openMessage();
     }
     openMessage = () => {
         // notification.open({
