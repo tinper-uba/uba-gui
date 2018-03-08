@@ -12,7 +12,7 @@ ipc.on('uba::import::success', (event, data) => {
     console.log(data);
 });
 ipc.on('uba::import::error', (event, msg) => {
-    message.success(msg);
+    message.error(msg);
 });
 
 

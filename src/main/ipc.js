@@ -28,6 +28,15 @@ const IPC = () => {
             });
         }
     });
+    //创建工程选择目录
+    ipcMain.on('uba::openProject', (event, arg) => {
+        let path = (dialog.showOpenDialog({ properties: [ 'openDirectory'] }));
+        console.log(path);
+        if (path && path.length !== 0) {
+            event.sender.send('uba::openProject::success',path[0]);
+        }
+    });
+    
 
 }
 

@@ -1,6 +1,8 @@
 import { actions } from 'mirrorx';
+import { ipcRenderer } from 'electron';
 import * as api from 'services/Init';
 
+const ipc = ipcRenderer;
 
 export default {
     name: "init",
@@ -8,7 +10,10 @@ export default {
         currStep: 0,
         repoData: [],
         selectId: '',
-        selectName: ''
+        selectName: '',
+        project: '',
+        upload: '',
+        registry: ''
     },
     reducers: {
         save(state, data) {
@@ -31,7 +36,6 @@ export default {
             });
         },
         setStep(page, getState) {
-            console.log(page);
             let { currStep } = getState().init;
             let nextStep = currStep + 1;
             if (typeof page) {
@@ -46,8 +50,19 @@ export default {
         async loadGithubOrgn() {
             let { data } = await api.get();
             actions.init.save({ repoData: data });
-            console.log(data);
             return data;
+        },
+        setSetting(data, getState) {
+            actions.init.save({ ...data });
+            actions.init.setStep(2);
+            let registry = actions.init.getS().registry;
+            ipc.send('uba::openUrl', registry);
+        },
+        setUpload(data, getState) {
+            actions.init.save({ upload: data });
+        },
+        getS(data, getState) {
+            return getState().init;
         }
     }
 }
