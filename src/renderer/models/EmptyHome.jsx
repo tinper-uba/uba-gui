@@ -18,6 +18,11 @@ export default {
             actions.routing.push({
                 pathname: '/init'
             });
+        },
+        home() {
+            actions.routing.push({
+                pathname: '/'
+            });
         }
     }
 }

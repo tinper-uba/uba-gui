@@ -14,6 +14,7 @@ mirror.hook((action, getState) => {
   const { routing: { location } } = getState();
   if (action.type === '@@router/LOCATION_CHANGE' && location.pathname === '/init') {
     actions.init.loadGithubOrgn();
+    actions.init.clear();
   }
 });
 

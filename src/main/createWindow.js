@@ -5,8 +5,8 @@ import { resolve } from 'path';
 const createWindow = () => {
     // Create the browser window.
     let win = new BrowserWindow({
-        width: 800,
-        height: 500,
+        width: 750,
+        height: 550,
         center: true,
         resizable: false,
         alwaysOnTop: false,

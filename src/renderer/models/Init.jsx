@@ -6,7 +6,9 @@ export default {
     name: "init",
     initialState: {
         currStep: 0,
-        repoData: []
+        repoData: [],
+        selectId: '',
+        selectName: ''
     },
     reducers: {
         save(state, data) {
@@ -22,11 +24,24 @@ export default {
                 pathname: '/init'
             });
         },
+        clear() {
+            actions.init.save({
+                selectId: '',
+                selectName: ''
+            });
+        },
         setStep(page, getState) {
-            console.log(getState());
+            console.log(page);
             let { currStep } = getState().init;
             let nextStep = currStep + 1;
+            if (typeof page) {
+                nextStep = page;
+            }
             actions.init.save({ currStep: nextStep });
+        },
+        selectTemplate(obj, getState) {
+            let { selectId, selectName } = obj;
+            actions.init.save({ selectId, selectName });
         },
         async loadGithubOrgn() {
             let { data } = await api.get();
