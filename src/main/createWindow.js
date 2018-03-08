@@ -3,6 +3,9 @@ import { format } from 'url';
 import { resolve } from 'path';
 
 const createWindow = () => {
+    BrowserWindow.addDevToolsExtension('/Users/kvkens/Library/Application Support/Google/Chrome/Default/Extensions/fmkadmapgofadopljbjfkapdkoienihi/3.1.0_0');
+    BrowserWindow.addDevToolsExtension('/Users/kvkens/Library/Application Support/Google/Chrome/Default/Extensions/lmhkpmbekcpmknklioeibfkpmmfibljd/2.15.2_0');
+    
     // Create the browser window.
     let win = new BrowserWindow({
         width: 750,
