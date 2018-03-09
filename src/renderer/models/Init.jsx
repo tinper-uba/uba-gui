@@ -4,6 +4,10 @@ import * as api from 'services/Init';
 
 const ipc = ipcRenderer;
 
+ipc.on('uba::init::success', (event, argv) => {
+    console.log('init::success',argv);
+});
+
 export default {
     name: "init",
     initialState: {
@@ -56,13 +60,18 @@ export default {
             actions.init.save({ ...data });
             actions.init.setStep(2);
             let registry = actions.init.getS().registry;
-            ipc.send('uba::openUrl', registry);
+            // ipc.send('uba::openUrl', registry);
         },
         setUpload(data, getState) {
             actions.init.save({ upload: data });
         },
         getS(data, getState) {
             return getState().init;
+        },
+        downGit(data,getState){
+            let { selectName,project,upload } = getState().init;
+            console.log(getState().init);
+            ipc.send('uba::init',{ selectName,project,upload });
         }
     }
 }

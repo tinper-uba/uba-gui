@@ -53,6 +53,7 @@
   "dependencies": {
     "antd": "^3.2.3",
     "axios": "^0.18.0",
+    "download-git-repo": "^1.0.2",
     "mirrorx": "^0.2.10",
     "react": "^16.2.0",
     "react-dom": "^16.2.0"

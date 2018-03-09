@@ -24,6 +24,7 @@ class Init extends Component {
         this.props.form.validateFields((err, values) => {
             if (!err) {
                 actions.init.setSetting(values);
+                actions.init.downGit();
             }
         });
     }
@@ -102,6 +103,9 @@ class Init extends Component {
                                 </FormItem>
                             </Form>
                         }
+                        {
+                            currStep == 2 && <div>Loading</div>
+                        }
                     </Col>
                 </Row>
                 <Row style={{ "margin": 0 }}>
@@ -111,7 +115,7 @@ class Init extends Component {
                             {currStep == 0 && <Button disabled={!selectName} icon="right-circle-o" className="btn" onClick={() => actions.init.setStep(1)} type="primary">下一步</Button>}
                             {currStep == 1 && <Button icon="left-circle-o" className="btn" onClick={() => actions.init.setStep(0)} type="primary">上一步</Button>}
                             {currStep == 1 && <Button icon="right-circle-o" className="btn" onClick={this.checkForm} type="primary">下一步</Button>}
-                            {currStep == 2 && <Button loading={false} className="btn" onClick={() => actions.init.setStep(3)} type="success">完成</Button>}
+                            {currStep == 2 && <Button loading={false} className="btn" onClick={()=>actions.init.downGit()} type="success">完成</Button>}
                         </div>
                     </Col>
                 </Row>
