@@ -90,7 +90,8 @@ export default {
       components: resolve(__dirname, "../src/renderer/components/"),
       containers: resolve(__dirname, "../src/renderer/containers/"),
       services: resolve(__dirname, "../src/renderer/services/"),
-      models: resolve(__dirname, "../src/renderer/models/")
+      models: resolve(__dirname, "../src/renderer/models/"),
+      static: resolve(__dirname, "../static/")
     }
   },
   target: 'electron-renderer',

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Card, Avatar } from 'antd';
 import { actions } from 'mirrorx';
 import './ProjectCard.less';
+import ut from 'static/ut.png';
 
 const { Meta } = Card;
 
@@ -28,7 +29,7 @@ class ProjectCard extends Component {
                         <Card.Grid onClick={this.cardClick.bind(this,index,item)} key={index} style={gridStyle}>
                             <Card bordered={false} style={{ width: '100%' }}>
                                 <Meta
-                                    avatar={<Avatar src="https://avatars2.githubusercontent.com/u/22807469?s=70&v=4" />}
+                                    avatar={<Avatar src={ut} />}
                                     title={item.name}
                                     description={item.description}
                                 />

@@ -90,12 +90,13 @@ class Init extends Component {
                                     wrapperCol={{ span: 16 }}
                                 >
                                     {getFieldDecorator('registry', {
+                                        initialValue : 'http://registry.npm.taobao.org',
                                         rules: [{ required: true, message: '请选择npm加速镜像' }],
                                     })(
                                         <Select placeholder="请选择镜像源">
                                             <Option value="http://registry.npm.taobao.org">http://registry.npm.taobao.org</Option>
-                                            <Option value="http://registry.npmjs.org/">http://registry.npmjs.org/</Option>
-                                            <Option value="http://npm.yonyoucloud.com/">用友内网/</Option>
+                                            <Option value="http://registry.npmjs.org/">http://registry.npmjs.org</Option>
+                                            <Option value="http://npm.yonyoucloud.com/">用友内网</Option>
                                         </Select>
                                     )}
                                 </FormItem>
@@ -110,7 +111,7 @@ class Init extends Component {
                             {currStep == 0 && <Button disabled={!selectName} icon="right-circle-o" className="btn" onClick={() => actions.init.setStep(1)} type="primary">下一步</Button>}
                             {currStep == 1 && <Button icon="left-circle-o" className="btn" onClick={() => actions.init.setStep(0)} type="primary">上一步</Button>}
                             {currStep == 1 && <Button icon="right-circle-o" className="btn" onClick={this.checkForm} type="primary">下一步</Button>}
-                            {currStep == 2 && <Button loading={false} icon="smile-o" className="btn" onClick={() => actions.init.setStep(3)} type="primary">完成</Button>}
+                            {currStep == 2 && <Button loading={false} className="btn" onClick={() => actions.init.setStep(3)} type="success">完成</Button>}
                         </div>
                     </Col>
                 </Row>

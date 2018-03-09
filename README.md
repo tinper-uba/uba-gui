@@ -40,3 +40,8 @@ then use the following commands:
 ### add/remove vendor
 modify `vendors` array in file `webpack/vendor.prod.config.babel.js`
 
+![image](https://user-images.githubusercontent.com/3817644/37190895-7bf63e28-2397-11e8-9eaa-4e7df88a740d.png)
+
+![image](https://user-images.githubusercontent.com/3817644/37190915-9a1c2e94-2397-11e8-9c11-0c64524ff381.png)
+
+![image](https://user-images.githubusercontent.com/3817644/37191917-753814ac-239d-11e8-92b5-a08524504e7b.png)
