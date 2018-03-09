@@ -1,7 +1,9 @@
 import { shell, ipcMain, Notification, dialog } from 'electron';
 import fs from 'fs';
 import { resolve, join } from 'path';
+import {Buffer} from 'buffer';
 import init from './action/init';
+import install from './action/install';
 
 const IPC = () => {
     let myNotification = new Notification({
@@ -45,9 +47,14 @@ const IPC = () => {
                 title: '初始化成功',
                 body: `前端工程【${arg.selectName}】安装成功!`
             }).show();
+            event.sender.send('uba::init::success');
         }else{
-
+            event.sender.send('uba::init::error');
         }
+    });
+    //安装依赖
+    ipcMain.on('uba::install', (event, arg) => {
+        install(event,arg);
     });
 }
 

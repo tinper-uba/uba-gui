@@ -19,6 +19,22 @@ ipc.on('uba::openProject::success', (event, path) => {
     });
 });
 
+//Npm Install
+ipc.on('uba::install::data', (event, chunk) => {
+    console.log(chunk);
+});
+ipc.on('uba::install::end', (event) => {
+    console.log('end');
+});
+ipc.on('uba::install::close', (event,code) => {
+    console.log('close',code);
+});
+ipc.on('uba::install::error', (event,err) => {
+    console.log('error',err);
+});
+
+
+
 class Init extends Component {
     checkForm = (e) => {
         this.props.form.validateFields((err, values) => {

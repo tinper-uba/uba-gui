@@ -4,9 +4,7 @@ import * as api from 'services/Init';
 
 const ipc = ipcRenderer;
 
-ipc.on('uba::init::success', (event, argv) => {
-    console.log('init::success',argv);
-});
+
 
 export default {
     name: "init",
@@ -68,10 +66,19 @@ export default {
         getS(data, getState) {
             return getState().init;
         },
-        downGit(data,getState){
-            let { selectName,project,upload } = getState().init;
+        downGit(cb, getState) {
+            let { selectName, project, upload } = getState().init;
             console.log(getState().init);
-            ipc.send('uba::init',{ selectName,project,upload });
+            ipc.send('uba::init', { selectName, project, upload });
+            ipc.on('uba::init::success', (event) => {
+                console.log('init::success');
+                actions.init.install();
+            });
+        },
+        install(data, getState) {
+            let { registry, project, upload } = getState().init;
+            console.log(registry, project, upload);
+            ipc.send('uba::install', { registry, upload, project });
         }
     }
 }
