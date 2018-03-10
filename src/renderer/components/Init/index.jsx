@@ -3,6 +3,7 @@ import { actions } from 'mirrorx';
 import { Button, Row, Col, Steps, Icon, Card, Form, Input,Select } from 'antd';
 import { ipcRenderer } from 'electron';
 import ProjectCard from './ProjectCard';
+import Waiting from 'components/Waiting';
 import './index.less';
 
 const ipc = ipcRenderer;
@@ -23,8 +24,12 @@ ipc.on('uba::openProject::success', (event, path) => {
 // ipc.on('uba::install::data', (event, chunk) => {
 //     console.log(chunk);
 // });
+ipc.on('uba::init::success', (event) => {
+    console.log('init::success');
+    actions.init.install();
+});
 ipc.on('uba::install::success', (event) => {
-    console.log('依赖安装成功');
+    console.log('uba::install::success');
 });
 // ipc.on('uba::install::close', (event,code) => {
 //     console.log('close',code);
@@ -120,7 +125,9 @@ class Init extends Component {
                             </Form>
                         }
                         {
-                            currStep == 2 && <div>Loading</div>
+                            currStep == 2 && <div>
+                                <Waiting />
+                            </div>
                         }
                     </Col>
                 </Row>
@@ -131,7 +138,7 @@ class Init extends Component {
                             {currStep == 0 && <Button disabled={!selectName} icon="right-circle-o" className="btn" onClick={() => actions.init.setStep(1)} type="primary">下一步</Button>}
                             {currStep == 1 && <Button icon="left-circle-o" className="btn" onClick={() => actions.init.setStep(0)} type="primary">上一步</Button>}
                             {currStep == 1 && <Button icon="right-circle-o" className="btn" onClick={this.checkForm} type="primary">下一步</Button>}
-                            {currStep == 2 && <Button loading={false} className="btn" onClick={()=>actions.init.downGit()} type="success">完成</Button>}
+                            {currStep == 2 && <Button loading={true} className="btn" type="success">完成</Button>}
                         </div>
                     </Col>
                 </Row>

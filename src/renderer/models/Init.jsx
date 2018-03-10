@@ -5,7 +5,6 @@ import * as api from 'services/Init';
 const ipc = ipcRenderer;
 
 
-
 export default {
     name: "init",
     initialState: {
@@ -68,12 +67,9 @@ export default {
         },
         downGit(cb, getState) {
             let { selectName, project, upload } = getState().init;
-            console.log(getState().init);
+            // console.log(getState().init);
             ipc.send('uba::init', { selectName, project, upload });
-            ipc.on('uba::init::success', (event) => {
-                console.log('init::success');
-                actions.init.install();
-            });
+            
         },
         install(data, getState) {
             let { registry, project, upload } = getState().init;
