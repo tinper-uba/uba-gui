@@ -1,42 +1,22 @@
 // import spawn from 'cross-spawn';
-import process from 'process';
 import {resolve} from 'path';
 import { Notification } from 'electron';
 // import npminstall from 'npminstall';
 // import co from 'co';
-import {Info} from '../util';
+import {Info,installPkg} from '../util';
 
 
 
-const Install = (event, argv) => {
+const Install = async (event, argv) => {
   let installPath = resolve(argv.upload,argv.project);
   process.chdir(installPath);
+  await installPkg({
+    event,
+    installPath,
+    registry:argv.registry
+  });
 
-  // co(function* () {
-  //   yield npminstall({
-  //     // install root dir
-  //     root: installPath,
-  //     // optional packages need to install, default is package.json's dependencies and devDependencies
-  //     // pkgs: [
-  //     //   { name: 'foo', version: '~1.0.0' },
-  //     // ],
-  //     // install to specific directory, default to root
-  //     // targetDir: '/home/admin/.global/lib',
-  //     // link bin to specific directory (for global install)
-  //     // binDir: '/home/admin/.global/bin',
-  //     // registry, default is https://registry.npmjs.org
-  //     registry: 'https://registry.npm.taobao.org/',
-  //     // debug: false,
-  //     // storeDir: root + 'node_modules',
-  //     ignoreScripts: true, // ignore pre/post install scripts, default is `false`
-  //     // forbiddenLicenses: forbit install packages which used these licenses
-  //   });
-  // }).catch(err => {
-  //   console.error(err.stack);
-  // }).then(()=>{
-  //   console.log('应该完成了');
-  //   Info('完成','依赖包安装完成');
-  // });
+  
 
 
 

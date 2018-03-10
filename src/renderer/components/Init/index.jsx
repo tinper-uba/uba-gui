@@ -20,18 +20,18 @@ ipc.on('uba::openProject::success', (event, path) => {
 });
 
 //Npm Install
-ipc.on('uba::install::data', (event, chunk) => {
-    console.log(chunk);
+// ipc.on('uba::install::data', (event, chunk) => {
+//     console.log(chunk);
+// });
+ipc.on('uba::install::success', (event) => {
+    console.log('依赖安装成功');
 });
-ipc.on('uba::install::end', (event) => {
-    console.log('end');
-});
-ipc.on('uba::install::close', (event,code) => {
-    console.log('close',code);
-});
-ipc.on('uba::install::error', (event,err) => {
-    console.log('error',err);
-});
+// ipc.on('uba::install::close', (event,code) => {
+//     console.log('close',code);
+// });
+// ipc.on('uba::install::error', (event,err) => {
+//     console.log('error',err);
+// });
 
 
 
