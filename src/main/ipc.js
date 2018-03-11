@@ -46,6 +46,7 @@ const IPC = () => {
     });
     //安装依赖
     ipcMain.on('uba::install', (event, arg) => {
+        event.sender.send('uba::install::start');
         install(event,arg);
     });
 }

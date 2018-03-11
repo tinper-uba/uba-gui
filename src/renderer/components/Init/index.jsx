@@ -12,6 +12,7 @@ const FormItem = Form.Item;
 const Option = Select.Option;
 
 let myfrm;
+let installTimer,countTimer = 0;
 
 ipc.on('uba::openProject::success', (event, path) => {
     // actions.init.setUpload(path);
@@ -27,9 +28,50 @@ ipc.on('uba::openProject::success', (event, path) => {
 ipc.on('uba::init::success', (event) => {
     console.log('init::success');
     actions.init.install();
+    clearInterval(installTimer);
+    countTimer = 100;
+    installTimer = setInterval(()=>{
+        countTimer++;
+        if (countTimer > 95) {
+            clearInterval(installTimer);
+        }
+        actions.init.changeInstallState({
+            isFinish:false,
+            percent:countTimer,
+            processMsg:"最佳实践项目初始化完毕",
+        });
+    },1000);
+});
+ipc.on('uba::install::start',(event)=>{
+    clearInterval(installTimer);
+    countTimer = 0;
+    installTimer = setInterval(()=>{
+        countTimer++;
+        if (countTimer > 95) {
+            clearInterval(installTimer);
+        }
+        actions.init.changeInstallState({
+            isFinish:false,
+            percent:countTimer,
+            processMsg:"安装项目所需要的依赖包",
+        });
+    },1000);
 });
 ipc.on('uba::install::success', (event) => {
     console.log('uba::install::success');
+    clearInterval(installTimer);
+    countTimer = 100;
+    installTimer = setInterval(()=>{
+        countTimer++;
+        if (countTimer > 95) {
+            clearInterval(installTimer);
+        }
+        actions.init.changeInstallState({
+            isFinish:true,
+            percent:countTimer,
+            processMsg:"最佳实践项目以及依赖包全部安装完毕",
+        });
+    },1000);
 });
 // ipc.on('uba::install::close', (event,code) => {
 //     console.log('close',code);
@@ -46,6 +88,18 @@ class Init extends Component {
             if (!err) {
                 actions.init.setSetting(values);
                 actions.init.downGit();
+                countTimer = 0;
+                installTimer = setInterval(()=>{
+                    countTimer++;
+                    if (countTimer > 95) {
+                        clearInterval(installTimer);
+                    }
+                    actions.init.changeInstallState({
+                        isFinish:false,
+                        percent:countTimer,
+                        processMsg:"正在下载最佳实践",
+                    });
+                },1000);
             }
         });
     }
@@ -56,7 +110,7 @@ class Init extends Component {
         
         const { getFieldDecorator } = this.props.form;
         myfrm = this.props.form;
-        let { currStep, repoData, selectName,upload } = this.props;
+        let { currStep, repoData, selectName,upload,isFinish,percent,processMsg } = this.props;
         return (
             <div className="uba-init">
                 <Row>
@@ -126,7 +180,7 @@ class Init extends Component {
                         }
                         {
                             currStep == 2 && <div>
-                                <Waiting />
+                                <Waiting processMsg={processMsg} percent={percent} />
                             </div>
                         }
                     </Col>
@@ -138,7 +192,7 @@ class Init extends Component {
                             {currStep == 0 && <Button disabled={!selectName} icon="right-circle-o" className="btn" onClick={() => actions.init.setStep(1)} type="primary">下一步</Button>}
                             {currStep == 1 && <Button icon="left-circle-o" className="btn" onClick={() => actions.init.setStep(0)} type="primary">上一步</Button>}
                             {currStep == 1 && <Button icon="right-circle-o" className="btn" onClick={this.checkForm} type="primary">下一步</Button>}
-                            {currStep == 2 && <Button loading={true} className="btn" type="success">完成</Button>}
+                            {currStep == 2 && <Button loading={!isFinish} className="btn" type="success">完成</Button>}
                         </div>
                     </Col>
                 </Row>

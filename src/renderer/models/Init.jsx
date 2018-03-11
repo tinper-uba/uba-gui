@@ -9,6 +9,9 @@ export default {
     name: "init",
     initialState: {
         currStep: 0,
+        isFinish:false,
+        percent:0,
+        processMsg:"正在下载最佳实践",
         repoData: [],
         selectId: '',
         selectName: '',
@@ -25,6 +28,14 @@ export default {
         }
     },
     effects: {
+        changeInstallState(data,getState){
+            let { isFinish,percent,processMsg } = data;
+            actions.init.save({
+                isFinish,
+                percent,
+                processMsg
+            });
+        },
         init(data, getState) {
             actions.routing.push({
                 pathname: '/init'
@@ -69,7 +80,7 @@ export default {
             let { selectName, project, upload } = getState().init;
             // console.log(getState().init);
             ipc.send('uba::init', { selectName, project, upload });
-            
+
         },
         install(data, getState) {
             let { registry, project, upload } = getState().init;
