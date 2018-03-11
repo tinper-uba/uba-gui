@@ -4,17 +4,12 @@ import { resolve, join } from 'path';
 import {Buffer} from 'buffer';
 import init from './action/init';
 import install from './action/install';
+import {Info} from './util';
 
 const IPC = () => {
-    let myNotification = new Notification({
-        title: '测试标题',
-        body: '测试的部分'
-    });
     //打开默认浏览器
     ipcMain.on('uba::openUrl', (event, arg) => {
         shell.openExternal(arg);
-        myNotification.show();
-        event.sender.send('uba::openUrl::success', true);
     });
     //导入项目打开OpenDialog
     ipcMain.on('uba::import', (event, arg) => {
@@ -23,9 +18,8 @@ const IPC = () => {
         if (path && path.length !== 0) {
             fs.readFile(join(path[0], 'uba.config.js'), 'utf-8', (err, data) => {
                 if (err) {
-                    event.sender.send('uba::import::error', '非法的uba前端工程');
+                    event.sender.send('uba::import::error', '无效的uba前端工程');
                 } else {
-                    console.log(data);
                     event.sender.send('uba::import::success', data);
                 }
             });
@@ -43,12 +37,10 @@ const IPC = () => {
     ipcMain.on('uba::init', async (event, arg) => {
         let result = await init(arg);
         if (result.success) {
-            new Notification({
-                title: '初始化成功',
-                body: `前端工程【${arg.selectName}】安装成功!`
-            }).show();
+            Info('下载成功',`项目「${arg.project}」下载完毕`);
             event.sender.send('uba::init::success');
         }else{
+            Info('下载失败',`项目「${arg.project}」下载失败`);
             event.sender.send('uba::init::error');
         }
     });
