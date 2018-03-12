@@ -21,8 +21,9 @@ class EmptyHome extends Component {
         ipc.send('uba::openUrl', 'http://tinper.org');
     }
     importExisProject = () => {
-        console.log('import')
-        ipc.send('uba::import');
+        // console.log('import')
+        // ipc.send('uba::import');
+        ipc.send('uba::server');
     }
     openMessage = () => {
         // notification.open({

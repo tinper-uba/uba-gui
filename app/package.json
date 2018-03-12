@@ -9,8 +9,12 @@
     "name": "Kvkens",
     "email": "yueming@yonyou.com"
   },
+  "scripts": {
+    "postinstall": "npm rebuild --runtime=electron --target=1.8.2 --disturl=https://atom.io/download/atom-shell --build-from-source"
+  },
   "license": "MIT",
-  "devDependencies": {
-    "npm": "^5.4.2"
+  "dependencies": {
+    "npm": "^5.4.2",
+    "npminstall": "^3.1.4"
   }
 }

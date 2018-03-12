@@ -5,6 +5,7 @@ import {Buffer} from 'buffer';
 import init from './action/init';
 import install from './action/install';
 import {Info} from './util';
+import {APP_PATH} from './path';
 
 const IPC = () => {
     //打开默认浏览器
@@ -48,6 +49,10 @@ const IPC = () => {
     ipcMain.on('uba::install', (event, arg) => {
         event.sender.send('uba::install::start');
         install(event,arg);
+    });
+    ipcMain.on('uba::server',(event,arg)=>{
+        // console.log(build);
+        console.log(APP_PATH);
     });
 }
 
