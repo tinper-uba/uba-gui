@@ -1,4 +1,4 @@
-import { app, BrowserWindow, Menu, shell, ipcMain } from 'electron';
+import { app, BrowserWindow, Menu, shell, ipcMain, globalShortcut } from 'electron';
 import createWindow from './createWindow';
 import configureMenu from './menu';
 import ipc from './ipc';
@@ -11,7 +11,10 @@ const onReady = () => {
     const menu = Menu.buildFromTemplate(configureMenu({ app }));
     Menu.setApplicationMenu(menu);
   }
-
+  // 启动调试工具
+  globalShortcut.register('CmdOrCtrl+Shift+8', () => {
+    win.webContents.toggleDevTools();
+  });
   ipc();
 }
 

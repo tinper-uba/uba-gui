@@ -37,7 +37,8 @@ export default webpackMerge(base, {
   },
   plugins: [
     new webpack.DefinePlugin({
-      '__isDev__': JSON.stringify(false)
+      '__isDev__': JSON.stringify(false),
+      'process.env.NODE_ENV': JSON.stringify('production')
     }),
     new webpack.DllReferencePlugin({
       manifest
