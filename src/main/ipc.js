@@ -1,11 +1,12 @@
 import { shell, ipcMain, Notification, dialog } from 'electron';
 import fs from 'fs';
 import { resolve, join } from 'path';
+import { exec, fork, spawn } from 'child_process';
 import {Buffer} from 'buffer';
 import init from './action/init';
 import install from './action/install';
 import {Info} from './util';
-import {APP_PATH} from './path';
+import {APP_PATH,NPM_PATH} from './path';
 
 const IPC = () => {
     //打开默认浏览器
@@ -52,7 +53,30 @@ const IPC = () => {
     });
     ipcMain.on('uba::server',(event,arg)=>{
         // console.log(build);
-        console.log(APP_PATH);
+        console.log(NPM_PATH);
+        let log = '';
+      const term = fork(NPM_PATH, ['-v'], {
+          silent: true,
+        //   cwd: root,
+        //   env,
+          detached: true
+        });
+
+      term.stdout.on('data', data => {
+        log += data.toString();
+        console.log(log);
+      });
+      term.stderr.on('data', data => {
+        // console.log(data.toString());
+        log += data.toString();
+      });
+
+      term.on('exit', (code) => {
+        console.log('npm install exit code', code);
+        event.sender.send('uba::server::start',log);
+        Info(`npm:${log}`,`code:${code}`);
+      });
+        
     });
 }
 

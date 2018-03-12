@@ -14,6 +14,9 @@ ipc.on('uba::import::success', (event, data) => {
 ipc.on('uba::import::error', (event, msg) => {
     message.error(msg);
 });
+ipc.on('uba::server::start', (event, msg) => {
+    message.error(msg);
+});
 
 
 class EmptyHome extends Component {
