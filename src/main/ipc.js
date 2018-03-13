@@ -2,11 +2,13 @@ import { shell, ipcMain, Notification, dialog } from 'electron';
 import fs from 'fs';
 import { resolve, join } from 'path';
 import { exec, fork, spawn } from 'child_process';
-import {Buffer} from 'buffer';
+import { Buffer } from 'buffer';
 import init from './action/init';
 import install from './action/install';
-import {Info} from './util';
-import {APP_PATH,NPM_PATH} from './path';
+import fixpath from 'fix-path';
+import npmRunPath from 'npm-run-path';
+import { Info } from './util';
+import { APP_PATH, NPM_PATH, UBA_PATH } from './path';
 
 const IPC = () => {
     //打开默认浏览器
@@ -39,44 +41,45 @@ const IPC = () => {
     ipcMain.on('uba::init', async (event, arg) => {
         let result = await init(arg);
         if (result.success) {
-            Info('下载成功',`项目「${arg.project}」下载完毕`);
+            Info('下载成功', `项目「${arg.project}」下载完毕`);
             event.sender.send('uba::init::success');
-        }else{
-            Info('下载失败',`项目「${arg.project}」下载失败`);
+        } else {
+            Info('下载失败', `项目「${arg.project}」下载失败`);
             event.sender.send('uba::init::error');
         }
     });
     //安装依赖
     ipcMain.on('uba::install', (event, arg) => {
         event.sender.send('uba::install::start');
-        install(event,arg);
+        install(event, arg);
     });
-    ipcMain.on('uba::server',(event,arg)=>{
+    ipcMain.on('uba::server', (event, arg) => {
         // console.log(build);
-        console.log(NPM_PATH);
+        // console.log(NPM_PATH);
+        fixpath();
         let log = '';
-      const term = fork(NPM_PATH, ['-v'], {
-          silent: true,
-        //   cwd: root,
-        //   env,
-          detached: true
+        const term = fork(NPM_PATH, ['run','build'], {
+            silent: true,
+            cwd: '/Users/kvkens/test/first',
+            env: npmRunPath.env(),
+            detached: true
         });
 
-      term.stdout.on('data', data => {
-        log += data.toString();
-        console.log(log);
-      });
-      term.stderr.on('data', data => {
-        // console.log(data.toString());
-        log += data.toString();
-      });
+        term.stdout.on('data', data => {
+            log += data.toString();
+            console.log(log);
+        });
+        term.stderr.on('data', data => {
+            console.log(data.toString());
+            log += data.toString();
+        });
 
-      term.on('exit', (code) => {
-        console.log('npm install exit code', code);
-        event.sender.send('uba::server::start',log);
-        Info(`npm:${log}`,`code:${code}`);
-      });
-        
+        term.on('exit', (code) => {
+            // console.log( log);
+            event.sender.send('uba::server::start', log);
+            Info(`npm:${log}`, `code:${code}`);
+        });
+
     });
 }
 
