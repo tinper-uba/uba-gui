@@ -8,6 +8,8 @@
 
 > 最下方有一些开发预览图
 
+<img width="750" alt="1" src="https://user-images.githubusercontent.com/3817644/37322709-3b495d94-26ba-11e8-939f-b15a3fc6c8d0.gif">
+
 
 ## 启动命令
 
