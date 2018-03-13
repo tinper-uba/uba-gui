@@ -1,22 +1,27 @@
+/**
+ * 安装项目npm依赖包
+ */
+
+
 // import spawn from 'cross-spawn';
-import {resolve} from 'path';
+import { resolve } from 'path';
 import { Notification } from 'electron';
 // import npminstall from 'npminstall';
 // import co from 'co';
-import {Info,installPkg} from '../util';
+import { Info, installPkg } from '../util';
 
 
 
 const Install = async (event, argv) => {
-  let installPath = resolve(argv.upload,argv.project);
+  let installPath = resolve(argv.upload, argv.project);
   process.chdir(installPath);
   await installPkg({
     event,
     installPath,
-    registry:argv.registry
+    registry: argv.registry
   });
 
-  
+
 
 
 

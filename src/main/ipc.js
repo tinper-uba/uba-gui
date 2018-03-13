@@ -1,3 +1,7 @@
+/**
+ * IPC消息服务
+ */
+
 import { shell, ipcMain, Notification, dialog } from 'electron';
 import fs from 'fs';
 import { resolve, join } from 'path';
@@ -9,13 +13,19 @@ import fixpath from 'fix-path';
 import npmRunPath from 'npm-run-path';
 import { Info } from './util';
 import { APP_PATH, NPM_PATH, UBA_PATH } from './path';
+import Ping from 'tcp-ping';
+
 
 const IPC = () => {
-    //打开默认浏览器
+    /**
+     * 打开浏览器进程
+     */
     ipcMain.on('uba::openUrl', (event, arg) => {
         shell.openExternal(arg);
     });
-    //导入项目打开OpenDialog
+    /**
+     * 导入工程，开启FileDialog
+     */
     ipcMain.on('uba::import', (event, arg) => {
         let path = (dialog.showOpenDialog({ properties: ['openDirectory'] }));
         console.log(path);
@@ -29,7 +39,10 @@ const IPC = () => {
             });
         }
     });
-    //创建工程选择目录
+    /**
+     * 初始化最佳实践选择的路径，开启FileDialog
+     * 返回：选择文件夹路径
+     */
     ipcMain.on('uba::openProject', (event, arg) => {
         let path = (dialog.showOpenDialog({ properties: ['openDirectory'] }));
         console.log(path);
@@ -37,28 +50,38 @@ const IPC = () => {
             event.sender.send('uba::openProject::success', path[0]);
         }
     });
-    //接收下载远程仓库模板
+
+    /**
+     * 初始化最佳实践模板
+     */
     ipcMain.on('uba::init', async (event, arg) => {
         let result = await init(arg);
         if (result.success) {
-            Info('下载成功', `项目「${arg.project}」下载完毕`);
+            Info('Uba', '下载成功', `项目「${arg.project}」下载完毕`);
             event.sender.send('uba::init::success');
         } else {
-            Info('下载失败', `项目「${arg.project}」下载失败`);
+            Info('Uba', '下载失败', `项目「${arg.project}」下载失败`);
             event.sender.send('uba::init::error');
         }
     });
-    //安装依赖
+    /**
+     * 接收安装指令
+     */
     ipcMain.on('uba::install', (event, arg) => {
         event.sender.send('uba::install::start');
+        Info('Uba', '安装依赖', `开始安装「${arg.project}」依赖`);
         install(event, arg);
     });
+
+    /**
+     * 启动调试服务
+     */
     ipcMain.on('uba::server', (event, arg) => {
         // console.log(build);
         // console.log(NPM_PATH);
         fixpath();
         let log = '';
-        const term = fork(NPM_PATH, ['run','build'], {
+        const term = fork(NPM_PATH, ['run', 'build'], {
             silent: true,
             cwd: '/Users/kvkens/test/first',
             env: npmRunPath.env(),
@@ -77,10 +100,24 @@ const IPC = () => {
         term.on('exit', (code) => {
             // console.log( log);
             event.sender.send('uba::server::start', log);
-            Info(`npm:${log}`, `code:${code}`);
+            Info('Uba', `命令完毕`, `code:${code} log:${log}`);
         });
 
     });
+
+    /**
+     * 启动构建服务
+     */
+    ipcMain.on('uba::build', (event, arg) => {
+
+    });
+
+    ipcMain.on('uba::checkNpm', (event, arg) => {
+        Ping.probe(arg.ip, arg.port, function (err, available) {
+            event.sender.send('uba::checkNpm::success', available);
+        });
+    });
+
 }
 
 export default IPC;

@@ -18,6 +18,13 @@ ipc.on('uba::server::start', (event, msg) => {
     message.error(msg);
 });
 
+ipc.on('uba::checkNpm::success',(event, msg)=>{
+    console.log(msg);
+    if (msg) {
+        actions.init.changeYonyouNpm();
+    }
+});
+
 
 class EmptyHome extends Component {
     openHomePage = () => {
@@ -26,7 +33,8 @@ class EmptyHome extends Component {
     importExisProject = () => {
         // console.log('import')
         // ipc.send('uba::import');
-        ipc.send('uba::server');
+        // ipc.send('uba::server');
+        
     }
     openMessage = () => {
         // notification.open({

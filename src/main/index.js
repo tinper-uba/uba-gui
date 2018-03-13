@@ -1,3 +1,7 @@
+/**
+ * 主线程入口
+ */
+
 import { app, BrowserWindow, Menu, shell, ipcMain, globalShortcut } from 'electron';
 import createWindow from './createWindow';
 import configureMenu from './menu';

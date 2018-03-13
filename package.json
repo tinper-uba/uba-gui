@@ -90,6 +90,7 @@
     "postcss-loader": "^2.1.1",
     "semver-regex": "^1.0.0",
     "style-loader": "^0.20.2",
+    "tcp-ping": "^0.1.1",
     "url-loader": "^1.0.1",
     "webpack": "^3.11.0",
     "webpack-bundle-analyzer": "^2.11.1",
