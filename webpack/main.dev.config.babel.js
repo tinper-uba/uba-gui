@@ -6,8 +6,8 @@ import base from './main.base.config.babel';
 export default webpackMerge(base, {
   plugins: [
     new webpack.DefinePlugin({
-      '__isDev__': JSON.stringify(true),
+      '__isDev__': JSON.stringify(true)
     }),
-    new webpack.NamedModulesPlugin(),
+    new webpack.NamedModulesPlugin()
   ],
 });

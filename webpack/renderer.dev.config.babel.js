@@ -21,20 +21,17 @@ export default webpackMerge(base, {
   module :{
     rules : [
       {
-        test: /\.(css|less)$/,
-        // exclude: /node_modules/,
+        test: /\.css$/,
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: ['css-loader']
+        })
+      },
+      {
+        test: /\.less$/,
         use: ExtractTextPlugin.extract({
           use: [
-            {
-              loader: 'css-loader',
-              options: {
-                modules: false,
-                importLoaders: 2,
-                minimize: true,
-                sourceMap: true,
-              }
-            },
-            'less-loader',
+            'css-loader', 'less-loader'
           ],
           fallback: 'style-loader'
         })

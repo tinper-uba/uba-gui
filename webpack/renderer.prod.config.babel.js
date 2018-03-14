@@ -8,27 +8,24 @@ import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 import webpackMerge from 'webpack-merge';
 
 import base from './renderer.base.config.babel';
-import manifest from '../app/renderer/vendor-manifest.json';
+// import manifest from '../app/renderer/vendor-manifest.json';
 
 export default webpackMerge(base, {
   bail: true,
   module: {
     rules: [
       {
-        test: /\.(css|less)$/,
-        // exclude: /node_modules/,
+        test: /\.css$/,
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: ['css-loader']
+        })
+      },
+      {
+        test: /\.less$/,
         use: ExtractTextPlugin.extract({
           use: [
-            {
-              loader: 'css-loader',
-              options: {
-                modules: false,
-                importLoaders: 2,
-                minimize: true,
-                sourceMap: true
-              },
-            },
-            'less-loader'
+            'css-loader', 'less-loader'
           ],
           fallback: 'style-loader'
         })
@@ -40,14 +37,14 @@ export default webpackMerge(base, {
       '__isDev__': JSON.stringify(false),
       'process.env.NODE_ENV': JSON.stringify('production')
     }),
-    new webpack.DllReferencePlugin({
-      manifest
-    }),
+    // new webpack.DllReferencePlugin({
+    //   manifest
+    // }),
     new webpack.optimize.ModuleConcatenationPlugin(),
-    new BundleAnalyzerPlugin({
-      analyzerMode: 'static',
-      logLevel: 'error',
-    }),
+    // new BundleAnalyzerPlugin({
+    //   analyzerMode: 'static',
+    //   logLevel: 'error',
+    // }),
     new CleanWebpackPlugin(['app/renderer'], { root: resolve(__dirname, '..'), exclude: ['vendor.js', 'vendor-manifest.json']}),
     new ExtractTextPlugin('style.css'),
     new HtmlWebpackPlugin({
@@ -68,5 +65,5 @@ export default webpackMerge(base, {
       isProd: true,
     }),
     new MinifyPlugin()
-  ],
+  ]
 });

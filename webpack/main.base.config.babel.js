@@ -8,7 +8,7 @@ const electronVersion = semverRegex().exec(devDependencies.electron)[0];
 export default {
   context: resolve(__dirname, '..'),
   entry: {
-    main: './src/main/index.js',
+    main: './src/main/index.js'
   },
   module: {
     rules: [{
@@ -20,16 +20,16 @@ export default {
         presets: [
           ['env', { targets: { electron: electronVersion }, modules: false }],
           'stage-2',
-        ],
-      },
-    }],
+        ]
+      }
+    }]
   },
   output: {
     path: resolve(__dirname, '../app'),
-    filename: '[name].js',
+    filename: '[name].js'
   },
   resolve: {
-    extensions: ['.js', '.json'],
+    extensions: ['.js', '.json']
   },
-  target: 'electron-main',
+  target: 'electron-main'
 };

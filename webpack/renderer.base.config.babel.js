@@ -7,7 +7,7 @@ const electronVersion = semverRegex().exec(devDependencies.electron)[0];
 export default {
   context: resolve(__dirname, '..'),
   entry: {
-    renderer: './src/renderer/index.jsx',
+    renderer: './src/renderer/index.jsx'
   },
   module: {
     rules: [

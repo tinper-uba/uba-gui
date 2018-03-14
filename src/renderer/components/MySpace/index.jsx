@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { actions } from 'mirrorx';
-import { Button, notification, message,Layout } from 'antd';
+import { Button, notification, message, Layout,List, Avatar } from 'antd';
 import { ipcRenderer } from 'electron';
 import LeftMenu from 'components/LeftMenu';
 import Logo from 'components/Logo';
@@ -29,12 +29,21 @@ class MySpace extends Component {
         return (
             <div className="uba-my-space">
                 <Layout>
-                    <Sider>
-                        <Logo />
-                        <LeftMenu sourceData={workSpace} />
-                    </Sider>
                     <Content>
-                        内容
+                        <List
+                            className="demo-loadmore-list"
+                            itemLayout="horizontal"
+                            dataSource={workSpace}
+                            renderItem={item => (
+                                <List.Item actions={[<a>edit</a>, <a>more</a>]}>
+                                    <List.Item.Meta
+                                        avatar={<Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />}
+                                        title={<a href="https://ant.design">{item.title}</a>}
+                                        description="Ant Design, a design language for background applications, is refined by Ant UED Team"
+                                    />
+                                </List.Item>
+                            )}
+                        />
                     </Content>
                 </Layout>
             </div>

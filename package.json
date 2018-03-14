@@ -4,7 +4,7 @@
   "description": "uba-gui",
   "private": true,
   "scripts": {
-    "build": "(npm run build:main & npm run build:vendor) && npm run build:renderer",
+    "build": "(npm run build:main) && npm run build:renderer",
     "build:main": "cross-env NODE_ENV=production webpack --config ./webpack/main.prod.config.babel.js --display-optimization-bailout",
     "build:renderer": "cross-env NODE_ENV=production webpack --config ./webpack/renderer.prod.config.babel.js --display-optimization-bailout",
     "build:vendor": "cross-env NODE_ENV=production webpack --config ./webpack/vendor.prod.config.babel.js --display-optimization-bailout",
