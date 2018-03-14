@@ -80,7 +80,7 @@ const IPC = () => {
             ubaObj.workSpace.push(item);
             writeFileJSON(UBA_CONFIG_PATH, ubaObj);
             log('项目创建完毕，写入配置文件 发送IPC uba::init::success');
-            event.sender.send('uba::init::success',ubaObj.workSpace);
+            event.sender.send('uba::init::success', ubaObj.workSpace);
 
         } else {
             Info('Uba', '下载失败', `项目「${arg.project}」下载失败`);
@@ -155,7 +155,40 @@ const IPC = () => {
             log('配置存在，读取显示工作区并切换组件，发送IPC消息 uba::view::project');
             //读取项目数据用于发送到前端组件state
             let ubaObj = await readFileJSON(UBA_CONFIG_PATH);
-            event.sender.send('uba::view::project',ubaObj.workSpace);
+            event.sender.send('uba::view::project', ubaObj.workSpace);
+
+        } else {
+            log('配置不存在，创建配置')
+            //不存在，创建新的配置文件等待下一次读取
+            let ubaObj = {
+                name: "uba-gui",
+                version: "1.0.0",
+                time: getNowDate(),
+                lastPath: "",
+                workSpace: []
+            };
+            //创建uba文件夹
+            createDir(UBA_PATH);
+
+            //写入配置默认文件
+            try {
+                writeFileJSON(UBA_CONFIG_PATH, ubaObj);
+                log('创建配置文件写入成功')
+            } catch (error) {
+                log(error)
+            }
+        }
+    });
+    //警告⚠️测试用记得删除
+    ipcMain.on('uba::checkLocalUbaConfig2', async (event, arg) => {
+        log('开始检测uba本地配置文件');
+        //检测uba配置文件是否存在
+        if (fs.existsSync(UBA_CONFIG_PATH)) {
+            //存在，进行读取操作，切换视图
+            log('配置存在，读取显示工作区并切换组件，发送IPC消息 uba::view::project');
+            //读取项目数据用于发送到前端组件state
+            let ubaObj = await readFileJSON(UBA_CONFIG_PATH);
+            event.sender.send('uba::view::project2', ubaObj.workSpace);
 
         } else {
             log('配置不存在，创建配置')

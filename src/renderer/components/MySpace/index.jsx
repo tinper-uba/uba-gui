@@ -1,18 +1,23 @@
 import React, { Component } from 'react';
 import { actions } from 'mirrorx';
-import { Button, notification, message } from 'antd';
+import { Button, notification, message,Layout } from 'antd';
 import { ipcRenderer } from 'electron';
-import './index.less';
+import LeftMenu from 'components/LeftMenu';
+import Logo from 'components/Logo';
 
+import './index.less';
+const { Header, Content, Footer, Sider } = Layout;
 
 
 const ipc = ipcRenderer;
 
-ipc.on('MySpace', (event, data) => {
-    console.log(data);
+// ipc.on('MySpace', (event, data) => {
+//     console.log(data);
+// });
+//测试用记得删除
+ipc.on('uba::view::project2', (event, workSpace) => {
+    actions.my.setWorkSpace(workSpace);
 });
-
-
 
 
 class MySpace extends Component {
@@ -20,9 +25,16 @@ class MySpace extends Component {
         ipc.send('uba::openUrl', 'http://tinper.org');
     }
     render() {
+        let { workSpace } = this.props;
         return (
             <div className="uba-my-space">
-                MySpace
+                <Layout>
+                    <Sider>
+                        <Logo />
+                        <LeftMenu sourceData={workSpace} />
+                    </Sider>
+                    <Content>main content</Content>
+                </Layout>
             </div>
         );
     }

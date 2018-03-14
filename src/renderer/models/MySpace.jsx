@@ -28,6 +28,10 @@ export default {
             actions.my.save({
                 workSpace : data
             });
+        },
+        checkMySpace(data, getState){
+            let {workSpace} = getState().my;
+            return workSpace;
         }
     }
 }

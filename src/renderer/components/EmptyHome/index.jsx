@@ -32,7 +32,7 @@ ipc.on('uba::checkNpm::success', (event, msg) => {
  *  接收服务端切换工作区的通知
  */
 ipc.on('uba::view::project', (event, workSpace) => {
-    console.log('接收到切换工作区通知 uba::view::project ',workSpace);
+    console.log('接收到切换工作区通知 uba::view::project ', workSpace);
     actions.my.setWorkSpace(workSpace);
     if (workSpace.length !== 0) {
         actions.routing.push('/my');
