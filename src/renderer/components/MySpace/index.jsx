@@ -33,7 +33,9 @@ class MySpace extends Component {
                         <Logo />
                         <LeftMenu sourceData={workSpace} />
                     </Sider>
-                    <Content>main content</Content>
+                    <Content>
+                        内容
+                    </Content>
                 </Layout>
             </div>
         );
