@@ -3,7 +3,8 @@
  */
 
 import { Notification } from 'electron';
-import process from 'process';
+import fse from 'fs-extra';
+import fs from 'fs';
 import co from 'co';
 import npminstall from 'npminstall';
 
@@ -55,4 +56,50 @@ export const installPkg = ({ event, installPath, registry }) => {
         event.sender.send('uba::install::error', err);
         Info('Uba', '安装失败', '依赖包可能在下载的时候超时失败了');
     });
+}
+
+/**
+ * 创建指定的文件夹
+ * @param {*} dirPath 
+ */
+export const createDir = async (dirPath) => {
+    await fse.mkdir(dirPath);
+}
+
+/**
+ * 写入JSON到文件
+ * @param {string} 写入路径 
+ * @param {object} 写入JSON对象
+ */
+export const writeFileJSON = async (jsonPath, obj) => {
+    return await fse.writeJSON(jsonPath, obj);
+}
+
+/**
+ * 读取指定路径下的JSON文件
+ * @param {string} 路径 
+ */
+export const readFileJSON = async (jsonPath) => {
+    let ubaPkg = await fse.readJson(jsonPath);
+    // console.log(ubaPkg)
+    return ubaPkg;
+}
+
+/**
+ * 打印日志
+ * @param {*} 消息 
+ */
+export const log = (text,flag) => {
+    console.log(`[${getNowDate()}] ${text}`);
+    if (flag) {
+        console.log(text);
+    }
+}
+
+/**
+ * 获得主机时间
+ */
+export const getNowDate = () => {
+    let dt = new Date();
+    return dt.getFullYear() + '-' + dt.getMonth() + '-' + dt.getDay() + ' ' + dt.getHours() + ':' + dt.getMinutes() + ':' + dt.getSeconds();
 }

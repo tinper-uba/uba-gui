@@ -25,8 +25,10 @@ ipc.on('uba::openProject::success', (event, path) => {
 // ipc.on('uba::install::data', (event, chunk) => {
 //     console.log(chunk);
 // });
-ipc.on('uba::init::success', (event) => {
+ipc.on('uba::init::success', (event,workSpace) => {
     console.log('init::success');
+    console.log(workSpace)
+    //TODO : 更新状态项目列表
     actions.init.install();
     clearInterval(installTimer);
     countTimer = 100;
@@ -104,7 +106,13 @@ class Init extends Component {
         });
     }
     handlerUpload = () => {
-        ipc.send('uba::openProject', 'http://tinper.org');
+        ipc.send('uba::openProject');
+    }
+    returnHomeHandler = () => {
+        actions.init.resetInit();
+        actions.routing.push({
+            pathname: '/'
+        });
     }
     render() {
         
@@ -192,7 +200,7 @@ class Init extends Component {
                             {currStep == 0 && <Button disabled={!selectName} icon="right-circle-o" className="btn" onClick={() => actions.init.setStep(1)} type="primary">下一步</Button>}
                             {currStep == 1 && <Button icon="left-circle-o" className="btn" onClick={() => actions.init.setStep(0)} type="primary">上一步</Button>}
                             {currStep == 1 && <Button icon="right-circle-o" className="btn" onClick={this.checkForm} type="primary">下一步</Button>}
-                            {currStep == 2 && <Button loading={!isFinish} className="btn" type="success">完成</Button>}
+                            {currStep == 2 && <Button icon="check" onClick={this.returnHomeHandler} loading={!isFinish} className="btn" type="success">完成</Button>}
                         </div>
                     </Col>
                 </Row>

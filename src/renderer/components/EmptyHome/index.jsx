@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { actions } from 'mirrorx';
-import { Button, notification,message } from 'antd';
+import { Button, notification, message } from 'antd';
 import { ipcRenderer } from 'electron';
 import './index.less';
 
@@ -18,10 +18,24 @@ ipc.on('uba::server::start', (event, msg) => {
     message.error(msg);
 });
 
-ipc.on('uba::checkNpm::success',(event, msg)=>{
-    console.log(msg);
+/**
+ * 接收服务端当前运行npm镜像检测
+ */
+ipc.on('uba::checkNpm::success', (event, msg) => {
     if (msg) {
         actions.init.changeYonyouNpm();
+    }
+});
+
+
+/**
+ *  接收服务端切换工作区的通知
+ */
+ipc.on('uba::view::project', (event, workSpace) => {
+    console.log('接收到切换工作区通知 uba::view::project ',workSpace);
+    actions.my.setWorkSpace(workSpace);
+    if (workSpace.length !== 0) {
+        actions.routing.push('/my');
     }
 });
 
@@ -32,9 +46,9 @@ class EmptyHome extends Component {
     }
     importExisProject = () => {
         // console.log('import')
-        // ipc.send('uba::import');
+        ipc.send('uba::import');
         // ipc.send('uba::server');
-        
+
     }
     openMessage = () => {
         // notification.open({

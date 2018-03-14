@@ -6,7 +6,7 @@ import download from 'download-git-repo';
 
 /**
  * 下载远端最佳实践
- * @param {*} 仓库信息 
+ * @param {*} 仓库信息 project, selectName, upload
  */
 const Init = (argv) => {
     let { project, selectName, upload } = argv;

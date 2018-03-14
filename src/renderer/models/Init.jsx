@@ -9,16 +9,16 @@ export default {
     name: "init",
     initialState: {
         currStep: 0,
-        isFinish:false,
-        percent:0,
-        processMsg:"正在下载最佳实践",
+        isFinish: false,
+        percent: 0,
+        processMsg: "正在下载最佳实践",
         repoData: [],
         selectId: '',
         selectName: '',
         project: '',
         upload: '',
         registry: '',
-        defaultNpmPath:'http://registry.npm.taobao.org/'
+        defaultNpmPath: 'http://registry.npm.taobao.org/'
     },
     reducers: {
         save(state, data) {
@@ -29,13 +29,13 @@ export default {
         }
     },
     effects: {
-        changeYonyouNpm(data,getState){
+        changeYonyouNpm(data, getState) {
             actions.init.save({
-                defaultNpmPath : 'http://172.16.75.107:8081/repository/ynpm-group/'
+                defaultNpmPath: 'http://172.16.75.107:8081/repository/ynpm-group/'
             });
         },
-        changeInstallState(data,getState){
-            let { isFinish,percent,processMsg } = data;
+        changeInstallState(data, getState) {
+            let { isFinish, percent, processMsg } = data;
             actions.init.save({
                 isFinish,
                 percent,
@@ -92,6 +92,14 @@ export default {
             let { registry, project, upload } = getState().init;
             console.log(registry, project, upload);
             ipc.send('uba::install', { registry, upload, project });
+        },
+        resetInit(data, getState) {
+            actions.init.save({
+                currStep: 0,
+                isFinish: false,
+                percent: 0,
+                processMsg: "正在下载最佳实践"
+            });
         }
     }
 }
