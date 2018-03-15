@@ -3,11 +3,17 @@
  */
 
 import { Notification } from 'electron';
+import is from 'electron-is';
 import fse from 'fs-extra';
 import fs from 'fs';
 import co from 'co';
 import npminstall from 'npminstall';
 
+
+export const isDev = is.dev();
+export const isMac = is.macOS();
+export const isWin = is.windows();
+export const isLinux = is.linux();
 
 /**
  * 系统消息推送

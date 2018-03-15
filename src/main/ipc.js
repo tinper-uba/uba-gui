@@ -8,10 +8,9 @@ import { resolve, join, basename } from 'path';
 import os from 'os';
 import { exec, fork, spawn } from 'child_process';
 import { Buffer } from 'buffer';
+import env from './env';
 import init from './action/init';
 import install from './action/install';
-import fixpath from 'fix-path';
-import npmRunPath from 'npm-run-path';
 import { Info, createDir, writeFileJSON, readFileJSON, getNowDate, log } from './util';
 import { APP_PATH, NPM_PATH, UBA_PATH, UBA_CONFIG_PATH } from './path';
 import Ping from 'tcp-ping';
@@ -134,12 +133,11 @@ const IPC = () => {
      */
     ipcMain.on('uba::run::build', (event, item) => {
         log(`接收构建消息 构建目录 ${item.path}`);
-        fixpath();
         let logtmp = '';
         const term = fork(NPM_PATH, ['run', 'build'], {
             silent: true,
             cwd: item.path,
-            env: npmRunPath.env(),
+            env: env,
             detached: true
         });
 

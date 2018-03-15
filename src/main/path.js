@@ -10,3 +10,5 @@ export const APP_PATH = __isDev__ ? join(process.cwd(), 'app') : join(process.re
 export const NPM_PATH = join(APP_PATH, 'node_modules', 'npm', 'bin', 'npm-cli.js');
 export const UBA_PATH = join(homedir(), '.UbaGui');
 export const UBA_CONFIG_PATH = join(homedir(), '.UbaGui','uba-gui.json');
+export const NODE_PATH = join(APP_PATH, 'nodes');
+export const NPM_BIN_PATH = join(APP_PATH, 'node_modules', '.bin');

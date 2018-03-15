@@ -12,12 +12,13 @@
     "dev:main": "webpack --config webpack/main.dev.config.babel.js -w",
     "dev:renderer": "webpack-dev-server --config ./webpack/renderer.dev.config.babel.js",
     "start": "electron ./app/main.js",
-    "pack": "cross-env ELECTRON_MIRROR=https://npm.taobao.org/mirrors/electron/ build --dir",
-    "pack:mac": "cross-env ELECTRON_MIRROR=https://npm.taobao.org/mirrors/electron/ build -m",
-    "pack:win": "cross-env ELECTRON_MIRROR=https://npm.taobao.org/mirrors/electron/ build -w",
+    "pack": "npm run prepack && cross-env ELECTRON_MIRROR=https://npm.taobao.org/mirrors/electron/ build --dir",
+    "pack:mac": "npm run prepack && cross-env ELECTRON_MIRROR=https://npm.taobao.org/mirrors/electron/ build -m",
+    "pack:win": "npm run prepack && cross-env ELECTRON_MIRROR=https://npm.taobao.org/mirrors/electron/ build -w",
     "rebuild": "./node_modules/.bin/electron-rebuild -d=https://gh-contractor-zcbenz.cnpmjs.org/atom-shell/dist/ -m ./app",
     "rebuild-dev": "./node_modules/.bin/electron-rebuild  -m ./app",
-    "postinstall": "install-app-deps"
+    "postinstall": "install-app-deps",
+    "prepack": "node prePacker.js"
   },
   "keywords": [],
   "build": {
