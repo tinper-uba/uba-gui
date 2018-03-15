@@ -10,6 +10,7 @@ const ipc = ipcRenderer;
 
 ipc.on('uba::import::success', (event, data) => {
     console.log(data);
+    actions.my.setWorkSpace(data);
 });
 ipc.on('uba::import::error', (event, msg) => {
     message.error(msg);

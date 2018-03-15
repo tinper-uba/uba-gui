@@ -95,7 +95,7 @@ class MySpace extends Component {
                                 <span>新建项目</span>
                             </Menu.Item>
                             <Menu.Item key="2">
-                                <Icon type="upload" />
+                                <Icon onClick={()=>{ipc.send('uba::import')}} type="upload" />
                                 <span>导入项目</span>
                             </Menu.Item>
                             <Menu.Item key="3">
