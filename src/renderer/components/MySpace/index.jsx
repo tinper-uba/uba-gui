@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { actions } from 'mirrorx';
-import { Button, notification, message, Layout,List, Avatar } from 'antd';
+import { Button, notification, message, Layout, List, Avatar, Menu, Icon } from 'antd';
 import { ipcRenderer } from 'electron';
 import LeftMenu from 'components/LeftMenu';
 import Logo from 'components/Logo';
@@ -30,7 +30,40 @@ class MySpace extends Component {
         return (
             <div className="uba-my-space">
                 <Layout>
-                    <Content style={{"background":"#fff"}}>
+                    <Sider
+                        trigger={null}
+                        collapsible
+                        defaultCollapsed={true}
+                        collapsed={true}
+                        style={{ "marginRight": "3px" }}
+                    >
+                        <Logo />
+                        <Menu
+                            style={{
+                                "position": "absolute",
+                                "bottom": 0
+                            }}
+                            theme="light"
+                            mode="inline">
+                            <Menu.Item key="1">
+                                <Icon type="plus-circle-o" />
+                                <span>新建项目</span>
+                            </Menu.Item>
+                            <Menu.Item key="2">
+                                <Icon type="upload" />
+                                <span>导入项目</span>
+                            </Menu.Item>
+                            <Menu.Item key="3">
+                                <Icon type="setting" />
+                                <span>设置</span>
+                            </Menu.Item>
+                            <Menu.Item key="4">
+                                <Icon type="github" />
+                                <span>Github</span>
+                            </Menu.Item>
+                        </Menu>
+                    </Sider>
+                    <Content style={{ "background": "#fff" }}>
                         <List
                             className="uba-project-list"
                             itemLayout="horizontal"
@@ -51,19 +84,18 @@ class MySpace extends Component {
                             )}
                         />
                         <div className="uba-cmd">
-                        [2018-2-4 0:26:35] 开始检测uba本地配置文件<br />
-                        [2018-2-4 0:26:35] 配置存在，读取显示工作区并切换组件，发送IPC消息 uba::view::project<br />
-                        [2018-2-4 0:33:3] 开始检测uba本地配置文件<br />
-                        [2018-2-4 0:33:3] 配置存在，读取显示工作区并切换组件，发送IPC消息 uba::view::project<br />
-                        [2018-2-4 0:26:35] 开始检测uba本地配置文件<br />
-                        [2018-2-4 0:26:35] 配置存在，读取显示工作区并切换组件，发送IPC消息 uba::view::project<br />
-                        [2018-2-4 0:33:3] 开始检测uba本地配置文件<br />
-                        [2018-2-4 0:33:3] 配置存在，读取显示工作区并切换组件，发送IPC消息 uba::view::project<br />
-                        [2018-2-4 0:26:35] 开始检测uba本地配置文件<br />
-                        [2018-2-4 0:26:35] 配置存在，读取显示工作区并切换组件，发送IPC消息 uba::view::project<br />
-                        [2018-2-4 0:33:3] 开始检测uba本地配置文件<br />
-                        [2018-2-4 0:33:3] 配置存在，读取显示工作区并切换组件，发送IPC消息 uba::view::project<br />
-                        
+                            [2018-2-4 0:26:35] 开始检测uba本地配置文件<br />
+                            [2018-2-4 0:26:35] 配置存在，读取显示工作区并切换组件，发送IPC消息 uba::view::project<br />
+                            [2018-2-4 0:33:3] 开始检测uba本地配置文件<br />
+                            [2018-2-4 0:33:3] 配置存在，读取显示工作区并切换组件，发送IPC消息 uba::view::project<br />
+                            [2018-2-4 0:26:35] 开始检测uba本地配置文件<br />
+                            [2018-2-4 0:26:35] 配置存在，读取显示工作区并切换组件，发送IPC消息 uba::view::project<br />
+                            [2018-2-4 0:33:3] 开始检测uba本地配置文件<br />
+                            [2018-2-4 0:33:3] 配置存在，读取显示工作区并切换组件，发送IPC消息 uba::view::project<br />
+                            [2018-2-4 0:26:35] 开始检测uba本地配置文件<br />
+                            [2018-2-4 0:26:35] 配置存在，读取显示工作区并切换组件，发送IPC消息 uba::view::project<br />
+                            [2018-2-4 0:33:3] 开始检测uba本地配置文件<br />
+                            [2018-2-4 0:33:3] 配置存在，读取显示工作区并切换组件，发送IPC消息 uba::view::project<br />
                         </div>
                     </Content>
                 </Layout>

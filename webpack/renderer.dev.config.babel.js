@@ -45,7 +45,7 @@ export default webpackMerge(base, {
     }),
     new webpack.HotModuleReplacementPlugin(),
     new HtmlWebpackPlugin({
-      template: resolve(__dirname, '../static/index.ejs'),
-    }),
-  ],
+      template: resolve(__dirname, '../static/index.ejs')
+    })
+  ]
 });
