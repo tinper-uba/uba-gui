@@ -5,6 +5,7 @@ import { ipcRenderer } from 'electron';
 import LeftMenu from 'components/LeftMenu';
 import Logo from 'components/Logo';
 import ut from 'static/ut.png';
+import ansiHTML from 'ansi-html';
 
 import './index.less';
 const { Header, Content, Footer, Sider } = Layout;
@@ -12,21 +13,65 @@ const { Header, Content, Footer, Sider } = Layout;
 
 const ipc = ipcRenderer;
 
-// ipc.on('MySpace', (event, data) => {
-//     console.log(data);
-// });
+
 //测试用记得删除
 ipc.on('uba::view::project2', (event, workSpace) => {
     actions.my.setWorkSpace(workSpace);
 });
 
 
-class MySpace extends Component {
-    openHomePage = () => {
-        ipc.send('uba::openUrl', 'http://tinper.org');
+let prt, ele;
+/**
+ * 接收构建on消息
+ */
+ipc.on('uba::run::build::on', (event, log) => {
+    // console.log(log)
+    actions.my.setCmdLog(ansiHTML(log.toString().replace(/\n/g, '<br>')));
+    if (ele.offsetHeight > prt.clientHeight) {
+        prt.scrollTop = ele.clientHeight - prt.clientHeight;
     }
+});
+
+/**
+ * 接收构建end消息
+ */
+ipc.on('uba::run::build::end', (event, log, code) => {
+    // console.log(log,code);
+    message.success(log);
+});
+
+
+class MySpace extends Component {
+    /**
+     * 打开反馈浏览器
+     */
+    openGithub = () => {
+        ipc.send('uba::openUrl', 'https://github.com/tinper-uba/uba-gui/issues');
+    }
+    /**
+     * 执行调试
+     */
+    npmRun = (item) => () => {
+        console.log('')
+    }
+    /**
+     * 执行构建
+     */
+    npmBuild = (item) => () => {
+        console.log('发送构建消息 uba::run::build', item.path);
+        ipc.send('uba::run::build', item);
+    }
+
+    /**
+     * 打开本地工程
+     */
+    openLocalFolder = (item) => () => {
+        console.log('发送打开本地文件夹消息 uba::open::folder', item.path);
+        ipc.send('uba::open::folder', item.path);
+    }
+
     render() {
-        let { workSpace } = this.props;
+        let { workSpace, cmdLine } = this.props;
         return (
             <div className="uba-my-space">
                 <Layout>
@@ -46,7 +91,7 @@ class MySpace extends Component {
                             theme="light"
                             mode="inline">
                             <Menu.Item key="1">
-                                <Icon type="plus-circle-o" />
+                                <Icon onClick={() => { actions.routing.push('init') }} type="plus-circle-o" />
                                 <span>新建项目</span>
                             </Menu.Item>
                             <Menu.Item key="2">
@@ -58,8 +103,8 @@ class MySpace extends Component {
                                 <span>设置</span>
                             </Menu.Item>
                             <Menu.Item key="4">
-                                <Icon type="github" />
-                                <span>Github</span>
+                                <Icon onClick={this.openGithub} type="github" />
+                                <span>反馈</span>
                             </Menu.Item>
                         </Menu>
                     </Sider>
@@ -71,31 +116,20 @@ class MySpace extends Component {
                             dataSource={workSpace}
                             renderItem={item => (
                                 <List.Item actions={[
-                                    <Button type="primary">运行</Button>,
-                                    <Button type="primary">构建</Button>,
+                                    <Button onClick={this.npmRun(item)} >运行</Button>,
+                                    <Button onClick={this.npmBuild(item)} >构建</Button>,
                                     <Button type="danger">删除</Button>
                                 ]}>
                                     <List.Item.Meta
                                         avatar={<Avatar src={ut} />}
-                                        title={item.title}
+                                        title={<a onClick={this.openLocalFolder(item)} href="javascript:void(0)">{item.title}</a>}
                                         description={`Path:${item.path}`}
                                     />
                                 </List.Item>
                             )}
                         />
-                        <div className="uba-cmd">
-                            [2018-2-4 0:26:35] 开始检测uba本地配置文件<br />
-                            [2018-2-4 0:26:35] 配置存在，读取显示工作区并切换组件，发送IPC消息 uba::view::project<br />
-                            [2018-2-4 0:33:3] 开始检测uba本地配置文件<br />
-                            [2018-2-4 0:33:3] 配置存在，读取显示工作区并切换组件，发送IPC消息 uba::view::project<br />
-                            [2018-2-4 0:26:35] 开始检测uba本地配置文件<br />
-                            [2018-2-4 0:26:35] 配置存在，读取显示工作区并切换组件，发送IPC消息 uba::view::project<br />
-                            [2018-2-4 0:33:3] 开始检测uba本地配置文件<br />
-                            [2018-2-4 0:33:3] 配置存在，读取显示工作区并切换组件，发送IPC消息 uba::view::project<br />
-                            [2018-2-4 0:26:35] 开始检测uba本地配置文件<br />
-                            [2018-2-4 0:26:35] 配置存在，读取显示工作区并切换组件，发送IPC消息 uba::view::project<br />
-                            [2018-2-4 0:33:3] 开始检测uba本地配置文件<br />
-                            [2018-2-4 0:33:3] 配置存在，读取显示工作区并切换组件，发送IPC消息 uba::view::project<br />
+                        <div className="uba-cmd" ref={(item) => { prt = item }}>
+                            <div ref={(item) => { ele = item }} dangerouslySetInnerHTML={{ __html: cmdLine }} ></div>
                         </div>
                     </Content>
                 </Layout>

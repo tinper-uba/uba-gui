@@ -5,6 +5,7 @@
 import { shell, ipcMain, Notification, dialog } from 'electron';
 import fs from 'fs';
 import { resolve, join, basename } from 'path';
+import os from 'os';
 import { exec, fork, spawn } from 'child_process';
 import { Buffer } from 'buffer';
 import init from './action/init';
@@ -131,10 +132,41 @@ const IPC = () => {
     /**
      * 启动构建服务
      */
-    ipcMain.on('uba::build', (event, arg) => {
+    ipcMain.on('uba::run::build', (event, item) => {
+        log(`接收构建消息 构建目录 ${item.path}`);
+        fixpath();
+        let logtmp = '';
+        const term = fork(NPM_PATH, ['run', 'build'], {
+            silent: true,
+            cwd: item.path,
+            env: npmRunPath.env(),
+            detached: true
+        });
 
+        term.stdout.on('data', data => {
+            logtmp += data.toString();
+            event.sender.send('uba::run::build::on', (logtmp));
+            // console.log(logtmp);
+        });
+        term.stderr.on('data', data => {
+            // console.log(data.toString());
+            // logtmp += data.toString();
+            // event.sender.send('uba::run::build::end', data);
+        });
+
+        term.on('exit', (code) => {
+            console.log( code);
+            event.sender.send('uba::run::build::end', `命令执行完成`,code);
+            // Info('Uba', `命令完毕`, `code:${code} log:${logtmp}`);
+        });
     });
 
+    /**
+     * 打开本地指定的文件夹
+     */
+    ipcMain.on('uba::open::folder', (event, arg) => {
+        shell.showItemInFolder(arg);
+    });
     /**
      * 检测是否在内网npm
      */

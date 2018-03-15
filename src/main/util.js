@@ -94,6 +94,7 @@ export const log = (text,flag) => {
     if (flag) {
         console.log(text);
     }
+    return `[${getNowDate()}] ${text}`;
 }
 
 /**

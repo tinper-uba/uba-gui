@@ -196,7 +196,7 @@ class Init extends Component {
                 <Row style={{ "margin": 0 }}>
                     <Col span={24}>
                         <div className="op">
-                            {currStep == 0 && <Button icon="left-circle-o" className="btn" onClick={() => actions.emptyhome.home()} type="primary">上一步</Button>}
+                            {currStep == 0 && <Button icon="left-circle-o" className="btn" onClick={() => actions.routing.goBack()} type="primary">上一步</Button>}
                             {currStep == 0 && <Button disabled={!selectName} icon="right-circle-o" className="btn" onClick={() => actions.init.setStep(1)} type="primary">下一步</Button>}
                             {currStep == 1 && <Button icon="left-circle-o" className="btn" onClick={() => actions.init.setStep(0)} type="primary">上一步</Button>}
                             {currStep == 1 && <Button icon="right-circle-o" className="btn" onClick={this.checkForm} type="primary">下一步</Button>}

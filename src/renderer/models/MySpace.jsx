@@ -3,7 +3,8 @@ import { actions } from 'mirrorx';
 export default {
     name: "my",
     initialState: {
-        workSpace: []
+        workSpace: [],
+        cmdLine : "当前初始化完成，等待操作。"
     },
     reducers: {
         save(state, data) {
@@ -32,6 +33,11 @@ export default {
         checkMySpace(data, getState){
             let {workSpace} = getState().my;
             return workSpace;
+        },
+        setCmdLog(log,getState){
+            actions.my.save({
+                cmdLine : log
+            });
         }
     }
 }
