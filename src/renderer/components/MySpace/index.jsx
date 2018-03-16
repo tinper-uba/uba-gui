@@ -117,10 +117,10 @@ class MySpace extends Component {
                                 <Icon onClick={() => { ipc.send('uba::import') }} type="upload" />
                                 <span>导入项目</span>
                             </Menu.Item>
-                            <Menu.Item key="3">
+                            {/* <Menu.Item key="3">
                                 <Icon type="setting" />
                                 <span>设置</span>
-                            </Menu.Item>
+                            </Menu.Item> */}
                             <Menu.Item key="4">
                                 <Icon onClick={this.openGithub} type="github" />
                                 <span>反馈</span>
@@ -136,8 +136,7 @@ class MySpace extends Component {
                             renderItem={item => (
                                 <List.Item actions={[
                                     <Button onClick={this.npmRun(item)} >运行</Button>,
-                                    <Button onClick={this.npmBuild(item)} >构建</Button>,
-                                    <Button type="danger">删除</Button>
+                                    <Button onClick={this.npmBuild(item)} >构建</Button>
                                 ]}>
                                     <List.Item.Meta
                                         avatar={<Avatar src={ut} />}
