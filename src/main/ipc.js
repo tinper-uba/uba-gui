@@ -16,8 +16,10 @@ import { APP_PATH, NPM_PATH, UBA_PATH, UBA_CONFIG_PATH } from './path';
 import Ping from 'tcp-ping';
 import fse from 'fs-extra';
 
+import * as t from './term';
 
 const IPC = () => {
+
     /**
      * 打开浏览器进程
      */
@@ -99,33 +101,36 @@ const IPC = () => {
     /**
      * 启动调试服务
      */
-    ipcMain.on('uba::server', (event, arg) => {
-        // console.log(build);
-        // console.log(NPM_PATH);
-        fixpath();
-        let log = '';
-        const term = fork(NPM_PATH, ['run', 'build'], {
+    ipcMain.on('uba::run::dev', (event, item) => {
+        log(`接收启动调试消息 调试目录 ${item.path}`);
+        let logtmp = '';
+        const term = fork(NPM_PATH, ['run', 'dev'], {
             silent: true,
-            cwd: '/Users/kvkens/test/first',
-            env: npmRunPath.env(),
+            cwd: item.path,
+            env: env,
             detached: true
         });
-
+        // setTimeout(() => {
+        //     term.kill();
+        // }, 10000);
         term.stdout.on('data', data => {
-            log += data.toString();
-            console.log(log);
+            logtmp += data.toString();
+            event.sender.send('uba::run::dev::on', (logtmp));
+            // console.log(logtmp);
         });
         term.stderr.on('data', data => {
             console.log(data.toString());
-            log += data.toString();
+            // logtmp += data.toString();
+            // event.sender.send('uba::run::build::end', data);
         });
 
         term.on('exit', (code) => {
-            // console.log( log);
-            event.sender.send('uba::server::start', log);
-            Info('Uba', `命令完毕`, `code:${code} log:${log}`);
+            console.log(code);
+            event.sender.send('uba::run::dev::end', `命令执行完成`, code);
+            // Info('Uba', `命令完毕`, `code:${code} log:${logtmp}`);
         });
 
+        t.addTerm(term, item);
     });
 
     /**
@@ -153,8 +158,8 @@ const IPC = () => {
         });
 
         term.on('exit', (code) => {
-            console.log( code);
-            event.sender.send('uba::run::build::end', `命令执行完成`,code);
+            console.log(code);
+            event.sender.send('uba::run::build::end', `命令执行完成`, code);
             // Info('Uba', `命令完毕`, `code:${code} log:${logtmp}`);
         });
     });

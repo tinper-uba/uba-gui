@@ -37,7 +37,7 @@ export default webpackMerge(base, {
       'process.env.NODE_ENV': JSON.stringify('production')
     }),
     new webpack.optimize.ModuleConcatenationPlugin(),
-    new CleanWebpackPlugin(['app/renderer'], { root: resolve(__dirname, '..'), exclude: ['vendor.js', 'vendor-manifest.json']}),
+    new CleanWebpackPlugin(['app/renderer','app/nodes'], { root: resolve(__dirname, '..'), exclude: ['vendor.js', 'vendor-manifest.json']}),
     new ExtractTextPlugin('style.css'),
     new HtmlWebpackPlugin({
       inject: true,

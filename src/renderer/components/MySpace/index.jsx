@@ -39,6 +39,24 @@ ipc.on('uba::run::build::end', (event, log, code) => {
     // console.log(log,code);
     message.success(log);
 });
+/**
+ * 接收调试on消息
+ */
+ipc.on('uba::run::dev::on', (event, log) => {
+    // console.log(log)
+    actions.my.setCmdLog(ansiHTML(log.toString().replace(/\n/g, '<br>')));
+    if (ele.offsetHeight > prt.clientHeight) {
+        prt.scrollTop = ele.clientHeight - prt.clientHeight;
+    }
+});
+
+/**
+ * 接收构建end消息
+ */
+ipc.on('uba::run::dev::end', (event, log, code) => {
+    // console.log(log,code);
+    message.success(log);
+});
 
 
 class MySpace extends Component {
@@ -52,7 +70,8 @@ class MySpace extends Component {
      * 执行调试
      */
     npmRun = (item) => () => {
-        console.log('')
+        console.log('发送启动调试消息 uba::run::dev', item.path);
+        ipc.send('uba::run::dev', item);
     }
     /**
      * 执行构建
@@ -95,7 +114,7 @@ class MySpace extends Component {
                                 <span>新建项目</span>
                             </Menu.Item>
                             <Menu.Item key="2">
-                                <Icon onClick={()=>{ipc.send('uba::import')}} type="upload" />
+                                <Icon onClick={() => { ipc.send('uba::import') }} type="upload" />
                                 <span>导入项目</span>
                             </Menu.Item>
                             <Menu.Item key="3">
