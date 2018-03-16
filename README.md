@@ -2,9 +2,11 @@
 
 一款可视化跨平台前端集成开发工具，基于 [uba](https://github.com/iuap-design/tinper-uba) 核心思想，快速构建前端工程化项目。通过[templates](https://github.com/uba-templates)提供的最佳实践项目免去优化、配置环境等问题，快速初始化到本地，完成运行、开发、调试、构建、发布、测试等一系列繁琐复杂操作。通过可视化来操作减去了学习命令行成本，安心去开发业务模块，无需担心其他问题。
 
-## 如何安装
+## 如何下载
 
-- 目前处于开发阶段，只有源代码自行下载后编译运行
+1. [MacOs](https://github.com/tinper-uba/uba-gui/releases/download/v0.0.1/Uba-GUI-0.0.1.dmg)
+2. [Windows](https://github.com/tinper-uba/uba-gui/releases/download/v0.0.1/Uba-GUI.Setup.0.0.1.exe)
+3. [Windows绿色版](https://github.com/tinper-uba/uba-gui/releases/download/v0.0.1/Uba-GUI.Setup.0.0.1.zip)
 
 
 <img width="750" alt="1" src="https://user-images.githubusercontent.com/3817644/37322709-3b495d94-26ba-11e8-939f-b15a3fc6c8d0.gif">
