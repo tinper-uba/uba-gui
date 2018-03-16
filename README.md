@@ -6,7 +6,6 @@
 
 - 目前处于开发阶段，只有源代码自行下载后编译运行
 
-> 最下方有一些开发预览图
 
 <img width="750" alt="1" src="https://user-images.githubusercontent.com/3817644/37322709-3b495d94-26ba-11e8-939f-b15a3fc6c8d0.gif">
 
@@ -30,15 +29,3 @@
 - `npm run pack`            直接运行的MacOS包
 - `npm run pack:mac`        构建macOS标准安装包(.dmg)
 - `npm run pack:win`        构建Windows标准安装包(.exe)
-
-
-## 部分截图
-
-<img width="750" alt="1" src="https://user-images.githubusercontent.com/3817644/37252973-44f57d78-2566-11e8-8ba2-b4218e575df7.png">
-<img width="750" alt="2" src="https://user-images.githubusercontent.com/3817644/37252974-4b4b2aec-2566-11e8-96e1-72cc23f01e5f.png">
-<img width="750" alt="3" src="https://user-images.githubusercontent.com/3817644/37252977-4eeab12c-2566-11e8-8b14-53bd9d1077f8.png">
-<img width="750" alt="4" src="https://user-images.githubusercontent.com/3817644/37252979-519e8394-2566-11e8-836e-bf16c44a508d.png">
-<img width="750" alt="5" src="https://user-images.githubusercontent.com/3817644/37252980-551bad1c-2566-11e8-9310-8abd64ef7199.png">
-<img width="349" alt="6" src="https://user-images.githubusercontent.com/3817644/37252981-58a32906-2566-11e8-8181-9f2cb84c2015.png">
-<img width="750" alt="7" src="https://user-images.githubusercontent.com/3817644/37252982-5b7a9f10-2566-11e8-99f2-96e7fd1cee36.png">
-
