@@ -12,13 +12,14 @@
     "dev:main": "webpack --config webpack/main.dev.config.babel.js -w",
     "dev:renderer": "webpack-dev-server --config ./webpack/renderer.dev.config.babel.js",
     "start": "electron ./app/main.js",
-    "pack": "npm run prepack && cross-env ELECTRON_MIRROR=https://npm.taobao.org/mirrors/electron/ build --dir",
-    "pack:mac": "npm run prepack && cross-env ELECTRON_MIRROR=https://npm.taobao.org/mirrors/electron/ build -m",
-    "pack:win": "npm run prepack && cross-env ELECTRON_MIRROR=https://npm.taobao.org/mirrors/electron/ build -w",
+    "pack": "npm run prepackdarwin && cross-env ELECTRON_MIRROR=https://npm.taobao.org/mirrors/electron/ build --dir",
+    "pack:mac": "npm run prepackdarwin && cross-env ELECTRON_MIRROR=https://npm.taobao.org/mirrors/electron/ build -m",
+    "pack:win": "npm run prepackwin32 && cross-env ELECTRON_MIRROR=https://npm.taobao.org/mirrors/electron/ build -w",
     "rebuild": "./node_modules/.bin/electron-rebuild -d=https://gh-contractor-zcbenz.cnpmjs.org/atom-shell/dist/ -m ./app",
     "rebuild-dev": "./node_modules/.bin/electron-rebuild  -m ./app",
     "postinstall": "install-app-deps",
-    "prepack": "node prePacker.js"
+    "prepackwin32": "cross-env RUNOS=win32 node prePacker.js",
+    "prepackdarwin": "cross-env RUNOS=darwin node prePacker.js"
   },
   "keywords": [],
   "build": {
@@ -77,7 +78,7 @@
     "cross-env": "^5.0.5",
     "css-loader": "^0.28.10",
     "download-git-repo": "^1.0.2",
-    "electron": "^1.8.2",
+    "electron": "^1.8.3",
     "electron-builder": "^19.22.1",
     "electron-is": "^2.4.0",
     "electron-rebuild": "^1.6.0",
@@ -97,7 +98,6 @@
     "tcp-ping": "^0.1.1",
     "url-loader": "^1.0.1",
     "webpack": "^3.11.0",
-    "webpack-bundle-analyzer": "^2.11.1",
     "webpack-dev-server": "^2.11.2",
     "webpack-merge": "^4.1.2"
   }

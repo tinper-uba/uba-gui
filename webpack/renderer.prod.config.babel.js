@@ -4,7 +4,6 @@ import CleanWebpackPlugin from 'clean-webpack-plugin';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import * as webpack from 'webpack';
-import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 import webpackMerge from 'webpack-merge';
 
 import base from './renderer.base.config.babel';
@@ -37,14 +36,7 @@ export default webpackMerge(base, {
       '__isDev__': JSON.stringify(false),
       'process.env.NODE_ENV': JSON.stringify('production')
     }),
-    // new webpack.DllReferencePlugin({
-    //   manifest
-    // }),
     new webpack.optimize.ModuleConcatenationPlugin(),
-    // new BundleAnalyzerPlugin({
-    //   analyzerMode: 'static',
-    //   logLevel: 'error',
-    // }),
     new CleanWebpackPlugin(['app/renderer'], { root: resolve(__dirname, '..'), exclude: ['vendor.js', 'vendor-manifest.json']}),
     new ExtractTextPlugin('style.css'),
     new HtmlWebpackPlugin({
