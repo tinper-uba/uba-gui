@@ -28,7 +28,12 @@ app.on('ready', onReady);
 app.on('before-quit', (event) => {
   t.killAllTerm();
 });
-
+app.on('will-quit', (event) => {
+  t.killAllTerm();
+});
+app.on('quit', (event) => {
+  t.killAllTerm();
+});
 app.on('window-all-closed', () => {
   // if (process.platform !== 'darwin') {
   //   app.quit();
@@ -41,5 +46,9 @@ app.on('activate', () => {
   if (win === null) {
     createWindow();
   }
-  console.log(`当前运行任务数量：${t.getTermAllCount()}`)
+  console.log(`当前运行任务数量：${t.getTermAllCount()}`);
+  console.log()
+  if (t.getTermAll().length !== 0) {
+    console.log(t.getTermAll()[0].term.pid)
+  }
 });

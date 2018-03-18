@@ -12,3 +12,4 @@ export const UBA_PATH = join(homedir(), '.UbaGui');
 export const UBA_CONFIG_PATH = join(homedir(), '.UbaGui','uba-gui.json');
 export const NODE_PATH = join(APP_PATH, 'nodes');
 export const NPM_BIN_PATH = join(APP_PATH, 'node_modules', '.bin');
+export const UBA_BIN_PATH = join(APP_PATH, 'node_modules', 'uba','bin','uba.js');

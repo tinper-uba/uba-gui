@@ -12,14 +12,13 @@ import env from './env';
 import init from './action/init';
 import install from './action/install';
 import { Info, createDir, writeFileJSON, readFileJSON, getNowDate, log } from './util';
-import { APP_PATH, NPM_PATH, UBA_PATH, UBA_CONFIG_PATH } from './path';
+import { APP_PATH, NPM_PATH, UBA_PATH, UBA_CONFIG_PATH,UBA_BIN_PATH } from './path';
 import Ping from 'tcp-ping';
 import fse from 'fs-extra';
 
 import * as t from './term';
 
 const IPC = () => {
-
     /**
      * 打开浏览器进程
      */
@@ -97,36 +96,41 @@ const IPC = () => {
         Info('Uba', '安装依赖', `开始安装「${arg.project}」依赖`);
         install(event, arg);
     });
-
+    //测试停止命令
+    ipcMain.on('uba::run::stop', (event, item) => {
+        console.log('接收停止杀进程')
+        t.killAllTerm();
+    });
     /**
      * 启动调试服务
      */
     ipcMain.on('uba::run::dev', (event, item) => {
         log(`接收启动调试消息 调试目录 ${item.path}`);
+        event.sender.send('uba::log', env);
         let logtmp = '';
-        const term = fork(NPM_PATH, ['run', 'dev'], {
+        const term = fork(UBA_BIN_PATH, ['server'], {
             silent: true,
             cwd: item.path,
             env: env,
             detached: true
         });
-        // setTimeout(() => {
-        //     term.kill();
-        // }, 10000);
         term.stdout.on('data', data => {
             logtmp += data.toString();
-            event.sender.send('uba::run::dev::on', (logtmp));
+            event.sender.send('uba::run::dev::on', logtmp, term);
+            // event.sender.send('uba::log', logtmp);
             // console.log(logtmp);
         });
         term.stderr.on('data', data => {
-            console.log(data.toString());
+            // console.log(data.toString());
             // logtmp += data.toString();
             // event.sender.send('uba::run::build::end', data);
+            // event.sender.send('uba::log', logtmp);
         });
 
         term.on('exit', (code) => {
             console.log(code);
             event.sender.send('uba::run::dev::end', `命令执行完成`, code);
+            event.sender.send('uba::log', code);
             // Info('Uba', `命令完毕`, `code:${code} log:${logtmp}`);
         });
 
@@ -139,7 +143,7 @@ const IPC = () => {
     ipcMain.on('uba::run::build', (event, item) => {
         log(`接收构建消息 构建目录 ${item.path}`);
         let logtmp = '';
-        const term = fork(NPM_PATH, ['run', 'build'], {
+        const term = fork(UBA_BIN_PATH, ['build'], {
             silent: true,
             cwd: item.path,
             env: env,

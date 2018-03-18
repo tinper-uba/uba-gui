@@ -42,12 +42,17 @@ ipc.on('uba::run::build::end', (event, log, code) => {
 /**
  * 接收调试on消息
  */
-ipc.on('uba::run::dev::on', (event, log) => {
+ipc.on('uba::run::dev::on', (event, log,term) => {
     // console.log(log)
     actions.my.setCmdLog(ansiHTML(log.toString().replace(/\n/g, '<br>')));
     if (ele.offsetHeight > prt.clientHeight) {
         prt.scrollTop = ele.clientHeight - prt.clientHeight;
     }
+    console.log(term)
+});
+
+ipc.on('uba::log', (event, log) => {
+    console.log(log)
 });
 
 /**
@@ -79,6 +84,10 @@ class MySpace extends Component {
     npmBuild = (item) => () => {
         console.log('发送构建消息 uba::run::build', item.path);
         ipc.send('uba::run::build', item);
+    }
+
+    npmStop = (item) => () => {
+        ipc.send('uba::run::stop', item);
     }
 
     /**
@@ -136,7 +145,8 @@ class MySpace extends Component {
                             renderItem={item => (
                                 <List.Item actions={[
                                     <Button onClick={this.npmRun(item)} >运行</Button>,
-                                    <Button onClick={this.npmBuild(item)} >构建</Button>
+                                    <Button onClick={this.npmBuild(item)} >构建</Button>,
+                                    <Button onClick={this.npmStop(item)} >停止</Button>
                                 ]}>
                                     <List.Item.Meta
                                         avatar={<Avatar src={ut} />}
