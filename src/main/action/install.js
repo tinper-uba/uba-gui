@@ -24,7 +24,7 @@ const Install = async (event, argv) => {
 
 
 
-
+  // event.sender.send('uba::install::success');
 
   // const child = spawn('npm', ['install', '-r',argv.registry]);
   // child.stdout.on('data', (chunk) => {

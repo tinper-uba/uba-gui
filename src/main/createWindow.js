@@ -11,7 +11,7 @@ const createWindow = () => {
         resizable: false,
         alwaysOnTop: false,
         frame: false,
-        titleBarStyle: 'hiddenInset',
+        // titleBarStyle: 'hiddenInset',
         skipTaskbar: false
     });
     if (__isDev__) {

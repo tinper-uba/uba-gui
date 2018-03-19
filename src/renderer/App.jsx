@@ -15,7 +15,12 @@ const App = () => (
     <div>
       <Layout style={{ marginLeft: 0 }}>
         <Header className="titlebar" >
-          v{pkg.version}
+          <div className="toolbar">
+            <div className="btn close"></div>
+            <div className="btn min"></div>
+            <div className="btn max"></div>
+          </div>
+          <div className="version">v{pkg.version}</div>
         </Header>
         <Content style={{ margin: '0', overflow: 'initial' }}>
           <div style={{ padding: 2, background: '#fff' }}>
