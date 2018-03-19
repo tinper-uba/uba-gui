@@ -15,6 +15,6 @@
   "license": "MIT",
   "dependencies": {
     "npm":"^5.7.1",
-    "uba":"^2.3.4"
+    "uba":"^2.3.5"
   }
 }

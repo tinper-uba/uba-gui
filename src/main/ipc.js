@@ -12,7 +12,7 @@ import env from './env';
 import init from './action/init';
 import install from './action/install';
 import { Info, createDir, writeFileJSON, readFileJSON, getNowDate, log } from './util';
-import { APP_PATH, NPM_PATH, UBA_PATH, UBA_CONFIG_PATH,UBA_BIN_PATH } from './path';
+import { APP_PATH, NPM_PATH, UBA_PATH, UBA_CONFIG_PATH, UBA_BIN_PATH } from './path';
 import Ping from 'tcp-ping';
 import fse from 'fs-extra';
 
@@ -108,7 +108,7 @@ const IPC = () => {
         log(`接收启动调试消息 调试目录 ${item.path}`);
         event.sender.send('uba::log', env);
         let logtmp = '';
-        const term = fork(UBA_BIN_PATH, ['server'], {
+        const term = fork(UBA_BIN_PATH, ['server', '--noProcess', '--chunks', '--logLevel', 'info'], {
             silent: true,
             cwd: item.path,
             env: env,
