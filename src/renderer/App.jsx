@@ -1,5 +1,6 @@
 import React from 'react';
 import { Route, Router, NavLink } from 'mirrorx';
+import {remote} from 'electron';
 import { Layout, Menu, Icon } from 'antd';
 import { ipcRenderer } from 'electron';
 import pkg from '../../package.json';
@@ -9,6 +10,18 @@ import Routes from './routes';
 import './App.less';
 const { Header, Content, Footer, Sider } = Layout;
 const ipc = ipcRenderer;
+const win = remote.getGlobal('win');
+
+const closeHandler = () => {
+  win.hide();
+}
+const minHandler = () => {
+  win.minimize();
+}
+const maxHandler = () => {
+  win.maximize()
+}
+
 
 const App = () => (
   <Router>
@@ -16,9 +29,9 @@ const App = () => (
       <Layout style={{ marginLeft: 0 }}>
         <Header className="titlebar" >
           <div className="toolbar">
-            <div className="btn close"></div>
-            <div className="btn min"></div>
-            <div className="btn max"></div>
+            <span onClick={closeHandler} className="btn close"></span>
+            <span onClick={minHandler} className="btn min"></span>
+            <span onClick={maxHandler} className="btn max"></span>
           </div>
           <div className="version">v{pkg.version}</div>
         </Header>

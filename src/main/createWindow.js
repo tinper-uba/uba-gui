@@ -32,7 +32,8 @@ const createWindow = () => {
     win.on('closed', () => {
         win = null;
     });
-    return win;
-}
+    global.win = win;    
+        return win;
+    }
 
 export default createWindow;

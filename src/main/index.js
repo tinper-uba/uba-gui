@@ -25,9 +25,6 @@ const onReady = () => {
 
 app.on('ready', onReady);
 
-app.on('before-quit', (event) => {
-  t.killAllTerm();
-});
 app.on('will-quit', (event) => {
   t.killAllTerm();
 });
@@ -46,9 +43,11 @@ app.on('activate', () => {
   if (win === null) {
     createWindow();
   }
+  win.show();
   console.log(`当前运行任务数量：${t.getTermAllCount()}`);
   console.log()
   if (t.getTermAll().length !== 0) {
     console.log(t.getTermAll()[0].term.pid)
   }
 });
+global.app = app;
