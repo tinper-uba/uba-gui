@@ -7,6 +7,7 @@ import * as t from './term';
 import createWindow from './createWindow';
 import configureMenu from './menu';
 import ipc from './ipc';
+import tasks from './tasks';
 
 let win;
 
@@ -44,10 +45,9 @@ app.on('activate', () => {
     createWindow();
   }
   win.show();
-  console.log(`当前运行任务数量：${t.getTermAllCount()}`);
-  console.log()
-  if (t.getTermAll().length !== 0) {
-    console.log(t.getTermAll()[0].term.pid)
+  console.log(`当前运行任务数量：${tasks.getTasksCounts()}`);
+  for (let value of tasks.getAllTasks().values()) {
+    console.log(`PID：${value.pid}`);
   }
 });
 global.app = app;

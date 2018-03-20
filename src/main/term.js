@@ -1,3 +1,7 @@
+/**
+ * 终端类操作
+ */
+
 import { isWin } from './util';
 import { exec } from 'child_process';
 import env from './env';

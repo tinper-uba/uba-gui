@@ -1,11 +1,14 @@
+/**
+ * 系统环境变量
+ */
 
 import fixPath from 'fix-path';
 import npmRunPath from 'npm-run-path';
 import { delimiter, join } from 'path';
-
 import { isWin } from './util';
 import { NPM_BIN_PATH } from './path';
 
+//修复path
 fixPath();
 
 const npmEnv = npmRunPath.env();

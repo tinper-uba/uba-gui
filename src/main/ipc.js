@@ -15,8 +15,8 @@ import { Info, createDir, writeFileJSON, readFileJSON, getNowDate, log } from '.
 import { APP_PATH, NPM_PATH, UBA_PATH, UBA_CONFIG_PATH, UBA_BIN_PATH } from './path';
 import Ping from 'tcp-ping';
 import fse from 'fs-extra';
-
-import * as t from './term';
+// import * as t from './term';
+import tasks from './tasks';
 
 const IPC = () => {
     /**
@@ -37,7 +37,6 @@ const IPC = () => {
                 if (err) {
                     event.sender.send('uba::import::error', '无效的uba前端工程');
                 } else {
-
                     log('找到有效的uba工程，写入配置文件，参数不全');
                     let ubaObj = await readFileJSON(UBA_CONFIG_PATH);
                     let item = {
@@ -82,7 +81,6 @@ const IPC = () => {
             writeFileJSON(UBA_CONFIG_PATH, ubaObj);
             log('项目创建完毕，写入配置文件 发送IPC uba::init::success');
             event.sender.send('uba::init::success', ubaObj.workSpace);
-
         } else {
             Info('Uba', '下载失败', `项目「${arg.project}」下载失败`);
             event.sender.send('uba::init::error');
@@ -98,8 +96,9 @@ const IPC = () => {
     });
     //测试停止命令
     ipcMain.on('uba::run::stop', (event, item) => {
-        console.log('接收停止杀进程')
-        t.killAllTerm();
+        console.log('接收停止杀进程');
+        // t.killAllTerm();
+        tasks.killAllTasks();
     });
     /**
      * 启动调试服务
@@ -124,7 +123,7 @@ const IPC = () => {
             // console.log(data.toString());
             // logtmp += data.toString();
             // event.sender.send('uba::run::build::end', data);
-            // event.sender.send('uba::log', logtmp);
+            event.sender.send('uba::log', data.toString());
         });
 
         term.on('exit', (code) => {
@@ -134,7 +133,8 @@ const IPC = () => {
             // Info('Uba', `命令完毕`, `code:${code} log:${logtmp}`);
         });
 
-        t.addTerm(term, item);
+        // t.addTerm(term, item);
+        tasks.addTasks(term, item);
     });
 
     /**

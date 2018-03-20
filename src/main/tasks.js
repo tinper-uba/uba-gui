@@ -1,0 +1,84 @@
+/**
+ * @description 运行任务类操作
+ * @author Kvkens(yueming@yonyou.com)
+ */
+
+
+/**
+ * @constructor
+ */
+class Tasks {
+    /**
+     * 单例模式
+     */
+    static created = false;
+    /**
+     * 保存任务的静态对象
+     */
+    static tasks = null;
+    /**
+     * @description 任务操作类
+     */
+    constructor() {
+        if (!Tasks.created) {
+            Tasks.tasks = new Map();
+            Tasks.created = true;
+        }
+    }
+    /**
+     * @description 添加一个独一无二的终端
+     * @returns 返回：true 添加成功 false 添加失败已存在
+     * @param {*} term 终端
+     * @param {*} item 配置
+     */
+    addTasks(term, item) {
+        if (!Tasks.tasks.has(item.path)) {
+            Tasks.tasks.set(item.path, term);
+            return true;
+        }
+        return false;
+    }
+    /**
+     * @description 通过path获得当前任务终端
+     * @param {*} path 执行路径
+     * @returns null 没有找到 否则返回终端
+     */
+    getTasks(path){
+        if (Tasks.tasks.has(path)) {
+            return Tasks.tasks.get(path);
+        }
+        return null;
+    }
+    /**
+     * @description 删除指定路径下的运行终端
+     * @param {*} path 删除的路径
+     * @returns true 删除成功 false 删除失败
+     */
+    removeTasks(path){
+        return Tasks.tasks.delete(path);
+    }
+    /**
+     * @description 获得当前运行任务数
+     * @returns number 任务数量
+     */
+    getTasksCounts(){
+        return Tasks.tasks.size;
+    }
+    /**
+     * @description 获得所有任务终端
+     * @returns Map
+     */
+    getAllTasks(){
+        return Tasks.tasks;
+    }
+    /**
+     * @description 杀死所有任务进程
+     */
+    killAllTasks(){
+        for (let term of Tasks.tasks.values()) {
+            term.kill();
+        }
+    }
+}
+
+export default new Tasks();
