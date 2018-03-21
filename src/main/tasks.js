@@ -43,7 +43,7 @@ class Tasks {
      * @param {*} path 执行路径
      * @returns null 没有找到 否则返回终端
      */
-    getTasks(path){
+    getTasks(path) {
         if (Tasks.tasks.has(path)) {
             return Tasks.tasks.get(path);
         }
@@ -54,29 +54,44 @@ class Tasks {
      * @param {*} path 删除的路径
      * @returns true 删除成功 false 删除失败
      */
-    removeTasks(path){
+    removeTasks(path) {
         return Tasks.tasks.delete(path);
     }
     /**
      * @description 获得当前运行任务数
      * @returns number 任务数量
      */
-    getTasksCounts(){
+    getTasksCounts() {
         return Tasks.tasks.size;
     }
     /**
      * @description 获得所有任务终端
      * @returns Map
      */
-    getAllTasks(){
+    getAllTasks() {
         return Tasks.tasks;
     }
     /**
      * @description 杀死所有任务进程
      */
-    killAllTasks(){
+    killAllTasks() {
         for (let term of Tasks.tasks.values()) {
             term.kill();
+        }
+        Tasks.tasks.clear();
+    }
+    /**
+     * @description 杀死进程指定path
+     * @param {*} path 结束任务的路径
+     * @returns true 成功结束 false 失败没有找到
+     */
+    killTasksPath(path) {
+        if (Tasks.tasks.has(path)) {
+            Tasks.tasks.get(path).kill();
+            this.removeTasks(path);
+            return true;
+        }else{
+            return false
         }
     }
 }

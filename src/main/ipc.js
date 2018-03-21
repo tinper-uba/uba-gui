@@ -98,7 +98,8 @@ const IPC = () => {
     ipcMain.on('uba::run::stop', (event, item) => {
         console.log('接收停止杀进程');
         // t.killAllTerm();
-        tasks.killAllTasks();
+        // tasks.killAllTasks();
+        tasks.killTasksPath(item.path);
     });
     /**
      * 启动调试服务

@@ -3,7 +3,6 @@
  */
 
 import { app, BrowserWindow, Menu, shell, ipcMain, globalShortcut } from 'electron';
-import * as t from './term';
 import createWindow from './createWindow';
 import configureMenu from './menu';
 import ipc from './ipc';
@@ -27,16 +26,16 @@ const onReady = () => {
 app.on('ready', onReady);
 
 app.on('will-quit', (event) => {
-  t.killAllTerm();
+  tasks.killAllTasks();
 });
 app.on('quit', (event) => {
-  t.killAllTerm();
+  tasks.killAllTasks();
 });
 app.on('window-all-closed', () => {
   // if (process.platform !== 'darwin') {
   //   app.quit();
   // }
-  t.killAllTerm();
+  tasks.killAllTasks();
   app.quit();
 });
 
