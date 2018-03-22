@@ -1,5 +1,9 @@
 /**
- * 辅助工具类
+ * @description 工具类函数
+ * @author Kvkens(yueming@yonyou.com)
+ * @see https://nodejs.org/dist/latest-v8.x/docs/api/path.html
+ * @see https://nodejs.org/dist/latest-v8.x/docs/api/os.html
+ * @update 2018-03-22 13:40:02
  */
 
 import { Notification } from 'electron';
@@ -9,14 +13,14 @@ import fs from 'fs';
 import co from 'co';
 import npminstall from 'npminstall';
 
-
+//不同平台和开发环境
 export const isDev = is.dev();
 export const isMac = is.macOS();
 export const isWin = is.windows();
 export const isLinux = is.linux();
 
 /**
- * 系统消息推送
+ * @description 系统消息推送
  * @param {*} 推送标题 
  * @param {*} 推送子标题
  * @param {*} 推送正文
@@ -30,10 +34,20 @@ export const Info = (title = '标题', subtitle = '子标题', body = '正文') 
     info.show();
 }
 
+/**
+ * @description npm依赖包安装，基于npm-cli实现
+ * @param {event} 上层传入ipc
+ * @param {string} 安装依赖路径
+ * @param {string} 镜像源
+ * @todo 实现本方法
+ */
+export const npmInstall = ({ event, installPath, registry }) => {
+
+}
 
 /**
- * 安装依赖项
- * @param {*} 句柄、安装路径、镜像源 
+ * @description 安装依赖包
+ * @param {*} obj 客户端event、安装路径、镜像源 
  */
 export const installPkg = ({ event, installPath, registry }) => {
     return co(function* () {
@@ -65,37 +79,39 @@ export const installPkg = ({ event, installPath, registry }) => {
 }
 
 /**
- * 创建指定的文件夹
- * @param {*} dirPath 
+ * @description 创建指定的文件夹
+ * @param {string} dirPath 欲创建文件夹路径
+ * @returns {Promise} promise
  */
 export const createDir = async (dirPath) => {
     await fse.mkdir(dirPath);
 }
 
 /**
- * 写入JSON到文件
- * @param {string} 写入路径 
+ * @description 写入JSON到文件
+ * @param {string} 写入路径、JSON
  * @param {object} 写入JSON对象
+ * @returns {Promise} promise
  */
 export const writeFileJSON = async (jsonPath, obj) => {
     return await fse.writeJSON(jsonPath, obj);
 }
 
 /**
- * 读取指定路径下的JSON文件
+ * @description 读取指定路径下的JSON文件
  * @param {string} 路径 
+ * @returns {Promise} promise
  */
 export const readFileJSON = async (jsonPath) => {
-    let ubaPkg = await fse.readJson(jsonPath);
-    // console.log(ubaPkg)
-    return ubaPkg;
+    return await fse.readJson(jsonPath);
 }
 
 /**
- * 打印日志
- * @param {*} 消息 
+ * @description 打印日志
+ * @param {string,boolean} 日志内容、可选参数：true=直接显示 false=不显示
+ * @returns {string} 日志 时间-内容
  */
-export const log = (text,flag) => {
+export const log = (text, flag) => {
     console.log(`[${getNowDate()}] ${text}`);
     if (flag) {
         console.log(text);
@@ -104,7 +120,8 @@ export const log = (text,flag) => {
 }
 
 /**
- * 获得主机时间
+ * @description 获得主机时间
+ * @returns {string} 本机时间
  */
 export const getNowDate = () => {
     let dt = new Date();

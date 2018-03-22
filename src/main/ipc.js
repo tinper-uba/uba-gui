@@ -1,5 +1,11 @@
 /**
- * IPC消息服务
+ * @description IPC消息类
+ * @author Kvkens(yueming@yonyou.com)
+ * @update 2018-03-22 14:14:29
+ * @see https://electronjs.org/docs/api/ipc-main
+ * @see https://electronjs.org/docs/api/shell
+ * @see https://electronjs.org/docs/api/dialog
+ * @see https://electronjs.org/docs/api/notification
  */
 
 import { shell, ipcMain, Notification, dialog } from 'electron';

@@ -1,11 +1,13 @@
 /**
  * @description 运行任务类操作
  * @author Kvkens(yueming@yonyou.com)
+ * @update 2018-03-22 14:09:15
+ * @see http://es6.ruanyifeng.com/#docs/set-map
  */
 
 
 /**
- * @constructor
+ * @constructor 任务终端类
  */
 class Tasks {
     /**

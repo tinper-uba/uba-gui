@@ -1,3 +1,10 @@
+/**
+ * @description 窗口实例类
+ * @author Kvkens(yueming@yonyou.com)
+ * @see https://electronjs.org/docs/api/browser-window
+ * @update 2018-03-22 11:29:58
+ */
+
 import { BrowserWindow, app } from 'electron';
 import { format } from 'url';
 import { resolve } from 'path';
@@ -11,7 +18,7 @@ const createWindow = () => {
         resizable: false,
         alwaysOnTop: false,
         frame: false,
-        // titleBarStyle: 'hiddenInset',
+        // titleBarStyle: 'hidden',
         skipTaskbar: false
     });
     if (__isDev__) {

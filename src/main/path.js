@@ -1,5 +1,9 @@
 /**
- * 获得相关系统路径
+ * @description 相关程序路径
+ * @author Kvkens(yueming@yonyou.com)
+ * @see https://nodejs.org/dist/latest-v8.x/docs/api/path.html
+ * @see https://nodejs.org/dist/latest-v8.x/docs/api/os.html
+ * @update 2018-03-22 13:40:02
  */
 
 import { join } from 'path';
