@@ -19,44 +19,18 @@ import init from './action/init';
 import install from './action/install';
 import { Info, createDir, writeFileJSON, readFileJSON, getNowDate, log } from './util';
 import { APP_PATH, NPM_PATH, UBA_PATH, UBA_CONFIG_PATH, UBA_BIN_PATH } from './path';
-import Ping from 'tcp-ping';
 import fse from 'fs-extra';
-// import * as t from './term';
 import tasks from './tasks';
 
+import checkNpm from './ipc/checkNpm';
+import openUrl from './ipc/openUrl';
+import importProject from './ipc/importProject';
+
+
 const IPC = () => {
-    /**
-     * 打开浏览器进程
-     */
-    ipcMain.on('uba::openUrl', (event, arg) => {
-        shell.openExternal(arg);
-    });
-    /**
-     * 导入工程，开启FileDialog
-     */
-    ipcMain.on('uba::import', (event, arg) => {
-        log('执行项目导入操作');
-        let projectPath = dialog.showOpenDialog({ properties: ['openDirectory'] });
-        log(projectPath);
-        if (projectPath && projectPath.length !== 0) {
-            fs.readFile(join(projectPath[0], 'uba.config.js'), 'utf-8', async (err, data) => {
-                if (err) {
-                    event.sender.send('uba::import::error', '无效的uba前端工程');
-                } else {
-                    log('找到有效的uba工程，写入配置文件，参数不全');
-                    let ubaObj = await readFileJSON(UBA_CONFIG_PATH);
-                    let item = {
-                        title: basename(projectPath[0]),
-                        template: "自行导入不存在",
-                        path: join(projectPath[0])
-                    };
-                    ubaObj.workSpace.push(item);
-                    writeFileJSON(UBA_CONFIG_PATH, ubaObj);
-                    event.sender.send('uba::import::success', ubaObj.workSpace);
-                }
-            });
-        }
-    });
+    checkNpm();//内网npm环境检测
+    openUrl();//打开本机默认浏览器
+    importProject();//导入uba工程
     /**
      * 初始化最佳实践选择的路径，开启FileDialog
      * 返回：选择文件夹路径
@@ -180,14 +154,6 @@ const IPC = () => {
      */
     ipcMain.on('uba::open::folder', (event, arg) => {
         shell.showItemInFolder(arg);
-    });
-    /**
-     * 检测是否在内网npm
-     */
-    ipcMain.on('uba::checkNpm', (event, arg) => {
-        Ping.probe(arg.ip, arg.port, function (err, available) {
-            event.sender.send('uba::checkNpm::success', available);
-        });
     });
 
     /**

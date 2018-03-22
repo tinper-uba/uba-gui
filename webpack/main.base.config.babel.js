@@ -1,6 +1,5 @@
 import { resolve } from 'path';
 import semverRegex from 'semver-regex';
-
 import { devDependencies } from './../package.json';
 
 const electronVersion = semverRegex().exec(devDependencies.electron)[0];
@@ -29,7 +28,10 @@ export default {
     filename: '[name].js'
   },
   resolve: {
-    extensions: ['.js', '.json']
+    extensions: ['.js', '.json'],
+    alias: {
+      main: resolve(__dirname, "../src/main/")
+    }
   },
   target: 'electron-main'
 };

@@ -125,5 +125,5 @@ export const log = (text, flag) => {
  */
 export const getNowDate = () => {
     let dt = new Date();
-    return dt.getFullYear() + '-' + dt.getMonth() + '-' + dt.getDay() + ' ' + dt.getHours() + ':' + dt.getMinutes() + ':' + dt.getSeconds();
+    return (dt.getFullYear() + '-' + dt.getMonth() + '-' + dt.getDay() + ' ' + dt.getHours() + ':' + dt.getMinutes() + ':' + dt.getSeconds());
 }
