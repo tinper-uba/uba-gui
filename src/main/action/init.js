@@ -1,12 +1,17 @@
 /**
- * 初始化最佳实践
+ * @description 初始化最佳实践
+ * @author Kvkens(yueming@yonyou.com)
+ * @update 2018-03-22 14:43:52
+ * @see https://github.com/uba-templates
  */
 
 import download from 'download-git-repo';
 
 /**
- * 下载远端最佳实践
- * @param {*} 仓库信息 project, selectName, upload
+ * @description 下载远端最佳实践
+ * @param {string} argv.project 下载到指定的文件夹
+ * @param {string} argv.selectName 仓库信息uba-templates repo
+ * @param {string} argv.upload 指定路径客户端传来的本机不同平台
  */
 const Init = (argv) => {
     let { project, selectName, upload } = argv;
