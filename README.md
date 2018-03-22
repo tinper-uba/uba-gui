@@ -4,9 +4,9 @@
 
 ## 如何下载
 
-1. [MacOs](https://github.com/tinper-uba/uba-gui/releases/download/v0.0.1/Uba-GUI-0.0.1.dmg)
-2. [Windows](https://github.com/tinper-uba/uba-gui/releases/download/v0.0.1/Uba-GUI.Setup.0.0.1.exe)
-3. [Windows绿色版](https://github.com/tinper-uba/uba-gui/releases/download/v0.0.1/Uba-GUI.Setup.0.0.1.zip)
+1. [MacOs](https://github.com/tinper-uba/uba-gui/releases/download/v0.0.2/Uba-GUI-0.0.2.dmg)
+2. [Windows](https://github.com/tinper-uba/uba-gui/releases/download/v0.0.2/Uba-GUI.Setup.0.0.2.exe)
+3. [Windows绿色版](https://github.com/tinper-uba/uba-gui/releases/download/v0.0.2/Uba-GUI-0.0.2.zip)
 
 
 <img width="750" alt="1" src="https://raw.githubusercontent.com/tinper-uba/uba-gui/master/screenshot/uba-gui.gif">
