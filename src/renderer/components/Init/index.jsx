@@ -178,9 +178,9 @@ class Init extends Component {
                                         rules: [{ required: true, message: '请选择npm加速镜像' }],
                                     })(
                                         <Select placeholder="请选择镜像源">
-                                            <Option value="http://registry.npm.taobao.org/">http://registry.npm.taobao.org</Option>
-                                            <Option value="http://registry.npmjs.org/">http://registry.npmjs.org</Option>
-                                            <Option value="http://172.16.75.107:8081/repository/ynpm-group/">用友内网</Option>
+                                            <Option value="http://registry.npm.taobao.org">http://registry.npm.taobao.org</Option>
+                                            <Option value="http://registry.npmjs.org">http://registry.npmjs.org</Option>
+                                            <Option value="http://172.16.75.107:8081/repository/ynpm-group">用友内网</Option>
                                         </Select>
                                     )}
                                 </FormItem>

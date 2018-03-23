@@ -13,8 +13,8 @@ export default webpackMerge(base, {
       '__isDev__': JSON.stringify(false),
     }),
     new webpack.optimize.ModuleConcatenationPlugin(),
-    new CleanWebpackPlugin(['app/main.js'], { root: resolve(__dirname, '..') })
-    // new MinifyPlugin()
+    new CleanWebpackPlugin(['app/main.js'], { root: resolve(__dirname, '..') }),
+    new MinifyPlugin()
     // new webpack.optimize.UglifyJsPlugin()
   ],
 });

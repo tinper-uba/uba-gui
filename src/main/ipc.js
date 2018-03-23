@@ -16,7 +16,6 @@ import { exec, fork, spawn } from 'child_process';
 import { Buffer } from 'buffer';
 import env from './env';
 import init from './action/init';
-import install from './action/install';
 import { Info, createDir, writeFileJSON, readFileJSON, getNowDate, log } from './util';
 import { APP_PATH, NPM_PATH, UBA_PATH, UBA_CONFIG_PATH, UBA_BIN_PATH } from './path';
 import fse from 'fs-extra';
@@ -25,12 +24,19 @@ import tasks from './tasks';
 import checkNpm from './ipc/checkNpm';
 import openUrl from './ipc/openUrl';
 import importProject from './ipc/importProject';
+import ubainstall from './ipc/ubainstall';
+
+
+
 
 
 const IPC = () => {
     checkNpm();//内网npm环境检测
     openUrl();//打开本机默认浏览器
     importProject();//导入uba工程
+    ubainstall();//加载初始化安装
+
+
     /**
      * 初始化最佳实践选择的路径，开启FileDialog
      * 返回：选择文件夹路径
@@ -65,14 +71,6 @@ const IPC = () => {
             Info('Uba', '下载失败', `项目「${arg.project}」下载失败`);
             event.sender.send('uba::init::error');
         }
-    });
-    /**
-     * 接收安装指令
-     */
-    ipcMain.on('uba::install', (event, arg) => {
-        event.sender.send('uba::install::start');
-        Info('Uba', '安装依赖', `开始安装「${arg.project}」依赖`);
-        install(event, arg);
     });
     //测试停止命令
     ipcMain.on('uba::run::stop', (event, item) => {

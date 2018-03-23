@@ -18,7 +18,7 @@ export default {
         project: '',
         upload: '',
         registry: '',
-        defaultNpmPath: 'http://registry.npm.taobao.org/'
+        defaultNpmPath: 'http://registry.npm.taobao.org'
     },
     reducers: {
         save(state, data) {
@@ -31,7 +31,7 @@ export default {
     effects: {
         changeYonyouNpm(data, getState) {
             actions.init.save({
-                defaultNpmPath: 'http://172.16.75.107:8081/repository/ynpm-group/'
+                defaultNpmPath: 'http://172.16.75.107:8081/repository/ynpm-group'
             });
         },
         changeInstallState(data, getState) {
