@@ -15,7 +15,6 @@ import os from 'os';
 import { exec, fork, spawn } from 'child_process';
 import { Buffer } from 'buffer';
 import env from './env';
-import init from './action/init';
 import { Info, createDir, writeFileJSON, readFileJSON, getNowDate, log } from './util';
 import { APP_PATH, NPM_PATH, UBA_PATH, UBA_CONFIG_PATH, UBA_BIN_PATH } from './path';
 import fse from 'fs-extra';
@@ -26,9 +25,7 @@ import openUrl from './ipc/openUrl';
 import importProject from './ipc/importProject';
 import ubainstall from './ipc/ubainstall';
 import openProject from './ipc/openProject';
-
-
-
+import init from './ipc/init';
 
 
 const IPC = () => {
@@ -37,31 +34,8 @@ const IPC = () => {
     importProject();//导入uba工程
     ubainstall();//加载初始化安装
     openProject();//初始化选择本地文件夹
+    init();//初始化最佳实践
 
-
-    /**
-     * 初始化最佳实践模板
-     */
-    ipcMain.on('uba::init', async (event, arg) => {
-        let result = await init(arg);
-        if (result.success) {
-            Info('Uba', '下载成功', `项目「${arg.project}」下载完毕`);
-            //TODO : 写入配置文件，文件路径、工程名即可
-            let ubaObj = await readFileJSON(UBA_CONFIG_PATH);
-            let item = {
-                title: arg.project,
-                template: arg.selectName,
-                path: join(arg.upload, arg.project)
-            };
-            ubaObj.workSpace.push(item);
-            writeFileJSON(UBA_CONFIG_PATH, ubaObj);
-            log('项目创建完毕，写入配置文件 发送IPC uba::init::success');
-            event.sender.send('uba::init::success', ubaObj.workSpace);
-        } else {
-            Info('Uba', '下载失败', `项目「${arg.project}」下载失败`);
-            event.sender.send('uba::init::error');
-        }
-    });
     //测试停止命令
     ipcMain.on('uba::run::stop', (event, item) => {
         console.log('接收停止杀进程');
