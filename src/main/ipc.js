@@ -25,6 +25,7 @@ import checkNpm from './ipc/checkNpm';
 import openUrl from './ipc/openUrl';
 import importProject from './ipc/importProject';
 import ubainstall from './ipc/ubainstall';
+import openProject from './ipc/openProject';
 
 
 
@@ -35,19 +36,8 @@ const IPC = () => {
     openUrl();//打开本机默认浏览器
     importProject();//导入uba工程
     ubainstall();//加载初始化安装
+    openProject();//初始化选择本地文件夹
 
-
-    /**
-     * 初始化最佳实践选择的路径，开启FileDialog
-     * 返回：选择文件夹路径
-     */
-    ipcMain.on('uba::openProject', (event, arg) => {
-        let path = (dialog.showOpenDialog({ properties: ['openDirectory'] }));
-        console.log(path);
-        if (path && path.length !== 0) {
-            event.sender.send('uba::openProject::success', path[0]);
-        }
-    });
 
     /**
      * 初始化最佳实践模板
