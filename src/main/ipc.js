@@ -26,6 +26,7 @@ import importProject from './ipc/importProject';
 import ubainstall from './ipc/ubainstall';
 import openProject from './ipc/openProject';
 import init from './ipc/init';
+import stop from './ipc/stop';
 
 
 const IPC = () => {
@@ -35,14 +36,8 @@ const IPC = () => {
     ubainstall();//加载初始化安装
     openProject();//初始化选择本地文件夹
     init();//初始化最佳实践
-
-    //测试停止命令
-    ipcMain.on('uba::run::stop', (event, item) => {
-        console.log('接收停止杀进程');
-        // t.killAllTerm();
-        // tasks.killAllTasks();
-        tasks.killTasksPath(item.path);
-    });
+    stop();//停止任务命令
+    
     /**
      * 启动调试服务
      */
