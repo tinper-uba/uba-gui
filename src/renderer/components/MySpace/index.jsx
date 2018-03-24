@@ -35,20 +35,18 @@ ipc.on('uba::run::build::on', (event, log) => {
 /**
  * 接收构建end消息
  */
-ipc.on('uba::run::build::end', (event, log, code) => {
-    // console.log(log,code);
-    message.success(log);
+ipc.on('uba::run::build::end', (event, log, msg) => {
+    message.success(msg);
 });
 /**
  * 接收调试on消息
  */
-ipc.on('uba::run::dev::on', (event, log,term) => {
+ipc.on('uba::run::dev::on', (event, log) => {
     // console.log(log)
     actions.my.setCmdLog(ansiHTML(log.toString().replace(/\n/g, '<br>')));
     if (ele.offsetHeight > prt.clientHeight) {
         prt.scrollTop = ele.clientHeight - prt.clientHeight;
     }
-    console.log(term)
 });
 
 ipc.on('uba::log', (event, log) => {

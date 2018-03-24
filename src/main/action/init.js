@@ -13,7 +13,7 @@ import download from 'download-git-repo';
  * @param {string} argv.selectName 仓库信息uba-templates repo
  * @param {string} argv.upload 指定路径客户端传来的本机不同平台
  */
-const Init = (argv) => {
+export default (argv) => {
     let { project, selectName, upload } = argv;
     console.log(`start download ${selectName}`);
     return new Promise((resolve, reject) => {
@@ -26,5 +26,3 @@ const Init = (argv) => {
         });
     });
 }
-
-export default Init;

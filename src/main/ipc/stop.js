@@ -18,7 +18,7 @@ export default () => {
     ipcMain.on('uba::run::stop', (event, item) => {
         if (tasks.killTasksPath(item.path)) {
             //任务成功杀死发送消息
-            event.sender.send('uba::run::stop::success');
+            //event.sender.send('uba::run::stop::success');
         } else {
             //任务操作失败，是由于路径错误没有找到任务
             event.sender.send('uba::run::stop::error');

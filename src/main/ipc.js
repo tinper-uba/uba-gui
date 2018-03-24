@@ -27,7 +27,9 @@ import ubainstall from './ipc/ubainstall';
 import openProject from './ipc/openProject';
 import init from './ipc/init';
 import stop from './ipc/stop';
-
+import ubaserver from './ipc/ubaserver';
+import openFolder from './ipc/openFolder';
+import ubabuild from './ipc/ubabuild';
 
 const IPC = () => {
     checkNpm();//内网npm环境检测
@@ -37,81 +39,10 @@ const IPC = () => {
     openProject();//初始化选择本地文件夹
     init();//初始化最佳实践
     stop();//停止任务命令
-    
-    /**
-     * 启动调试服务
-     */
-    ipcMain.on('uba::run::dev', (event, item) => {
-        log(`接收启动调试消息 调试目录 ${item.path}`);
-        event.sender.send('uba::log', env);
-        let logtmp = '';
-        const term = fork(UBA_BIN_PATH, ['server', '--noProcess', '--chunks', '--logLevel', 'info'], {
-            silent: true,
-            cwd: item.path,
-            env: env,
-            detached: true
-        });
-        term.stdout.on('data', data => {
-            logtmp += data.toString();
-            event.sender.send('uba::run::dev::on', logtmp, term);
-            // event.sender.send('uba::log', logtmp);
-            // console.log(logtmp);
-        });
-        term.stderr.on('data', data => {
-            // console.log(data.toString());
-            // logtmp += data.toString();
-            // event.sender.send('uba::run::build::end', data);
-            event.sender.send('uba::log', data.toString());
-        });
+    ubaserver();//调试服务
+    openFolder();//资源定位
+    ubabuild();//构建静态资源服务
 
-        term.on('exit', (code) => {
-            console.log(code);
-            event.sender.send('uba::run::dev::end', `命令执行完成`, code);
-            event.sender.send('uba::log', code);
-            // Info('Uba', `命令完毕`, `code:${code} log:${logtmp}`);
-        });
-
-        // t.addTerm(term, item);
-        tasks.addTasks(term, item);
-    });
-
-    /**
-     * 启动构建服务
-     */
-    ipcMain.on('uba::run::build', (event, item) => {
-        log(`接收构建消息 构建目录 ${item.path}`);
-        let logtmp = '';
-        const term = fork(UBA_BIN_PATH, ['build'], {
-            silent: true,
-            cwd: item.path,
-            env: env,
-            detached: true
-        });
-
-        term.stdout.on('data', data => {
-            logtmp += data.toString();
-            event.sender.send('uba::run::build::on', (logtmp));
-            // console.log(logtmp);
-        });
-        term.stderr.on('data', data => {
-            // console.log(data.toString());
-            // logtmp += data.toString();
-            // event.sender.send('uba::run::build::end', data);
-        });
-
-        term.on('exit', (code) => {
-            console.log(code);
-            event.sender.send('uba::run::build::end', `命令执行完成`, code);
-            // Info('Uba', `命令完毕`, `code:${code} log:${logtmp}`);
-        });
-    });
-
-    /**
-     * 打开本地指定的文件夹
-     */
-    ipcMain.on('uba::open::folder', (event, arg) => {
-        shell.showItemInFolder(arg);
-    });
 
     /**
      * 检查本地是否有uba配置文件，没有创建，有就读取

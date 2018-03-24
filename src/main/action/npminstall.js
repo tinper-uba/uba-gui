@@ -18,8 +18,8 @@ import env from 'main/env';
  * @param {string} argv.registry 镜像源
  * @param {promise} Promise 
  */
-const Npminstall = (event, argv) => {
-    let npmLog,npmLogErr;
+export default (event, argv) => {
+    let npmLog, npmLogErr;
     //组织完整的安装路径
     let installPath = resolve(argv.upload, argv.project);
     console.log('组织完整的安装路径 ' + installPath)
@@ -48,10 +48,8 @@ const Npminstall = (event, argv) => {
             if (code == 0) {
                 resolve({ success: true, code });
             } else {
-                reject({ success: false, code,npmLogErr });
+                reject({ success: false, code, npmLogErr });
             }
         });
     });
 }
-
-export default Npminstall;
