@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Layout, Menu, Icon } from 'antd';
 import { actions } from 'mirrorx';
-import { remote,ipcRenderer } from 'electron';
+import { remote, ipcRenderer } from 'electron';
 
 import './index.less';
 
@@ -17,6 +17,10 @@ const minHandler = () => {
 }
 const maxHandler = () => {
     win.maximize();
+}
+
+const openGithub = () => {
+    ipc.send('uba::openUrl', 'https://github.com/tinper-uba/uba-gui/issues');
 }
 
 class SiderLeft extends Component {
@@ -52,7 +56,7 @@ class SiderLeft extends Component {
                                 <span>设置</span>
                             </Menu.Item> */}
                     <Menu.Item key="4">
-                        <Icon onClick={this.openGithub} type="github" />
+                        <Icon onClick={openGithub} type="github" />
                         <span>反馈</span>
                     </Menu.Item>
                 </Menu>

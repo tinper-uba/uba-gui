@@ -64,12 +64,6 @@ ipc.on('uba::run::dev::end', (event, log, code) => {
 
 class MySpace extends Component {
     /**
-     * 打开反馈浏览器
-     */
-    openGithub = () => {
-        ipc.send('uba::openUrl', 'https://github.com/tinper-uba/uba-gui/issues');
-    }
-    /**
      * 执行调试
      */
     npmRun = (item) => () => {
