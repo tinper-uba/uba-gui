@@ -51,7 +51,7 @@
   },
   "license": "MIT",
   "dependencies": {
-    "antd": "^3.3.1",
+    "antd": "^3.3.3",
     "axios": "^0.18.0",
     "mirrorx": "^0.2.10",
     "react": "^16.2.0",
