@@ -101,39 +101,6 @@ class MySpace extends Component {
         return (
             <div className="uba-my-space">
                 <Layout>
-                    <Sider
-                        trigger={null}
-                        collapsible
-                        defaultCollapsed={true}
-                        collapsed={true}
-                        style={{ "marginRight": "3px" }}
-                    >
-                        <Logo />
-                        <Menu
-                            style={{
-                                "position": "absolute",
-                                "bottom": 0
-                            }}
-                            theme="light"
-                            mode="inline">
-                            <Menu.Item key="1">
-                                <Icon onClick={() => { actions.routing.push('init') }} type="plus-circle-o" />
-                                <span>新建项目</span>
-                            </Menu.Item>
-                            <Menu.Item key="2">
-                                <Icon onClick={() => { ipc.send('uba::import') }} type="upload" />
-                                <span>导入项目</span>
-                            </Menu.Item>
-                            {/* <Menu.Item key="3">
-                                <Icon type="setting" />
-                                <span>设置</span>
-                            </Menu.Item> */}
-                            <Menu.Item key="4">
-                                <Icon onClick={this.openGithub} type="github" />
-                                <span>反馈</span>
-                            </Menu.Item>
-                        </Menu>
-                    </Sider>
                     <Content style={{ "background": "#fff" }}>
                         <List
                             className="uba-project-list"

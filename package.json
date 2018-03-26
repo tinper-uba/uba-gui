@@ -16,8 +16,7 @@
     "pack": "cross-env ELECTRON_MIRROR=https://npm.taobao.org/mirrors/electron/ build --dir",
     "pack:mac": "cross-env ELECTRON_MIRROR=https://npm.taobao.org/mirrors/electron/ build -m",
     "pack:win": "cross-env ELECTRON_MIRROR=https://npm.taobao.org/mirrors/electron/ build -w",
-    "rebuild": "./node_modules/.bin/electron-rebuild  -m ./app",
-    "postinstall": "electron-builder install-app-deps"
+    "rebuild": "./node_modules/.bin/electron-rebuild  -m ./app"
   },
   "keywords": [],
   "build": {

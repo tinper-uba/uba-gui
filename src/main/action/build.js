@@ -15,7 +15,8 @@ import env from 'main/env';
  * @param {string} item.path 启动路径
  */
 export default (event, item) => {
-    let ubaLog, ubaLogErr='';
+    let ubaLog = '';
+    let ubaLogErr = '';
     //切换运行目录
     process.chdir(item.path);
     //创建fork线程执行uba build
@@ -31,7 +32,7 @@ export default (event, item) => {
         event.sender.send('uba::run::build::on', ubaLog);
     });
     ubabuildTerm.stderr.on('data', data => {
-        console.log('uba-error:' + data);
+        // console.log('uba-error:' + data);
         ubaLogErr += data;
     });
 
@@ -43,7 +44,7 @@ export default (event, item) => {
                 resolve({ success: true, code });
                 ubaLog += '构建资源服务完成';
                 event.sender.send('uba::run::build::on', ubaLog);
-                event.sender.send('uba::run::build::end', ubaLog,'构建资源服务完成');
+                event.sender.send('uba::run::build::end', ubaLog, '构建资源服务完成');
             } else {
                 reject({ success: false, code, ubaLogErr });
             }
