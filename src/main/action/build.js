@@ -15,7 +15,7 @@ import env from 'main/env';
  * @param {string} item.path 启动路径
  */
 export default (event, item) => {
-    let ubaLog, ubaLogErr;
+    let ubaLog, ubaLogErr='';
     //切换运行目录
     process.chdir(item.path);
     //创建fork线程执行uba build
