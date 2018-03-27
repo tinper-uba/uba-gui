@@ -1,3 +1,7 @@
+/**
+ * 创建项目左侧助手类
+ */
+
 import React, { Component } from 'react';
 import { Row, Col, Divider, List, Avatar } from 'antd';
 import pkg from '../../../../package.json';
@@ -11,6 +15,9 @@ import welcome_cloud from 'static/welcome_cloud.png';
 import './Helper.less';
 
 class Helper extends Component {
+    openTinper = () => {
+        
+    }
     render() {
         return (
             <div className="helper-wrap">
@@ -23,32 +30,32 @@ class Helper extends Component {
                         <div className="version">Version {pkg.version}</div>
                     </Col>
                     <Col span={24} >
-                        <List style={{ "padding": "10px" }} itemLayout="horizontal">
+                        <List style={{ "padding": "40px 10px" }} itemLayout="horizontal">
                             <List.Item>
                                 <List.Item.Meta
                                     avatar={<Avatar shape="square" src={welcome_tutorials} />}
-                                    title={<a href="http://tinper.org">发现新特性</a>}
+                                    title={<a href="javascript:;">发现新特性</a>}
                                     description="来这里看一看有哪些新的特性"
                                 />
                             </List.Item>
                             <List.Item>
                                 <List.Item.Meta
                                     avatar={<Avatar shape="square" src={welcome_news} />}
-                                    title={<a href="http://tinper.org">uba 使用文档</a>}
+                                    title={<a href="javascript:;">uba 使用文档</a>}
                                     description="各种功能介绍和文档"
                                 />
                             </List.Item>
                             <List.Item>
                                 <List.Item.Meta
                                     avatar={<Avatar shape="square" src={welcome_mirror} />}
-                                    title={<a href="http://tinper.org">看看都有哪些新模板?</a>}
+                                    title={<a href="javascript:;">看看都有哪些新模板?</a>}
                                     description="更多的模板等着你"
                                 />
                             </List.Item>
                             <List.Item>
                                 <List.Item.Meta
                                     avatar={<Avatar shape="square" src={welcome_cloud} />}
-                                    title={<a href="http://tinper.org">问答社区</a>}
+                                    title={<a href="javascript:;">问答社区</a>}
                                     description="有任何疑问来这里"
                                 />
                             </List.Item>
