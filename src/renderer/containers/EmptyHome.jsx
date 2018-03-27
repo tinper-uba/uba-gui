@@ -27,9 +27,9 @@ mirror.hook((action, getState) => {
       port: '8081'
     });
     // TODO:检测是否本地有uba配置文件，如果有读取，如果没有创建空的
-    ipc.send('uba::checkLocalUbaConfig', {
-      //uba::view::project
-    });
+    // ipc.send('uba::checkLocalUbaConfig', {
+    //   //uba::view::project
+    // });
   }
 });
 

@@ -22,7 +22,7 @@ export default {
             'stage-2',
             'react'
           ],
-          plugins:[
+          plugins: [
             [
               "transform-runtime",
               {
@@ -76,7 +76,7 @@ export default {
           },
         },
       },
-      { test: /\.(?:ico|gif|png|jpg|jpeg|webp)$/, use: 'url-loader' }, // Common Image Formats
+      { test: /\.(?:ico|gif|png|jpg|jpeg|tiff|webp)$/, use: { loader: "url-loader",options:{limit:8196,name:"images/[name].[ext]"} } }, // Common Image Formats
     ],
   },
   output: {
