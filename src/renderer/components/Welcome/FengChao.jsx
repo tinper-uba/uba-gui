@@ -4,22 +4,28 @@ import { Card } from 'antd';
 import './FengChao.less';
 
 const gridStyle = {
-    width: '25%',
-    height:'130px',
+    width: '20%',
+    height:'106px',
     textAlign: 'center',
 };
 
 class FengChao extends Component {
     render() {
         return (
-            <Card title="中后台应用(蜂巢)">
-                <Card.Grid style={gridStyle}>Content</Card.Grid>
-                <Card.Grid style={gridStyle}>Content</Card.Grid>
-                <Card.Grid style={gridStyle}>Content</Card.Grid>
-                <Card.Grid style={gridStyle}>Content</Card.Grid>
-                <Card.Grid style={gridStyle}>Content</Card.Grid>
-                <Card.Grid style={gridStyle}>Content</Card.Grid>
-                <Card.Grid style={gridStyle}>Content</Card.Grid>
+            <Card className="fengchao-wrap" title="中后台应用(蜂巢)">
+                <Card.Grid style={gridStyle}>123</Card.Grid>
+                <Card.Grid style={gridStyle}></Card.Grid>
+                <Card.Grid style={gridStyle}></Card.Grid>
+                <Card.Grid style={gridStyle}></Card.Grid>
+                <Card.Grid style={gridStyle}></Card.Grid>
+                <Card.Grid style={gridStyle}></Card.Grid>
+                <Card.Grid style={gridStyle}></Card.Grid>
+                <Card.Grid style={gridStyle}></Card.Grid>
+                <Card.Grid style={gridStyle}></Card.Grid>
+                <Card.Grid style={gridStyle}></Card.Grid>
+                <Card.Grid style={gridStyle}></Card.Grid>
+                <Card.Grid style={gridStyle}></Card.Grid>
+                <Card.Grid style={gridStyle}></Card.Grid>
             </Card>
         );
     }
