@@ -19,6 +19,7 @@ mirror.hook((action, getState) => {
     //   ip: '172.16.75.107',
     //   port: '8081'
     // });
+    actions.welcome.getRemoteConfigTemplates();
   }
 });
 

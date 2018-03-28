@@ -20,6 +20,10 @@ export default {
             actions.routing.push({
                 pathname: '/'
             });
+        },
+        async getRemoteConfigTemplates(){
+            let {data : list} = await api.getProjectTemplates();
+            actions.welcome.save({list:list.project});
         }
     }
 }

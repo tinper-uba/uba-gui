@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-const repos = 'https://api.github.com/users/uba-templates/repos';
+const remoteUrl = 'https://raw.githubusercontent.com/tinper-uba/uba-gui/develop/project.json';
 
-export function get(){
-    return axios.get(repos);
+export function getProjectTemplates(){
+    return axios.get(remoteUrl);
 }

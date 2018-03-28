@@ -12,7 +12,6 @@ import './CreateProject.less';
 
 class CreateProject extends Component {
     render() {
-        console.log(this.props)
         return (
             <div className="create-project-wrap">
                 <Row className="tabs-center tabs-padding">
