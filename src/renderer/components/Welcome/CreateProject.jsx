@@ -12,6 +12,7 @@ import './CreateProject.less';
 
 class CreateProject extends Component {
     render() {
+        let { selectProject } = this.props;
         return (
             <div className="create-project-wrap">
                 <Row className="tabs-center tabs-padding">
@@ -28,10 +29,10 @@ class CreateProject extends Component {
                 </Row>
                 <Row className="tabs-right">
                     <Col className="select-item" span={12}>
-                        <span>已选择：</span><Tag color="blue">空</Tag>
+                        <span>已选择：</span><Tag color="blue">{selectProject.title}</Tag>
                     </Col>
                     <Col span={12}>
-                        <Button className="btn" type="primary">下一步</Button>
+                        <Button disabled={!selectProject.repositories} className="btn" type="primary">下一步</Button>
                     </Col>
                 </Row>
             </div>

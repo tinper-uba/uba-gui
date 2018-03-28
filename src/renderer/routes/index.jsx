@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Switch, Route } from 'mirrorx';
-import EmptyHome from 'containers/EmptyHome';
-import Init from 'containers/Init';
-import MySpace from 'containers/MySpace';
+// import EmptyHome from 'containers/EmptyHome';
+// import Init from 'containers/Init';
+// import MySpace from 'containers/MySpace';
 import Welcome from 'containers/Welcome';
 
 

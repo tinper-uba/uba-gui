@@ -5,17 +5,18 @@
 import React, { Component } from 'react';
 import mirror, { actions, connect } from 'mirrorx';
 import { Card } from 'antd';
-
 import './FengChao.less';
-import thumbnail from 'static/thumbnail.png';
 
 class FengChao extends Component {
+    cardHandler = (item) => () => {
+        actions.welcome.setSelectProject(item);
+    }
     renderProject = (list) => {
         return list.map((item, index) => (
             <Card key={index} title={item.title}>
                 {
                     item.sub.map((subItem, subIndex) => (
-                        <Card.Grid key={subIndex} className="card-item">
+                        <Card.Grid onClick={this.cardHandler(subItem)} key={subIndex} className="card-item">
                             <img className="thumbnail" src={subItem.preview} />
                             <p className="subtitle">{subItem.title}</p>
                         </Card.Grid>
@@ -34,13 +35,6 @@ class FengChao extends Component {
                 {
                     list.length !== 0 && this.renderProject(list)
                 }
-
-                {/* <Card title="中后台应用(蜂巢)">
-                    <Card.Grid className="card-item">
-                        <img className="thumbnail" src={thumbnail} />
-                        <p className="subtitle">蜂巢业务系统</p>
-                    </Card.Grid>
-                </Card> */}
             </div>
         );
     }

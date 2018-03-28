@@ -5,7 +5,9 @@ export default {
     name: "welcome",
     initialState: {
         list: [],
-        selectProject: ""
+        selectProject: {
+            title : "空"
+        }
     },
     reducers: {
         save(state, data) {
@@ -21,9 +23,12 @@ export default {
                 pathname: '/'
             });
         },
-        async getRemoteConfigTemplates(){
+        async getRemoteConfigTemplates(data,getState){
             let {data : list} = await api.getProjectTemplates();
             actions.welcome.save({list:list.project});
+        },
+        setSelectProject(data,getState){
+            actions.welcome.save({selectProject:data});
         }
     }
 }
