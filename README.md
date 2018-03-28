@@ -8,7 +8,7 @@
 2. [Windows](https://github.com/tinper-uba/uba-gui/releases/download/v0.0.2/Uba-GUI.Setup.0.0.2.exe)
 3. [Windows绿色版](https://github.com/tinper-uba/uba-gui/releases/download/v0.0.2/Uba-GUI-0.0.2.zip)
 
-
+<img width="930" alt="welcome 2x" src="https://user-images.githubusercontent.com/3817644/38018061-6fec09f0-32a6-11e8-8eb8-881599b65a82.png">
 <img width="750" alt="1" src="https://raw.githubusercontent.com/tinper-uba/uba-gui/master/screenshot/uba-gui.gif">
 
 
