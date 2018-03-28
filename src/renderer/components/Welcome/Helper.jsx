@@ -30,7 +30,7 @@ class Helper extends Component {
                         <div className="version">Version {pkg.version}</div>
                     </Col>
                     <Col span={24} >
-                        <List style={{ "padding": "40px 10px" }} itemLayout="horizontal">
+                        <List style={{ "padding": "40px 25px" }} itemLayout="horizontal">
                             <List.Item>
                                 <List.Item.Meta
                                     avatar={<Avatar shape="square" src={welcome_tutorials} />}

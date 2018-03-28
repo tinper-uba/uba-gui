@@ -3,7 +3,8 @@
  */
 
 import React, { Component } from 'react';
-import { Tabs, Icon, Button, Col, Row } from 'antd';
+import mirror, { actions, connect } from 'mirrorx';
+import { Tabs, Icon, Button, Col, Row,Tag } from 'antd';
 import FengChao from './FengChao';
 const TabPane = Tabs.TabPane;
 
@@ -11,6 +12,7 @@ import './CreateProject.less';
 
 class CreateProject extends Component {
     render() {
+        console.log(this.props)
         return (
             <div className="create-project-wrap">
                 <Row className="tabs-center tabs-padding">
@@ -26,8 +28,11 @@ class CreateProject extends Component {
                     </Col>
                 </Row>
                 <Row className="tabs-right">
-                    <Col>
-                        <Button disabled className="btn" type="primary">下一步</Button>
+                    <Col className="select-item" span={12}>
+                        <span>已选择：</span><Tag color="blue">空</Tag>
+                    </Col>
+                    <Col span={12}>
+                        <Button className="btn" type="primary">下一步</Button>
                     </Col>
                 </Row>
             </div>
@@ -35,4 +40,4 @@ class CreateProject extends Component {
     }
 }
 
-export default CreateProject;
+export default connect((state) => state.welcome)(CreateProject);

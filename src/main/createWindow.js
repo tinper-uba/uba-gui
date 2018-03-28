@@ -12,8 +12,8 @@ import { resolve } from 'path';
 const createWindow = () => {
     // Create the browser window.
     let win = new BrowserWindow({
-        width: 830,
-        height: 530,
+        width: 930,
+        height: 630,
         center: true,
         resizable: false,
         alwaysOnTop: false,

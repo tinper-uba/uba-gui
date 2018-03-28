@@ -1,3 +1,7 @@
+/**
+ * 欢迎界面
+ */
+
 import React, { Component } from 'react';
 import { Layout, Row, Col } from 'antd';
 import Helper from './Helper';
@@ -9,15 +13,15 @@ const { Header, Footer, Sider, Content } = Layout;
 
 class Welcome extends Component {
     render() {
-        console.log(this.props)
+        let { list } = this.props;
         return (
             <Layout className="welcome-wrap">
                 <Content>
                     <Row>
-                        <Col style={{"background":"#4b4b4b","height":"508px"}} span={8}>
+                        <Col style={{ "background": "#4b4b4b", "height": "608px" }} span={7}>
                             <Helper />
                         </Col>
-                        <Col span={16}>
+                        <Col span={17}>
                             <CreateProject />
                         </Col>
                     </Row>

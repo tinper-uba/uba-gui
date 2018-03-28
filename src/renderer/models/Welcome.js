@@ -1,9 +1,11 @@
 import { actions } from 'mirrorx';
+import * as api from 'services/Welcome';
 
 export default {
     name: "welcome",
     initialState: {
-        list: []
+        list: [],
+        selectProject: ""
     },
     reducers: {
         save(state, data) {

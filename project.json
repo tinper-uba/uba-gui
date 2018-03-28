@@ -1,0 +1,15 @@
+{
+    "project": [
+        {
+            "title": "中后台应用(蜂巢)",
+            "sub": [
+                {
+                    "title": "蜂巢业务系统",
+                    "preview": "https://img.alicdn.com/tfs/TB1NKRzdY9YBuNjy0FgXXcxcXXa-1920-1080.png",
+                    "organization": "uba-templates",
+                    "repositories": "template-react-single-pages"
+                }
+            ]
+        }
+    ]
+}
