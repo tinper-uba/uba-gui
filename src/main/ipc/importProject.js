@@ -8,8 +8,9 @@
 
 import { ipcMain, dialog } from 'electron';
 import fs from 'fs';
-import { join } from 'path';
-import { log,readFileJSON } from 'main/util';
+import { join,basename } from 'path';
+import { UBA_CONFIG_PATH } from 'main/path';
+import { log, readFileJSON,writeFileJSON } from 'main/util';
 
 
 export default () => {

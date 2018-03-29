@@ -13,7 +13,6 @@ const { Header, Footer, Sider, Content } = Layout;
 
 class Welcome extends Component {
     render() {
-        let { list } = this.props;
         return (
             <Layout className="welcome-wrap">
                 <Content>

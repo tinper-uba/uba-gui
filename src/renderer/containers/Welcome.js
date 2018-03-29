@@ -19,6 +19,7 @@ mirror.hook((action, getState) => {
     //   ip: '172.16.75.107',
     //   port: '8081'
     // });
+    ipc.send('uba::checkLocalUbaConfig');
     actions.welcome.getRemoteConfigTemplates();
   }
 });

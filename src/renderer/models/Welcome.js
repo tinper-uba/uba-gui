@@ -5,8 +5,9 @@ export default {
     name: "welcome",
     initialState: {
         list: [],
+        historyProject: [],
         selectProject: {
-            title : "空"
+            title: "空"
         }
     },
     reducers: {
@@ -23,12 +24,15 @@ export default {
                 pathname: '/'
             });
         },
-        async getRemoteConfigTemplates(data,getState){
-            let {data : list} = await api.getProjectTemplates();
-            actions.welcome.save({list:list.project});
+        async getRemoteConfigTemplates(data, getState) {
+            let { data: list } = await api.getProjectTemplates();
+            actions.welcome.save({ list: list.project });
         },
-        setSelectProject(data,getState){
-            actions.welcome.save({selectProject:data});
+        setSelectProject(data, getState) {
+            actions.welcome.save({ selectProject: data });
+        },
+        setHistoryProject(data, getState) {
+            actions.welcome.save({ historyProject: data });
         }
     }
 }
