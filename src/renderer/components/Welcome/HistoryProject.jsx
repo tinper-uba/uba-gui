@@ -31,8 +31,8 @@ class HistoryProject extends Component {
     renderHistoryProject = (historyArr) => {
         //https://img.alicdn.com/tfs/TB1tnAWdHSYBuNjSspiXXXNzpXa-1920-1080.png
         return historyArr.map((item, index) => (
-            <Tooltip placement="right" key={index} title={'位置：'+item.path}>
-                <Card.Grid onClick={this.openHistoryHandler(item, index)}  className="card-item card-history">
+            <Tooltip placement="right" key={index} title={'位置：' + item.path}>
+                <Card.Grid onClick={this.openHistoryHandler(item, index)} className="card-item card-history">
                     <img className="thumbnail" src="https://img.alicdn.com/tfs/TB1tnAWdHSYBuNjSspiXXXNzpXa-1920-1080.png" />
                     <p className="subtitle">{item.title}</p>
                 </Card.Grid>
@@ -45,9 +45,11 @@ class HistoryProject extends Component {
             <div className="history-project-wrap">
                 <Card>
                     <Card.Grid className="card-item">
-                        <Icon onClick={() => { ipc.send('uba::import') }} className="plus" type="plus" />
-                        <p>打开现有工程</p>
+                        <Tooltip placement="top"  title="导入现有uba前端工程">
+                            <Icon onClick={() => { ipc.send('uba::import') }} className="plus" type="plus" />
+                        </Tooltip>
                     </Card.Grid>
+
                     {
                         this.renderHistoryProject(historyProject)
                     }

@@ -18,7 +18,7 @@ class CreateProject extends Component {
             <div className="create-project-wrap">
                 <Row className="tabs-center tabs-padding">
                     <Col span={24}>
-                        <Tabs defaultActiveKey="1">
+                        <Tabs defaultActiveKey="2">
                             <TabPane className="tabs-left" tab={<span><Icon type="folder-open" />打开最近项目</span>} key="1">
                                 <HistoryProject />
                             </TabPane>
