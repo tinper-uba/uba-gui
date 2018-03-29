@@ -4,11 +4,12 @@ import * as api from 'services/Welcome';
 export default {
     name: "welcome",
     initialState: {
-        list: [],
-        historyProject: [],
-        selectProject: {
-            title: "空"
+        list: [],//最佳实践远端数据
+        historyProject: [],//本地打开后的历史记录
+        selectProject: {//选择后的状态
+            title: "请从上面列表中选择"
         }
+
     },
     reducers: {
         save(state, data) {

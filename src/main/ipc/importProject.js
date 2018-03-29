@@ -8,9 +8,9 @@
 
 import { ipcMain, dialog } from 'electron';
 import fs from 'fs';
-import { join,basename } from 'path';
+import { join, basename } from 'path';
 import { UBA_CONFIG_PATH } from 'main/path';
-import { log, readFileJSON,writeFileJSON } from 'main/util';
+import { log, readFileJSON, writeFileJSON, isExistPath } from 'main/util';
 
 
 export default () => {
@@ -35,9 +35,14 @@ export default () => {
                         template: "自行导入不存在",
                         path: join(projectPath[0])
                     };
-                    ubaObj.workSpace.push(item);
-                    writeFileJSON(UBA_CONFIG_PATH, ubaObj);
-                    event.sender.send('uba::import::success', ubaObj.workSpace);
+                    //检测不许重复导入
+                    if (!isExistPath(ubaObj.workSpace, item.path)) {
+                        ubaObj.workSpace.push(item);
+                        writeFileJSON(UBA_CONFIG_PATH, ubaObj);
+                        event.sender.send('uba::import::success', ubaObj.workSpace);
+                    } else {
+                        event.sender.send('uba::import::error', '不能重复导入已存在的工程');
+                    }
                 }
             });
         }

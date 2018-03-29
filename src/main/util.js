@@ -3,7 +3,7 @@
  * @author Kvkens(yueming@yonyou.com)
  * @see https://nodejs.org/dist/latest-v8.x/docs/api/path.html
  * @see https://nodejs.org/dist/latest-v8.x/docs/api/os.html
- * @update 2018-03-22 13:40:02
+ * @update 2018-03-29 14:59:48
  */
 
 import { Notification } from 'electron';
@@ -93,4 +93,22 @@ export const log = (text, flag) => {
 export const getNowDate = () => {
     let dt = new Date();
     return (dt.getFullYear() + '-' + dt.getMonth() + '-' + dt.getDay() + ' ' + dt.getHours() + ':' + dt.getMinutes() + ':' + dt.getSeconds());
+}
+
+
+/**
+ * @description 检测路径是否存在
+ * @param {Array} currArray 要检测的数据对象
+ * @param {string} path 要判断的路径
+ * @returns {boolean} true=存在 false=不存在
+ */
+export const isExistPath = (currArray,path) => {
+    let flag = false;
+    for (let i = 0; i < currArray.length; i++) {
+        if (currArray[i].path == path) {
+            flag = true;
+            break;
+        }
+    }
+    return flag;
 }
