@@ -6,6 +6,7 @@ import React, { Component } from 'react';
 import { Layout, Row, Col } from 'antd';
 import Helper from './Helper';
 import CreateProject from './CreateProject';
+import Setting from './Setting';
 
 import './index.less';
 
@@ -13,6 +14,7 @@ const { Header, Footer, Sider, Content } = Layout;
 
 class Welcome extends Component {
     render() {
+        let { initStep } = this.props;
         return (
             <Layout className="welcome-wrap">
                 <Content>
@@ -21,7 +23,8 @@ class Welcome extends Component {
                             <Helper />
                         </Col>
                         <Col span={17}>
-                            <CreateProject />
+                            {initStep == 0 && <CreateProject />}
+                            {initStep == 1 && <Setting />}
                         </Col>
                     </Row>
                 </Content>

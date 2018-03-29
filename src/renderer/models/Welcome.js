@@ -8,7 +8,8 @@ export default {
         historyProject: [],//本地打开后的历史记录
         selectProject: {//选择后的状态
             title: "请从上面列表中选择"
-        }
+        },
+        initStep: 0 //初始化设置步骤 0=选择工程、1=设置项目、2=安装依赖包
 
     },
     reducers: {
@@ -34,6 +35,9 @@ export default {
         },
         setHistoryProject(data, getState) {
             actions.welcome.save({ historyProject: data });
+        },
+        setInitStep(data, getState) {
+            actions.welcome.save({ initStep: data });
         }
     }
 }

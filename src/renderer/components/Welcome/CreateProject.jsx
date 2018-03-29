@@ -29,7 +29,7 @@ class CreateProject extends Component {
                                         <span>已选择：</span><Tag color="blue">{selectProject.title}</Tag>
                                     </Col>
                                     <Col className="tabs-right" span={12}>
-                                        <Button disabled={!selectProject.repositories} className="btn" type="primary">下一步</Button>
+                                        <Button onClick={() => { actions.welcome.setInitStep(1) }} disabled={!selectProject.repositories} className="btn" type="primary">下一步</Button>
                                     </Col>
                                 </Row>
                             </TabPane>
