@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Steps, Icon, Row, Col, Select, Form, Input, Switch } from 'antd';
+import { Steps, Icon, Row, Col, Select, Form, Input, Switch,Button } from 'antd';
 import mirror, { actions, connect } from 'mirrorx';
 const Step = Steps.Step;
 const FormItem = Form.Item;
@@ -9,7 +9,25 @@ import './Setting.less';
 
 class Setting extends Component {
     handleSubmit = () => {
-
+        this.props.form.validateFields((err, values) => {
+            if (!err) {
+                // actions.init.setSetting(values);
+                // actions.init.downGit();
+                // countTimer = 0;
+                // installTimer = setInterval(()=>{
+                //     countTimer++;
+                //     if (countTimer > 95) {
+                //         clearInterval(installTimer);
+                //     }
+                //     actions.init.changeInstallState({
+                //         isFinish:false,
+                //         percent:countTimer,
+                //         processMsg:"正在下载最佳实践",
+                //     });
+                // },1000);
+            }
+        });
+        //actions.welcome.setInitStep(2)
     }
     render() {
         let { initStep } = this.props;
@@ -30,9 +48,9 @@ class Setting extends Component {
                 </Col>
                 <Col span={3}></Col>
             </Row>
-            <Row>
+            <Row className="init-form">
                 <Col span={24}>
-                    <Form className="init-form" onSubmit={this.handleSubmit}>
+                    <Form onSubmit={this.handleSubmit}>
                         <FormItem
                             label="项目名称"
                             labelCol={{ span: 5 }}
@@ -63,7 +81,7 @@ class Setting extends Component {
                             {getFieldDecorator('isInstall', {
                                 valuePropName: 'checked'
                             })(
-                                <Switch />
+                                <Switch checkedChildren={<Icon type="check" />} unCheckedChildren={<Icon type="cross" />} />
                             )}
                         </FormItem>
                         <FormItem
@@ -82,6 +100,16 @@ class Setting extends Component {
                             )}
                         </FormItem>
                     </Form>
+                </Col>
+            </Row>
+            <Row className="opeate">
+                <Col span={24}>
+                <div className="setting-btn">
+                    <Button icon="left-square-o" onClick={()=>{actions.welcome.setInitStep(0)}} >上一步</Button>
+                </div>
+                <div className="setting-btn">
+                    <Button icon="right-square-o" onClick={this.handleSubmit} style={{"marginRight":"10px"}} type="primary">下一步</Button>
+                </div>
                 </Col>
             </Row>
         </div>
