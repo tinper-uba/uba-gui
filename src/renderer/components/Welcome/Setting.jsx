@@ -1,43 +1,40 @@
 import React, { Component } from 'react';
-import { Steps, Icon, Row, Col, Select, Form, Input, Switch,Button } from 'antd';
+import { Steps, Icon, Row, Col, Select, Form, Input, Switch, Button } from 'antd';
 import mirror, { actions, connect } from 'mirrorx';
+import { ipcRenderer } from 'electron';
+import './Setting.less';
+
 const Step = Steps.Step;
 const FormItem = Form.Item;
 const Option = Select.Option;
+const ipc = ipcRenderer;
 
-import './Setting.less';
-
+let setFieldsValue;
+//IPC回应消息
+ipc.on('uba::openProject::success', (event, path) => {
+    // actions.welcome.setProjectPath(path);
+    setFieldsValue({
+        path
+    });
+});
 class Setting extends Component {
     handleSubmit = () => {
         this.props.form.validateFields((err, values) => {
             if (!err) {
-                // actions.init.setSetting(values);
-                // actions.init.downGit();
-                // countTimer = 0;
-                // installTimer = setInterval(()=>{
-                //     countTimer++;
-                //     if (countTimer > 95) {
-                //         clearInterval(installTimer);
-                //     }
-                //     actions.init.changeInstallState({
-                //         isFinish:false,
-                //         percent:countTimer,
-                //         processMsg:"正在下载最佳实践",
-                //     });
-                // },1000);
+                console.log(values);
             }
         });
         //actions.welcome.setInitStep(2)
     }
+    handlerPath = () => {
+        ipc.send('uba::openProject');
+
+    }
     render() {
-        let { initStep } = this.props;
+        let { initStep, setting, selectProject } = this.props;
         const { getFieldDecorator } = this.props.form;
+        setFieldsValue = this.props.form.setFieldsValue;
         return (<div className="setting-wrap">
-            <Row>
-                <Col span={24}>
-                    <span className="new-project">创建新项目</span>
-                </Col>
-            </Row>
             <Row className="steps-init">
                 <Col span={3}></Col>
                 <Col span={18}>
@@ -51,6 +48,18 @@ class Setting extends Component {
             <Row className="init-form">
                 <Col span={24}>
                     <Form onSubmit={this.handleSubmit}>
+                        <FormItem
+                            label="脚手架名称"
+                            labelCol={{ span: 5 }}
+                            wrapperCol={{ span: 15 }}
+                        >
+                            {getFieldDecorator('title', {
+                                rules: [{ required: true, message: '项目名称不能为空' }],
+                                initialValue: selectProject.title
+                            })(
+                                <Input disabled placeholder='请选择脚手架名称' prefix={<Icon type="form" style={{ color: 'rgba(0,0,0,.25)' }} />} />
+                            )}
+                        </FormItem>
                         <FormItem
                             label="项目名称"
                             labelCol={{ span: 5 }}
@@ -70,7 +79,7 @@ class Setting extends Component {
                             {getFieldDecorator('path', {
                                 rules: [{ required: true, message: '请选择本地开发目录' }]
                             })(
-                                <Input disabled placeholder='请选择本地开发目录' addonAfter={<Icon onClick={this.handlerUpload} type="folder-open" />} prefix={<Icon type="setting" style={{ color: 'rgba(0,0,0,.25)' }} />} />
+                                <Input disabled placeholder='请选择本地开发目录' addonAfter={<Icon onClick={this.handlerPath} type="folder-open" />} prefix={<Icon type="setting" style={{ color: 'rgba(0,0,0,.25)' }} />} />
                             )}
                         </FormItem>
                         <FormItem
@@ -79,7 +88,8 @@ class Setting extends Component {
                             wrapperCol={{ span: 15 }}
                         >
                             {getFieldDecorator('isInstall', {
-                                valuePropName: 'checked'
+                                valuePropName: 'checked',
+                                initialValue: true
                             })(
                                 <Switch checkedChildren={<Icon type="check" />} unCheckedChildren={<Icon type="cross" />} />
                             )}
@@ -90,12 +100,13 @@ class Setting extends Component {
                             wrapperCol={{ span: 15 }}
                         >
                             {getFieldDecorator('registry', {
-                                rules: [{ required: true, message: '请选择npm加速镜像' }]
+                                rules: [{ required: true, message: '请选择npm加速镜像' }],
+                                initialValue: setting.registry
                             })(
                                 <Select placeholder="请选择镜像源">
-                                    <Option value="http://registry.npm.taobao.org">http://registry.npm.taobao.org</Option>
-                                    <Option value="http://registry.npmjs.org">http://registry.npmjs.org</Option>
-                                    <Option value="http://172.16.75.107:8081/repository/ynpm-group">用友内网</Option>
+                                    <Option value="https://registry.npm.taobao.org">https://registry.npm.taobao.org</Option>
+                                    <Option value="https://registry.npmjs.org">https://registry.npmjs.org</Option>
+                                    <Option value="http://172.16.75.107:8081/repository/ynpm-group">用友集团内网</Option>
                                 </Select>
                             )}
                         </FormItem>
@@ -104,18 +115,17 @@ class Setting extends Component {
             </Row>
             <Row className="opeate">
                 <Col span={24}>
-                <div className="setting-btn">
-                    <Button icon="left-square-o" onClick={()=>{actions.welcome.setInitStep(0)}} >上一步</Button>
-                </div>
-                <div className="setting-btn">
-                    <Button icon="right-square-o" onClick={this.handleSubmit} style={{"marginRight":"10px"}} type="primary">下一步</Button>
-                </div>
+                    <div className="setting-btn">
+                        <Button icon="left-square-o" onClick={() => { actions.welcome.setInitStep(0) }} >返回</Button>
+                    </div>
+                    <div className="setting-btn">
+                        <Button icon="right-square-o" onClick={this.handleSubmit} style={{ "marginRight": "10px" }} type="primary">安装</Button>
+                    </div>
                 </Col>
             </Row>
         </div>
         );
     }
 }
-// const WrappedRegistrationForm = Form.create()(Setting);
 
 export default connect((state) => state.welcome)(Form.create()(Setting));

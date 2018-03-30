@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import { actions } from 'mirrorx';
 import { Button, notification, message, Layout, List, Avatar, Menu, Icon } from 'antd';
 import { ipcRenderer } from 'electron';
-import LeftMenu from 'components/LeftMenu';
-import Logo from 'components/Logo';
 import ut from 'static/ut.png';
 import ansiHTML from 'ansi-html';
 

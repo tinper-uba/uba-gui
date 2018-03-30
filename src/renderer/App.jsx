@@ -8,7 +8,6 @@ import { Layout, Menu, Icon } from 'antd';
 import { ipcRenderer } from 'electron';
 import pkg from '../../package.json';
 import CloseButton from 'components/CloseButton';
-import LeftMenu from 'components/LeftMenu';
 import SiderLeft from 'components/SiderLeft';
 import Routes from './routes';
 import './App.less';

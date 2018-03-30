@@ -38,7 +38,6 @@ class SiderLeft extends Component {
                     <span title="最小化" onClick={minHandler} className="btn min"></span>
                     <span title="最大化" onClick={maxHandler} className="btn max"></span>
                 </div>
-                {/* <Logo /> */}
                 <Menu
                     className="silder-left-menu"
                     theme="light"
