@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Steps, Icon, Row, Col, Select, Form, Input, Switch, Button } from 'antd';
 import mirror, { actions, connect } from 'mirrorx';
 import { ipcRenderer } from 'electron';
+import Waiting from '../Waiting';
 import './Setting.less';
 
 const Step = Steps.Step;
@@ -22,9 +23,10 @@ class Setting extends Component {
             if (!err) {
                 console.log(values);
                 actions.welcome.setSetting(values);
+                actions.welcome.setInitStep(2)
+                
             }
         });
-        //actions.welcome.setInitStep(2)
     }
     handlerPath = () => {
         ipc.send('uba::openProject');
@@ -47,7 +49,7 @@ class Setting extends Component {
             </Row>
             <Row className="init-form">
                 <Col span={24}>
-                    <Form onSubmit={this.handleSubmit}>
+                    {initStep == 1 && <Form onSubmit={this.handleSubmit}>
                         <FormItem
                             label="脚手架名称"
                             labelCol={{ span: 5 }}
@@ -110,18 +112,28 @@ class Setting extends Component {
                                 </Select>
                             )}
                         </FormItem>
-                    </Form>
+                    </Form>}
+                    {
+                        initStep == 2 && <Waiting />
+                    }
                 </Col>
             </Row>
             <Row className="opeate">
-                <Col span={24}>
+                {initStep == 1 && <Col span={24}>
                     <div className="setting-btn">
                         <Button icon="left-square-o" onClick={() => { actions.welcome.setInitStep(0) }} >返回</Button>
                     </div>
                     <div className="setting-btn">
                         <Button icon="right-square-o" onClick={this.handleSubmit} style={{ "marginRight": "10px" }} type="primary">安装</Button>
                     </div>
-                </Col>
+                </Col>}
+                {
+                   initStep == 2 &&  <Col span={24}>
+                        <div className="setting-btn">
+                            <Button loading icon="right-square-o" onClick={this.handleSubmit} style={{ "marginRight": "10px" }} type="primary">等待</Button>
+                        </div>
+                    </Col>
+                }
             </Row>
         </div>
         );

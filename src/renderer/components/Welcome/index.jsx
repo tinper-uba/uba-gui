@@ -35,8 +35,7 @@ class Welcome extends Component {
                         </Col>
                         <Col span={17}>
                             {initStep == 0 && <CreateProject />}
-                            {initStep == 1 && <Setting />}
-                            {initStep == 2 && <div>下载、安装</div>}
+                            {(initStep == 1 || initStep == 2) && <Setting />}
                         </Col>
                     </Row>
                 </Content>
