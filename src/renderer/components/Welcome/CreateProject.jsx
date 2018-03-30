@@ -13,7 +13,7 @@ import './CreateProject.less';
 
 class CreateProject extends Component {
     render() {
-        let { selectProject } = this.props;
+        let { title,repositories } = this.props;
         return (
             <div className="create-project-wrap">
                 <Row className="tabs-center tabs-padding">
@@ -26,10 +26,10 @@ class CreateProject extends Component {
                                 <FengChao />
                                 <Row>
                                     <Col className="select-item" span={12}>
-                                        <span>已选择：</span><Tag color="blue">{selectProject.title}</Tag>
+                                        <span>已选择：</span><Tag color="blue">{title}</Tag>
                                     </Col>
                                     <Col className="tabs-right" span={12}>
-                                        <Button icon="check-square-o" onClick={() => { actions.welcome.setInitStep(1) }} disabled={!selectProject.repositories} className="btn" type="primary">选择</Button>
+                                        <Button icon="check-square-o" onClick={() => { actions.welcome.setInitStep(1) }} disabled={!repositories} className="btn" type="primary">选择</Button>
                                     </Col>
                                 </Row>
                             </TabPane>

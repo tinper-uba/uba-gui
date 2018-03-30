@@ -12,9 +12,8 @@ const ipc = ipcRenderer;
 let setFieldsValue;
 //IPC回应消息
 ipc.on('uba::openProject::success', (event, path) => {
-    // actions.welcome.setProjectPath(path);
     setFieldsValue({
-        path
+        projectPath : path
     });
 });
 class Setting extends Component {
@@ -22,6 +21,7 @@ class Setting extends Component {
         this.props.form.validateFields((err, values) => {
             if (!err) {
                 console.log(values);
+                actions.welcome.setSetting(values);
             }
         });
         //actions.welcome.setInitStep(2)
@@ -31,7 +31,7 @@ class Setting extends Component {
 
     }
     render() {
-        let { initStep, setting, selectProject } = this.props;
+        let { initStep, setting, title,registry } = this.props;
         const { getFieldDecorator } = this.props.form;
         setFieldsValue = this.props.form.setFieldsValue;
         return (<div className="setting-wrap">
@@ -55,7 +55,7 @@ class Setting extends Component {
                         >
                             {getFieldDecorator('title', {
                                 rules: [{ required: true, message: '项目名称不能为空' }],
-                                initialValue: selectProject.title
+                                initialValue: title
                             })(
                                 <Input disabled placeholder='请选择脚手架名称' prefix={<Icon type="form" style={{ color: 'rgba(0,0,0,.25)' }} />} />
                             )}
@@ -65,8 +65,8 @@ class Setting extends Component {
                             labelCol={{ span: 5 }}
                             wrapperCol={{ span: 15 }}
                         >
-                            {getFieldDecorator('project', {
-                                rules: [{ required: true, message: '项目名称不能为空' }],
+                            {getFieldDecorator('projectName', {
+                                rules: [{ required: true, message: '项目名称不能为空' }]
                             })(
                                 <Input placeholder='请输入您的项目名' prefix={<Icon type="form" style={{ color: 'rgba(0,0,0,.25)' }} />} />
                             )}
@@ -76,7 +76,7 @@ class Setting extends Component {
                             labelCol={{ span: 5 }}
                             wrapperCol={{ span: 15 }}
                         >
-                            {getFieldDecorator('path', {
+                            {getFieldDecorator('projectPath', {
                                 rules: [{ required: true, message: '请选择本地开发目录' }]
                             })(
                                 <Input disabled placeholder='请选择本地开发目录' addonAfter={<Icon onClick={this.handlerPath} type="folder-open" />} prefix={<Icon type="setting" style={{ color: 'rgba(0,0,0,.25)' }} />} />
@@ -87,7 +87,7 @@ class Setting extends Component {
                             labelCol={{ span: 5 }}
                             wrapperCol={{ span: 15 }}
                         >
-                            {getFieldDecorator('isInstall', {
+                            {getFieldDecorator('npmInstall', {
                                 valuePropName: 'checked',
                                 initialValue: true
                             })(
@@ -101,7 +101,7 @@ class Setting extends Component {
                         >
                             {getFieldDecorator('registry', {
                                 rules: [{ required: true, message: '请选择npm加速镜像' }],
-                                initialValue: setting.registry
+                                initialValue: registry
                             })(
                                 <Select placeholder="请选择镜像源">
                                     <Option value="https://registry.npm.taobao.org">https://registry.npm.taobao.org</Option>
