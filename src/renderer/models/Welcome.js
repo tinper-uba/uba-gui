@@ -19,7 +19,10 @@ export default {
         npmInstall: true,//是否自动安装npm包
         registry: "https://registry.npm.taobao.org",//默认的镜像源选择
         initStep: 0, //初始化设置步骤 0=选择工程、1=设置项目、2=安装依赖包
-        scaffold: {}//选择脚手架全部对象信息
+        scaffold: {},//选择脚手架全部对象信息
+        processMsg: "",//进度信息
+        percent: 0,//百分比
+        isFinish: false,//是否完成安装
     },
     reducers: {
         save(state, data) {
@@ -40,7 +43,8 @@ export default {
                 title: data.title,
                 organization: data.organization,
                 repositories: data.repositories,
-                preview: data.preview
+                preview: data.preview,
+                processMsg: `正在下载【${data.title}】脚手架工程中`
             });
         },
         //设置历史记录数据
@@ -70,10 +74,20 @@ export default {
                 registry: 'http://172.16.75.107:8081/repository/ynpm-group'
             });
         },
-        //获得安装的参数共6个
+        //获得安装的参数
         getInitParams(data, getState) {
             let { title, organization, repositories, projectName, projectPath, npmInstall, registry } = getState().welcome;
             return { title, organization, repositories, projectName, projectPath, npmInstall, registry };
+        },
+        //更新安装进度条
+        setUpdateProcessState(data, getState) {
+            let { isFinish, percent, processMsg } = data;
+            actions.welcome.save({
+                isFinish,
+                percent,
+                processMsg
+            });
+            return getState().welcome;
         }
     }
 }

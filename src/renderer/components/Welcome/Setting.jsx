@@ -15,15 +15,32 @@ const Option = Select.Option;
 const ipc = ipcRenderer;
 
 let setFieldsValue;
+let installTimer, countTimer = 0;
 //选择路径后设置路径值
 ipc.on('uba::openProject::success', (event, path) => {
     setFieldsValue({
-        projectPath : path
+        projectPath: path
     });
 });
 //接收下载远端脚手架成功
 ipc.on('uba::init::success', (event, workSpace) => {
-    console.log('uba::init::success',workSpace)
+    actions.welcome.setHistoryProject(workSpace);
+    console.log('uba::init::success', workSpace);
+    countTimer = 100;
+    clearInterval(installTimer);
+    let state = actions.welcome.setUpdateProcessState({
+        isFinish: true,
+        percent: countTimer,
+        processMsg: `脚手架下载成功`,
+    });
+    //判断是否自动安装npminstall
+    if (state.npmInstall) {
+        ipc.send('uba::install', actions.welcome.getInitParams());
+    }
+});
+//uba::install::success
+ipc.on('uba::install::success', () => {
+
 });
 //
 //接收下载远端脚手架失败
@@ -43,9 +60,24 @@ class Setting extends Component {
                 //获得安装信息
                 let params = actions.welcome.getInitParams();
                 //发送IPC执行安装
-                ipc.send('uba::init',params);
-                //actions.welcome.setInitStep(2)
-                
+                ipc.send('uba::init', params);
+                //切换组件到等待
+                actions.welcome.setInitStep(2);
+
+                //启动进度条
+                clearInterval(installTimer);
+                installTimer = setInterval(() => {
+                    countTimer++;
+                    if (countTimer > 95) {
+                        clearInterval(installTimer);
+                    }
+                    actions.welcome.setUpdateProcessState({
+                        isFinish: false,
+                        percent: countTimer,
+                        processMsg: `正在下载【${params.title}】脚手架请稍等`,
+                    });
+                }, 1000);
+
             }
         });
     }
@@ -55,7 +87,7 @@ class Setting extends Component {
 
     }
     render() {
-        let { initStep, setting, title,registry } = this.props;
+        let { initStep, setting, title, registry, processMsg, percent, isFinish } = this.props;
         const { getFieldDecorator } = this.props.form;
         setFieldsValue = this.props.form.setFieldsValue;
         return (<div className="setting-wrap">
@@ -136,7 +168,7 @@ class Setting extends Component {
                         </FormItem>
                     </Form>}
                     {
-                        initStep == 2 && <Waiting />
+                        initStep == 2 && <Waiting processMsg={processMsg} percent={percent} />
                     }
                 </Col>
             </Row>
@@ -150,9 +182,9 @@ class Setting extends Component {
                     </div>
                 </Col>}
                 {
-                   initStep == 2 &&  <Col span={24}>
+                    initStep == 2 && <Col span={24}>
                         <div className="setting-btn">
-                            <Button loading icon="right-square-o" onClick={this.handleSubmit} style={{ "marginRight": "10px" }} type="primary">等待</Button>
+                            <Button loading={!isFinish} icon="right-square-o" style={{ "marginRight": "10px" }} type="primary">{isFinish ? '完成' : '等待'}</Button>
                         </div>
                     </Col>
                 }
