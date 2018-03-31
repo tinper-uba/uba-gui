@@ -36,11 +36,29 @@ ipc.on('uba::init::success', (event, workSpace) => {
     //判断是否自动安装npminstall
     if (state.npmInstall) {
         ipc.send('uba::install', actions.welcome.getInitParams());
+        countTimer = 0;
+        installTimer = setInterval(() => {
+            countTimer++;
+            if (countTimer > 95) {
+                clearInterval(installTimer);
+            }
+            actions.welcome.setUpdateProcessState({
+                isFinish: false,
+                percent: countTimer,
+                processMsg: `正在安装依赖包请稍等`,
+            });
+        }, 1000);
     }
 });
 //uba::install::success
 ipc.on('uba::install::success', () => {
-
+    countTimer = 100;
+    clearInterval(installTimer);
+    let state = actions.welcome.setUpdateProcessState({
+        isFinish: true,
+        percent: countTimer,
+        processMsg: `所有安装已经完毕`,
+    });
 });
 //
 //接收下载远端脚手架失败
