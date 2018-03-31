@@ -1,3 +1,7 @@
+/**
+ * @description 设置
+ */
+
 import React, { Component } from 'react';
 import { Steps, Icon, Row, Col, Select, Form, Input, Switch, Button } from 'antd';
 import mirror, { actions, connect } from 'mirrorx';
@@ -11,23 +15,41 @@ const Option = Select.Option;
 const ipc = ipcRenderer;
 
 let setFieldsValue;
-//IPC回应消息
+//选择路径后设置路径值
 ipc.on('uba::openProject::success', (event, path) => {
     setFieldsValue({
         projectPath : path
     });
 });
+//接收下载远端脚手架成功
+ipc.on('uba::init::success', (event, workSpace) => {
+    console.log('uba::init::success',workSpace)
+});
+//
+//接收下载远端脚手架失败
+ipc.on('uba::init::error', (event) => {
+    console.log('uba::init::error')
+});
+
+
 class Setting extends Component {
+    //安装
     handleSubmit = () => {
         this.props.form.validateFields((err, values) => {
             if (!err) {
                 console.log(values);
+                //写入设置信息
                 actions.welcome.setSetting(values);
-                actions.welcome.setInitStep(2)
+                //获得安装信息
+                let params = actions.welcome.getInitParams();
+                //发送IPC执行安装
+                ipc.send('uba::init',params);
+                //actions.welcome.setInitStep(2)
                 
             }
         });
     }
+    //选择保存位置dialog
     handlerPath = () => {
         ipc.send('uba::openProject');
 

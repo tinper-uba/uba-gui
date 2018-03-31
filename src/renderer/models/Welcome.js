@@ -30,23 +30,13 @@ export default {
         }
     },
     effects: {
-        home() {
-            actions.routing.push({
-                pathname: '/'
-            });
-        },
-        test(data, getState) {
-            let selectProject = { ...getState().welcome.selectProject };
-            selectProject.title = data;
-            actions.welcome.save({ selectProject: selectProject });
-        },
         async getRemoteConfigTemplates(data, getState) {
             let { data: list } = await api.getProjectTemplates();
             actions.welcome.save({ list: list.project });
         },
         //设置选择脚手架信息
         setSelectProject(data, getState) {
-            actions.welcome.save({ 
+            actions.welcome.save({
                 title: data.title,
                 organization: data.organization,
                 repositories: data.repositories,
@@ -65,18 +55,25 @@ export default {
         setRegistry(data, getState) {
             //actions.welcome.save({ setting: { registry: data } });
         },
-        setSetting(data,getState){
+        //安装设置
+        setSetting(data, getState) {
             actions.welcome.save({
                 projectName: data.projectName,
                 projectPath: data.projectPath,
                 npmInstall: data.npmInstall,
-                registry:data.registry
+                registry: data.registry
             });
         },
+        //修改内网npm镜像源
         changeYonyouNpm(data, getState) {
-            actions.init.save({
+            actions.welcome.save({
                 registry: 'http://172.16.75.107:8081/repository/ynpm-group'
             });
+        },
+        //获得安装的参数共6个
+        getInitParams(data, getState) {
+            let { title, organization, repositories, projectName, projectPath, npmInstall, registry } = getState().welcome;
+            return { title, organization, repositories, projectName, projectPath, npmInstall, registry };
         }
     }
 }

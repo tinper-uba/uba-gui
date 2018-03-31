@@ -9,6 +9,8 @@
 import { ipcMain, shell } from 'electron';
 import { log } from 'main/util';
 import npminstall from 'main/action/npminstall';
+// import npminstall from 'main/action/install';
+
 
 
 export default () => {

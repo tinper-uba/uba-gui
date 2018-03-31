@@ -8,16 +8,20 @@
 import download from 'download-git-repo';
 
 /**
- * @description 下载远端最佳实践
- * @param {string} argv.project 下载到指定的文件夹
- * @param {string} argv.selectName 仓库信息uba-templates repo
- * @param {string} argv.upload 指定路径客户端传来的本机不同平台
+    * @description 下载远端最佳实践
+    * @param {string} arg.title 中文脚手架标题
+    * @param {string} arg.organization 下载代码组织
+    * @param {string} arg.repositories 下载代码仓库
+    * @param {string} arg.projectName 文件夹名
+    * @param {string} arg.projectPath 文件路径
+    * @param {string} arg.npmInstall 是否自动安装
+    * @param {string} arg.registry npm镜像源
  */
 export default (argv) => {
-    let { project, selectName, upload } = argv;
-    console.log(`start download ${selectName}`);
+    let { organization, repositories, projectPath, projectName } = argv;
+    console.log(`start download ${organization}-${repositories}`);
     return new Promise((resolve, reject) => {
-        download(`uba-templates/${selectName}`, `${upload}/${project}`, function (err) {
+        download(`${organization}/${repositories}`, `${projectPath}/${projectName}`, function (err) {
             if (err) {
                 reject({ success: false, msg: err });
             } else {

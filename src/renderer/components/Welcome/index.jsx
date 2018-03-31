@@ -3,6 +3,7 @@
  */
 
 import React, { Component } from 'react';
+import mirror, { actions, connect } from 'mirrorx';
 import { Layout, Row, Col } from 'antd';
 import { ipcRenderer } from 'electron';
 import Helper from './Helper';
