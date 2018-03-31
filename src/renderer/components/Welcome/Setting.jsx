@@ -108,7 +108,7 @@ class Setting extends Component {
         ipc.send('uba::openProject');
     }
     render() {
-        let { initStep, setting, title, registry, processMsg, percent, isFinish } = this.props;
+        let { initStep, setting, title,projectPath, registry, processMsg, percent, isFinish } = this.props;
         const { getFieldDecorator } = this.props.form;
         setFieldsValue = this.props.form.setFieldsValue;
         return (<div className="setting-wrap">
@@ -154,7 +154,8 @@ class Setting extends Component {
                             wrapperCol={{ span: 15 }}
                         >
                             {getFieldDecorator('projectPath', {
-                                rules: [{ required: true, message: '请选择本地开发目录' }]
+                                rules: [{ required: true, message: '请选择本地开发目录' }],
+                                initialValue:projectPath
                             })(
                                 <Input disabled placeholder='请选择本地开发目录' addonAfter={<Icon onClick={this.handlerPath} type="folder-open" />} prefix={<Icon type="setting" style={{ color: 'rgba(0,0,0,.25)' }} />} />
                             )}

@@ -20,8 +20,9 @@ ipc.on('uba::import::success', (event, workSpace) => {
 });
 
 //接收本地配置历史记录
-ipc.on('uba::view::project', (event, workSpace) => {
+ipc.on('uba::view::project', (event, workSpace,lastpath) => {
     actions.welcome.setHistoryProject(workSpace);
+    actions.welcome.setLastPath(lastpath);
 });
 
 class HistoryProject extends Component {

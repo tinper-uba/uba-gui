@@ -7,7 +7,7 @@
  */
 
 import { ipcMain, dialog } from 'electron';
-import { log } from 'main/util';
+import { log,setLastPath } from 'main/util';
 
 
 export default () => {
@@ -20,6 +20,7 @@ export default () => {
         let path = dialog.showOpenDialog({ properties: ['openDirectory'] });
         console.log(path);
         if (path && path.length !== 0) {
+            setLastPath(path[0]);
             event.sender.send('uba::openProject::success', path[0]);
         }
     });

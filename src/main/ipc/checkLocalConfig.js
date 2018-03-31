@@ -26,7 +26,7 @@ export default () => {
             log('uba配置存在，读取显示工作区并切换组件');
             //读取项目数据用于发送到前端组件state
             let ubaObj = await readFileJSON(UBA_CONFIG_PATH);
-            event.sender.send('uba::view::project', ubaObj.workSpace);
+            event.sender.send('uba::view::project', ubaObj.workSpace,ubaObj.lastPath);
         } else {
             log('uba配置不存在，创建配置文件');
             //不存在，创建新的配置文件等待下一次读取

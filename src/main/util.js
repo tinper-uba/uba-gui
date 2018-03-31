@@ -10,7 +10,7 @@ import { Notification } from 'electron';
 import is from 'electron-is';
 import fse from 'fs-extra';
 import fs from 'fs';
-import co from 'co';
+import {UBA_CONFIG_PATH} from 'main/path';
 
 //不同平台和开发环境
 export const isDev = is.dev();
@@ -111,4 +111,14 @@ export const isExistPath = (currArray,path) => {
         }
     }
     return flag;
+}
+
+/**
+ * @description 设置最后选择路径
+ * @param {*} lastpath 
+ */
+export const setLastPath = async (lastpath) => {
+    let obj = await readFileJSON(UBA_CONFIG_PATH);
+    obj.lastPath = lastpath;
+    writeFileJSON(UBA_CONFIG_PATH,obj);
 }

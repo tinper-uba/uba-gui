@@ -51,6 +51,10 @@ export default {
         setHistoryProject(data, getState) {
             actions.welcome.save({ historyProject: data });
         },
+        //设置最后保存的路径
+        setLastPath(data,getState){
+            actions.welcome.save({ projectPath: data });
+        },
         //设置steps位置
         setInitStep(data, getState) {
             actions.welcome.save({ initStep: data });
