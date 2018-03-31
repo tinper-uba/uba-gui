@@ -36,7 +36,7 @@ export default () => {
                 projectName: arg.projectName,
                 projectPath: arg.projectPath,
                 registry: arg.registry,
-                template: arg.selectName
+                path: join(arg.projectPath,arg.projectName)
             };
             ubaObj.workSpace.push(item);
             writeFileJSON(UBA_CONFIG_PATH, ubaObj);

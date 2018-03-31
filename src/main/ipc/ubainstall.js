@@ -7,7 +7,7 @@
  */
 
 import { ipcMain, shell } from 'electron';
-import { log } from 'main/util';
+import { log,Info } from 'main/util';
 // import npminstall from 'main/action/npminstall';
 import npminstall from 'main/action/install';
 
@@ -17,18 +17,16 @@ export default () => {
     log('加载模块：模块依赖安装器');
     /**
      * @description uba::install
-     * @param {event} event 上层IPCMain
-     * @param {arg.project} project 文件夹名
-     * @param {arg.registry} registry 镜像源
-     * @param {arg.upload} upload 文件夹路径
+     * @param {string} argv.title 中文脚手架标题
+     * @param {string} argv.organization 下载代码组织
+     * @param {string} argv.repositories 下载代码仓库
+     * @param {string} argv.projectName 文件夹名
+     * @param {string} argv.projectPath 文件路径
+     * @param {string} argv.npmInstall 是否自动安装
+     * @param {string} argv.registry npm镜像源
      */
-    ipcMain.on('uba::install', async (event, arg) => {
+    ipcMain.on('uba::install', (event, arg) => {
         event.sender.send('uba::install::start');
-        let result = await npminstall(event, arg);
-        if (result.success) {
-            event.sender.send('uba::install::success');
-        } else {
-            event.sender.send('uba::install::error', result.npmLogErr, result.code);
-        }
+        npminstall(event, arg);
     });
 }

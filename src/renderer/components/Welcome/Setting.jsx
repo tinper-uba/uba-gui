@@ -66,6 +66,10 @@ ipc.on('uba::init::error', (event) => {
     console.log('uba::init::error')
 });
 
+ipc.on('uba::install::error',(event,err) => {
+    console.log('uba::install::error',err)
+});
+
 
 class Setting extends Component {
     //安装
@@ -102,7 +106,6 @@ class Setting extends Component {
     //选择保存位置dialog
     handlerPath = () => {
         ipc.send('uba::openProject');
-
     }
     render() {
         let { initStep, setting, title, registry, processMsg, percent, isFinish } = this.props;

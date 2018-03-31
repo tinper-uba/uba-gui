@@ -6,6 +6,7 @@
  */
 
 import download from 'download-git-repo';
+import {log} from 'main/util';
 
 /**
     * @description 下载远端最佳实践
@@ -19,7 +20,7 @@ import download from 'download-git-repo';
  */
 export default (argv) => {
     let { organization, repositories, projectPath, projectName } = argv;
-    console.log(`start download ${organization}-${repositories}`);
+    log(`start download ${organization}/${repositories}`);
     return new Promise((resolve, reject) => {
         download(`${organization}/${repositories}`, `${projectPath}/${projectName}`, function (err) {
             if (err) {
