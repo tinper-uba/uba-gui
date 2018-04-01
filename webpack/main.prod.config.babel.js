@@ -14,7 +14,7 @@ export default webpackMerge(base, {
     }),
     new webpack.optimize.ModuleConcatenationPlugin(),
     new CleanWebpackPlugin(['app/main.js'], { root: resolve(__dirname, '..') }),
-    new MinifyPlugin()
+    //new MinifyPlugin()
     // new webpack.optimize.UglifyJsPlugin()
   ],
 });
