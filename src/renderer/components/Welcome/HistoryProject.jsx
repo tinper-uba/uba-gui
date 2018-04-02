@@ -28,6 +28,13 @@ ipc.on('uba::view::project', (event, workSpace,lastpath) => {
 class HistoryProject extends Component {
     openHistoryHandler = (item, index) => () => {
         console.log(item);
+        actions.welcome.save({
+            projectName : item.projectName,
+            projectPath : item.projectPath,
+            repositories : item.repositories,
+            organization : item.organization,
+            registry : item.registry
+        });
     }
     renderHistoryProject = (historyArr) => {
         //https://img.alicdn.com/tfs/TB1tnAWdHSYBuNjSspiXXXNzpXa-1920-1080.png
