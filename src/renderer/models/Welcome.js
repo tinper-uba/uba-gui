@@ -3,6 +3,7 @@
  */
 
 import { actions } from 'mirrorx';
+import { ipcRenderer, remote } from 'electron';
 import * as api from 'services/Welcome';
 
 export default {
@@ -52,7 +53,7 @@ export default {
             actions.welcome.save({ historyProject: data });
         },
         //设置最后保存的路径
-        setLastPath(data,getState){
+        setLastPath(data, getState) {
             actions.welcome.save({ projectPath: data });
         },
         //设置steps位置
@@ -75,7 +76,7 @@ export default {
         //修改内网npm镜像源
         changeYonyouNpm(data, getState) {
             actions.welcome.save({
-                registry: 'http://172.16.75.107:8081/repository/ynpm-group'
+                registry: 'http://172.16.75.107:8081/repository/ynpm-group/'
             });
         },
         //获得安装的参数
@@ -92,6 +93,13 @@ export default {
                 processMsg
             });
             return getState().welcome;
+        },
+        //安装完成后的
+        finish(data, getState) {
+            actions.welcome.setInitStep(0);
+            let win = remote.getGlobal('win');
+            win.maximize();
+            actions.routing.push('main');
         }
     }
 }

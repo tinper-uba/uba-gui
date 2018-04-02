@@ -20,11 +20,10 @@ const App = () => (
   <Router>
     <div>
       <Layout style={{ marginLeft: 0 }}>
-      <CloseButton isClose={true} isMin={true} isMax={true} />
+      {/* <CloseButton isClose={true} isMin={true} isMax={true} /> */}
         <Content style={{ margin: '0', overflow: 'initial' }}>
-          <Header className="titlebar" >
-            {/* <div className="version">v{pkg.version}</div> */}
-          </Header>
+          {/* <Header className="titlebar" >
+          </Header> */}
           <div style={{ padding: 0, background: '#fff' }}>
             <Routes />
           </div>

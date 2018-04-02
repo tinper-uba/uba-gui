@@ -13,18 +13,20 @@ const createWindow = () => {
     // Create the browser window.
     let win = new BrowserWindow({
         width: 930,
+        minWidth: 930,
         height: 630,
+        minHeight: 630,
         center: true,
-        resizable: false,
+        resizable: true,
         alwaysOnTop: false,
-        frame: false,
+        frame: true,
         // titleBarStyle: 'hidden',
         skipTaskbar: false
     });
     if (__isDev__) {
         win.loadURL('http://localhost:9000/index.html');
         BrowserWindow.addDevToolsExtension('/Users/kvkens/Library/Application Support/Google/Chrome/Default/Extensions/fmkadmapgofadopljbjfkapdkoienihi/3.2.1_0');
-        BrowserWindow.addDevToolsExtension('/Users/kvkens/Library/Application Support/Google/Chrome/Default/Extensions/lmhkpmbekcpmknklioeibfkpmmfibljd/2.15.2_0');    
+        BrowserWindow.addDevToolsExtension('/Users/kvkens/Library/Application Support/Google/Chrome/Default/Extensions/lmhkpmbekcpmknklioeibfkpmmfibljd/2.15.2_0');
         // Open the DevTools.
         win.webContents.openDevTools();
     } else {
@@ -39,8 +41,8 @@ const createWindow = () => {
     win.on('closed', () => {
         win = null;
     });
-    global.win = win;    
-        return win;
-    }
+    global.win = win;
+    return win;
+}
 
 export default createWindow;

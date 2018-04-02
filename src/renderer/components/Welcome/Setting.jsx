@@ -5,7 +5,7 @@
 import React, { Component } from 'react';
 import { Steps, Icon, Row, Col, Select, Form, Input, Switch, Button } from 'antd';
 import mirror, { actions, connect } from 'mirrorx';
-import { ipcRenderer } from 'electron';
+import { ipcRenderer, remote } from 'electron';
 import Waiting from '../Waiting';
 import './Setting.less';
 
@@ -107,6 +107,10 @@ class Setting extends Component {
     handlerPath = () => {
         ipc.send('uba::openProject');
     }
+    //安装完成
+    handlerFinish = () => {
+        actions.welcome.finish();
+    }
     render() {
         let { initStep, setting, title, projectPath, registry, processMsg, percent, isFinish } = this.props;
         const { getFieldDecorator } = this.props.form;
@@ -184,7 +188,7 @@ class Setting extends Component {
                                 <Select placeholder="请选择镜像源">
                                     <Option value="https://registry.npm.taobao.org">https://registry.npm.taobao.org</Option>
                                     <Option value="https://registry.npmjs.org">https://registry.npmjs.org</Option>
-                                    <Option value="http://172.16.75.107:8081/repository/ynpm-group">用友集团内网</Option>
+                                    <Option value="http://172.16.75.107:8081/repository/ynpm-group/">用友集团内网</Option>
                                 </Select>
                             )}
                         </FormItem>
@@ -206,7 +210,7 @@ class Setting extends Component {
                 {
                     initStep == 2 && <Col span={24}>
                         <div className="setting-btn">
-                            <Button onClick={() => { actions.welcome.setInitStep(0) }} loading={!isFinish} icon="right-square-o" style={{ "marginRight": "10px" }} type="primary">{isFinish ? '完成' : '等待'}</Button>
+                            <Button onClick={this.handlerFinish} loading={!isFinish} icon="right-square-o" style={{ "marginRight": "10px" }} type="primary">{isFinish ? '完成' : '等待'}</Button>
                         </div>
                     </Col>
                 }

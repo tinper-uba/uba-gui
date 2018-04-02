@@ -6,6 +6,6 @@ import axios from 'axios';
 
 const remoteUrl = 'https://raw.githubusercontent.com/tinper-uba/uba-gui/develop/project.json';
 
-export function getProjectTemplates(){
+export function get(){
     return axios.get(remoteUrl);
 }
