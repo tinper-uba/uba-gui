@@ -66,8 +66,8 @@ ipc.on('uba::init::error', (event) => {
     console.log('uba::init::error')
 });
 
-ipc.on('uba::install::error',(event,err) => {
-    console.log('uba::install::error',err)
+ipc.on('uba::install::error', (event, err) => {
+    console.log('uba::install::error', err)
 });
 
 
@@ -108,7 +108,7 @@ class Setting extends Component {
         ipc.send('uba::openProject');
     }
     render() {
-        let { initStep, setting, title,projectPath, registry, processMsg, percent, isFinish } = this.props;
+        let { initStep, setting, title, projectPath, registry, processMsg, percent, isFinish } = this.props;
         const { getFieldDecorator } = this.props.form;
         setFieldsValue = this.props.form.setFieldsValue;
         return (<div className="setting-wrap">
@@ -155,7 +155,7 @@ class Setting extends Component {
                         >
                             {getFieldDecorator('projectPath', {
                                 rules: [{ required: true, message: '请选择本地开发目录' }],
-                                initialValue:projectPath
+                                initialValue: projectPath
                             })(
                                 <Input disabled placeholder='请选择本地开发目录' addonAfter={<Icon onClick={this.handlerPath} type="folder-open" />} prefix={<Icon type="setting" style={{ color: 'rgba(0,0,0,.25)' }} />} />
                             )}
@@ -206,7 +206,7 @@ class Setting extends Component {
                 {
                     initStep == 2 && <Col span={24}>
                         <div className="setting-btn">
-                            <Button loading={!isFinish} icon="right-square-o" style={{ "marginRight": "10px" }} type="primary">{isFinish ? '完成' : '等待'}</Button>
+                            <Button onClick={() => { actions.welcome.setInitStep(0) }} loading={!isFinish} icon="right-square-o" style={{ "marginRight": "10px" }} type="primary">{isFinish ? '完成' : '等待'}</Button>
                         </div>
                     </Col>
                 }
