@@ -35,6 +35,7 @@ class HistoryProject extends Component {
             organization : item.organization,
             registry : item.registry
         });
+        actions.welcome.finish();
     }
     renderHistoryProject = (historyArr) => {
         //https://img.alicdn.com/tfs/TB1tnAWdHSYBuNjSspiXXXNzpXa-1920-1080.png

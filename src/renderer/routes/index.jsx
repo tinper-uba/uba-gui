@@ -13,7 +13,7 @@ class Routes extends Component {
         return (
             <Switch>
                 <Route exact path="/" component={Welcome} />
-                <Route exact path="/main" component={MainPanel} />
+                <Route path="/main" component={MainPanel} />
             </Switch>
         );
     }
