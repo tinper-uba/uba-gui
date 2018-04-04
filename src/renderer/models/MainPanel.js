@@ -8,7 +8,7 @@ import * as api from 'services/MainPanel';
 export default {
     name: "main",
     initialState: {
-
+        toolbarHeight : 0
     },
     reducers: {
         save(state, data) {
