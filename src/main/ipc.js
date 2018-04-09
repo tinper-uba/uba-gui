@@ -31,6 +31,8 @@ import ubaserver from './ipc/ubaserver';
 import openFolder from './ipc/openFolder';
 import ubabuild from './ipc/ubabuild';
 import checkLocalConfig from './ipc/checkLocalConfig';
+import other from './ipc/other';
+
 
 
 const IPC = () => {
@@ -45,6 +47,7 @@ const IPC = () => {
     openFolder();//资源定位
     ubabuild();//构建静态资源服务
     checkLocalConfig();//检查uba配置文件
+    other();
 }
 
 export default IPC;

@@ -20,7 +20,7 @@ ipc.on('uba::import::success', (event, workSpace) => {
 });
 
 //接收本地配置历史记录
-ipc.on('uba::view::project', (event, workSpace,lastpath) => {
+ipc.on('uba::view::project', (event, workSpace, lastpath) => {
     actions.welcome.setHistoryProject(workSpace);
     actions.welcome.setLastPath(lastpath);
 });
@@ -29,12 +29,13 @@ class HistoryProject extends Component {
     openHistoryHandler = (item, index) => () => {
         console.log(item);
         actions.welcome.save({
-            projectName : item.projectName,
-            projectPath : item.projectPath,
-            repositories : item.repositories,
-            organization : item.organization,
-            registry : item.registry
+            projectName: item.projectName,
+            projectPath: item.projectPath,
+            repositories: item.repositories,
+            organization: item.organization,
+            registry: item.registry
         });
+        ipc.send('uba::config::write', `${item.projectPath}/${item.projectName}`);
         actions.welcome.finish();
     }
     renderHistoryProject = (historyArr) => {
@@ -54,7 +55,7 @@ class HistoryProject extends Component {
             <div className="history-project-wrap">
                 <Card>
                     <Card.Grid className="card-item">
-                        <Tooltip placement="top"  title="导入现有uba前端工程">
+                        <Tooltip placement="top" title="导入现有uba前端工程">
                             <Icon onClick={() => { ipc.send('uba::import') }} className="plus" type="plus" />
                         </Tooltip>
                     </Card.Grid>

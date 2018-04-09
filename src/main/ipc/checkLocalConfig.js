@@ -33,6 +33,7 @@ export default () => {
             let ubaObj = {
                 name: "uba-gui",
                 time: getNowDate(),
+                runProject:"",
                 lastPath: "",
                 workSpace: []
             };
