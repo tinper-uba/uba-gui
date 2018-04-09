@@ -99,7 +99,7 @@ export default {
             actions.welcome.setInitStep(0);
             let win = remote.getGlobal('win');
             win.maximize();
-            actions.routing.push('main');
+            actions.routing.push('main/welcome');
         }
     }
 }
