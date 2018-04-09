@@ -5,4 +5,4 @@ app/*
 npm-debug.log
 .idea/
 *.iml
-
+package-lock.json
