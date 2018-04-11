@@ -36,7 +36,7 @@ class MockData extends Component {
     render() {
         let { toolbarHeight } = this.props;
         return (
-            <webview style={{ 'height': toolbarHeight }} id="foo" src="https://mock.yonyoucloud.com/"></webview>
+            <webview useragent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.181 Safari/537.36" style={{ 'height': toolbarHeight }} id="foo" src="https://mock.yonyoucloud.com/"></webview>
         );
     }
 }
