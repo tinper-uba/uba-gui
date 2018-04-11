@@ -8,6 +8,7 @@
 import { BrowserWindow, app } from 'electron';
 import { format } from 'url';
 import { resolve } from 'path';
+import { clearScreenDown } from 'readline';
 
 const createWindow = () => {
     // Create the browser window.
