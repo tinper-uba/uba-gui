@@ -3,6 +3,7 @@
  */
 
 import React, { Component } from 'react';
+import path from 'path';
 import { Card, Icon, message, Tooltip } from 'antd';
 import mirror, { actions, connect } from 'mirrorx';
 import { ipcRenderer } from 'electron';
@@ -35,9 +36,12 @@ class HistoryProject extends Component {
             organization: item.organization,
             registry: item.registry
         });
-        ipc.send('uba::config::write', 'runProject', `${item.projectPath}/${item.projectName}`);
-        ipc.send('uba::config::write', 'title', `${item.title}`);
-        
+        //ipc.send('uba::config::write', 'runProject', `${item.projectPath}/${item.projectName}`);
+        //ipc.send('uba::config::write', 'title', `${item.title}`);
+        ipc.send('uba::set::config',{
+            runProject : path.join(item.projectPath,item.projectName),
+            title:item.title
+        });
         actions.welcome.finish();
     }
     renderHistoryProject = (historyArr) => {

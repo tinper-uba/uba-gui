@@ -15,21 +15,20 @@ import { log, readFileJSON, writeFileJSON, isExistPath } from 'main/util';
 export default () => {
     log('加载模块：其他IPC消息加载');
     /**
-     * @description uba::config::write
+     * @description uba::set::config
      */
-    ipcMain.on('uba::config::write', async (event, key, value) => {
-        log('接收到写自定义配置', key, value);
+    ipcMain.on('uba::set::config', async (event, kv) => {
+        log('写配置文件');
         let ubaObj = await readFileJSON(UBA_CONFIG_PATH);
-        ubaObj[key] = value;
+        ubaObj = Object.assign(ubaObj,kv);
         writeFileJSON(UBA_CONFIG_PATH, ubaObj);
-        event.sender.send('uba::config::write::success');
     });
     /**
      * @description uba::config::read
      */
-    ipcMain.on('uba::config::read', async (event, key) => {
-        log('接收到读取', key);
+    ipcMain.on('uba::get::config', async (event,key) => {
+        log('读配置文件');
         let ubaObj = await readFileJSON(UBA_CONFIG_PATH);
-        event.sender.send(`uba::config::read::success::${key}`, ubaObj[key]);
+        event.sender.send(`uba::get::config::success::${key}`, ubaObj);
     });
 }

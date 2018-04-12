@@ -20,9 +20,8 @@ window.addEventListener('resize', () => {
     actions.main.save({ toolbarHeight: innerHeight });
 });
 
-ipc.send('uba::config::read', 'title');
-ipc.on('uba::config::read::success::title', (event, title) => {
-    actions.main.save({ title });
+ipc.on('uba::get::config::success::title', (event, obj) => {
+    actions.main.save({ title:obj.title });
 });
 
 class MainPanel extends Component {
@@ -30,6 +29,7 @@ class MainPanel extends Component {
         let innerHeight = 0;
         innerHeight = window.innerHeight - 64;
         actions.main.save({ toolbarHeight: innerHeight });
+        ipc.send('uba::get::config', 'title');        
     }
     render() {
         let { match, toolbarHeight, title } = this.props;
