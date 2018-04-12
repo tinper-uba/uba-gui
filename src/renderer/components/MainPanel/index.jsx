@@ -46,25 +46,37 @@ class MainPanel extends Component {
                     </Row>
                 </Header>
                 <Layout>
-                    <Sider width={130} collapsed={false}>
+                    <Sider width={130} collapsed={true}>
                         <Menu style={{ "height": toolbarHeight }} theme='dark' mode="inline">
                             <Menu.Item key="1">
-                                <Icon className="nav-icon" type="appstore-o" />
-                                <Link className="nav-item" to="/main/project">项目管理</Link>
+                                <Icon onClick={() => actions.routing.push('/main/project')} className="nav-icon" type="appstore-o" />
+                                <span className="nav-item" >项目管理</span>
                             </Menu.Item>
                             <Menu.Item key="2">
-                                <Icon className="nav-icon" type="flag" />
-                                <Link className="nav-item" to="/main/design">应用设计</Link>
+                                <Icon onClick={() => actions.routing.push('/main/design')} className="nav-icon" type="flag" />
+                                <span className="nav-item" to="/main/design">应用设计</span>
                             </Menu.Item>
                             <Menu.Item key="3">
-                                <Icon className="nav-icon" type="folder" />
-                                <Link className="nav-item" to="/main/resource">资源维护</Link>
+                                <Icon onClick={() => actions.routing.push('/main/resource')} className="nav-icon" type="folder" />
+                                <span className="nav-item" to="/main/resource">资源维护</span>
                             </Menu.Item>
                             <Menu.Item key="4">
-                                <Icon className="nav-icon" type="api" />
-                                <Link className="nav-item" to="/main/mock">Mock数据</Link>
+                                <Icon onClick={() => actions.routing.push('/main/mock')} className="nav-icon" type="api" />
+                                <span className="nav-item" to="/main/mock">Mock数据</span>
                             </Menu.Item>
                         </Menu>
+                        <div className="setting-tool">
+                            <Menu theme='dark' mode="inline">
+                                <Menu.Item key="1">
+                                    <Icon type="setting" />
+                                    <span>设置</span>
+                                </Menu.Item>
+                                <Menu.Item key="2">
+                                    <Icon type="question-circle-o" />
+                                    <span>疑问</span>
+                                </Menu.Item>
+                            </Menu>
+                        </div>
                     </Sider>
                     <Content>
                         <Route path={`${match.url}/welcome`} component={Gift} />
