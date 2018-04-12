@@ -5,7 +5,7 @@ import './index.less';
 
 const ipc = ipcRenderer;
 
-ipc.on('uba::test::end', (event,ss) => {
+ipc.on('uba::test::end', (event, ss) => {
     console.log(ss);
 });
 
@@ -13,7 +13,7 @@ class MockData extends Component {
     componentDidMount() {
         let webview = document.querySelector("#foo");
         webview.addEventListener('dom-ready', () => {
-            //webview.openDevTools();
+            // webview.openDevTools();
             // let session = webview.getWebContents().session;
             // session.cookies.get({ url: 'https://mock.yonyoucloud.com/' }, function (error, cookies) {
             //     console.log(cookies);
@@ -25,8 +25,9 @@ class MockData extends Component {
             //     }
             //     console.log(cookieStr);
             // });
-            //ipc.send('uba::test');
-        })
+        });
+        console.log('webview');
+        // ipc.send('uba::test');
         // setTimeout(() => {
         // console.log('mock');
 

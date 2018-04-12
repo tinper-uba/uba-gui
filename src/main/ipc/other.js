@@ -17,19 +17,19 @@ export default () => {
     /**
      * @description uba::config::write
      */
-    ipcMain.on('uba::config::write', async (event, runProject) => {
-        log('接收到写runProject', runProject);
+    ipcMain.on('uba::config::write', async (event, key, value) => {
+        log('接收到写自定义配置', key, value);
         let ubaObj = await readFileJSON(UBA_CONFIG_PATH);
-        ubaObj['runProject'] = runProject;
+        ubaObj[key] = value;
         writeFileJSON(UBA_CONFIG_PATH, ubaObj);
         event.sender.send('uba::config::write::success');
     });
     /**
      * @description uba::config::read
      */
-    ipcMain.on('uba::config::read', async (event) => {
-        log('接收到读取runProject', runProject);
+    ipcMain.on('uba::config::read', async (event, key) => {
+        log('接收到读取', key);
         let ubaObj = await readFileJSON(UBA_CONFIG_PATH);
-        event.sender.send('uba::config::read::success', ubaObj['runProject']);
+        event.sender.send(`uba::config::read::success::${key}`, ubaObj[key]);
     });
 }

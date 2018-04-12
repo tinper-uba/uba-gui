@@ -14,9 +14,12 @@ mirror.model(MainPanelModel);
 
 mirror.hook((action, getState) => {
   const { routing: { location } } = getState();
-  if (action.type === '@@router/LOCATION_CHANGE' && location.pathname === '/main') {
+  if (action.type === '@@router/LOCATION_CHANGE' && location.pathname === '/main/welcome') {
 
   }
+
 });
+
+
 
 export default connect((state) => state.main)(MainPanel);

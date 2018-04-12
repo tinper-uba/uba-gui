@@ -1,5 +1,5 @@
 
-import { ipcMain,session } from 'electron';
+import { ipcMain, session } from 'electron';
 import { log } from 'main/util';
 
 export default () => {
@@ -9,12 +9,13 @@ export default () => {
      * @param {string} item Item
      */
     ipcMain.on('uba::test', (event) => {
-        session.defaultSession.cookies.get({url:'https://mock.yonyoucloud.com/'}, (error, cookies) => {
+        log('接收到uba::test');
+        session.defaultSession.cookies.get({ url: 'https://mock.yonyoucloud.com/' }, (error, cookies) => {
             // console.log(error, cookies);
             for (let i = 0; i < cookies.length; i++) {
-                console.log(cookies[i].name,'=',cookies[i].value);
+                console.log(cookies[i].name, '=', cookies[i].value);
             }
-            event.sender.send('uba::test::end',cookies);
+            event.sender.send('uba::test::end', cookies);
         });
         //_yapi_token
         // session.defaultSession.cookies.set({url:'https://mock.yonyoucloud.com/',name:'_yapi_token',value:''},(error)=>{

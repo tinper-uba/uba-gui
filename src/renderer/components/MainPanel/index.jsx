@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Row, Col, Layout, Menu, Button, Icon } from 'antd';
+import { ipcRenderer } from 'electron';
 import { actions, Switch, Route, Link } from 'mirrorx';
 import Logo from '../Logo';
 import Gift from './Gift';
@@ -9,6 +10,7 @@ import ResourceMaintenance from '../ResourceMaintenance';
 import MockData from '../MockData';
 const { Header, Footer, Sider, Content } = Layout;
 const ButtonGroup = Button.Group;
+const ipc = ipcRenderer;
 import './index.less';
 
 //监听resize动态计算Left高
@@ -18,6 +20,11 @@ window.addEventListener('resize', () => {
     actions.main.save({ toolbarHeight: innerHeight });
 });
 
+ipc.send('uba::config::read', 'title');
+ipc.on('uba::config::read::success::title', (event, title) => {
+    actions.main.save({ title });
+});
+
 class MainPanel extends Component {
     componentDidMount() {
         let innerHeight = 0;
@@ -25,16 +32,16 @@ class MainPanel extends Component {
         actions.main.save({ toolbarHeight: innerHeight });
     }
     render() {
-        let { match, toolbarHeight } = this.props;
+        let { match, toolbarHeight, title } = this.props;
         return (
             <Layout className="main-wrap">
                 <Header style={{ 'borderBottom': '1px solid #ececec' }}>
                     <Row>
-                        <Col span={6}>
+                        <Col span={3}>
                             <Logo />
                         </Col>
-                        <Col span={12}>
-                            <h1></h1>
+                        <Col span={15}>
+                            <h1>{title}</h1>
                         </Col>
                         <Col span={3} style={{ 'textAlign': 'center' }}>
                             <ButtonGroup>

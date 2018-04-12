@@ -35,7 +35,9 @@ class HistoryProject extends Component {
             organization: item.organization,
             registry: item.registry
         });
-        ipc.send('uba::config::write', `${item.projectPath}/${item.projectName}`);
+        ipc.send('uba::config::write', 'runProject', `${item.projectPath}/${item.projectName}`);
+        ipc.send('uba::config::write', 'title', `${item.title}`);
+        
         actions.welcome.finish();
     }
     renderHistoryProject = (historyArr) => {
