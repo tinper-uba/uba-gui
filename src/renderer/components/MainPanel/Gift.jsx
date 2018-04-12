@@ -20,7 +20,6 @@ class Gift extends Component {
                 <Col span={24}>
                     <h2>uba-gui 只为让你离梦想更快一些</h2>
                 </Col>
-
             </Row>
         );
     }

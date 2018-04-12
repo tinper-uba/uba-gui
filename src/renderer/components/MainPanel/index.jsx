@@ -33,14 +33,21 @@ class MainPanel extends Component {
                         <Col span={6}>
                             <Logo />
                         </Col>
-                        <Col span={15}>
+                        <Col span={12}>
                             <h1></h1>
                         </Col>
                         <Col span={3} style={{ 'textAlign': 'center' }}>
                             <ButtonGroup>
-                                <Button icon="question-circle" />
-                                <Button icon="github" />
+                                <Button icon="code-o" />
+                                <Button icon="fork" />
+                                <Button icon="folder-open" />
+                            </ButtonGroup>
+                        </Col>
+                        <Col span={3} style={{ 'textAlign': 'center' }}>
+                            <ButtonGroup>
                                 <Button icon="message" />
+                                <Button icon="github" />
+                                <Button icon="question-circle-o" />
                             </ButtonGroup>
                         </Col>
                     </Row>
