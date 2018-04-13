@@ -99,8 +99,8 @@ export default {
             actions.welcome.setInitStep(0);
             let win = remote.getGlobal('win');
             // win.maximize();
-            win.setSize(1380, 825, true);
-            win.center();
+            // win.setSize(1380, 825, true);
+            // win.center();
             actions.routing.push('main/welcome');
         }
     }

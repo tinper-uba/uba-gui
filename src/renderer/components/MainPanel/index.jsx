@@ -21,7 +21,7 @@ window.addEventListener('resize', () => {
 });
 
 ipc.on('uba::get::config::success::title', (event, obj) => {
-    actions.main.save({ title:obj.title });
+    actions.main.save({ title: obj.title });
 });
 
 class MainPanel extends Component {
@@ -29,10 +29,11 @@ class MainPanel extends Component {
         let innerHeight = 0;
         innerHeight = window.innerHeight - 64;
         actions.main.save({ toolbarHeight: innerHeight });
-        ipc.send('uba::get::config', 'title');        
+        ipc.send('uba::get::config', 'title');
     }
     render() {
-        let { match, toolbarHeight, title } = this.props;
+        let { match, location, toolbarHeight, title } = this.props;
+        console.log(location)
         return (
             <Layout className="main-wrap">
                 <Header style={{ 'borderBottom': '1px solid #ececec' }}>
@@ -41,12 +42,12 @@ class MainPanel extends Component {
                             <Logo />
                         </Col>
                         <Col span={15}>
-                            <h1>{title}</h1>
+                            <h1 style={{ 'fontWeight': '300' }}>{title}</h1>
                         </Col>
                         <Col span={3} style={{ 'textAlign': 'center' }}>
                             <ButtonGroup>
                                 <Button icon="code-o" />
-                                <Button icon="fork" />
+                                <Button icon="edit" />
                                 <Button icon="folder-open" />
                             </ButtonGroup>
                         </Col>
@@ -61,22 +62,22 @@ class MainPanel extends Component {
                 </Header>
                 <Layout>
                     <Sider width={130} collapsed={true}>
-                        <Menu style={{ "height": toolbarHeight }} theme='dark' mode="inline">
-                            <Menu.Item key="1">
+                        <Menu selectedKeys={[location.pathname]} style={{ "height": toolbarHeight }} theme='dark' mode="inline">
+                            <Menu.Item key="/main/project">
                                 <Icon onClick={() => actions.routing.push('/main/project')} className="nav-icon" type="appstore-o" />
                                 <span className="nav-item" >项目管理</span>
                             </Menu.Item>
-                            <Menu.Item key="2">
+                            <Menu.Item key="/main/design">
                                 <Icon onClick={() => actions.routing.push('/main/design')} className="nav-icon" type="flag" />
-                                <span className="nav-item" to="/main/design">应用设计</span>
+                                <span className="nav-item">应用设计</span>
                             </Menu.Item>
-                            <Menu.Item key="3">
+                            <Menu.Item key="/main/resource">
                                 <Icon onClick={() => actions.routing.push('/main/resource')} className="nav-icon" type="folder" />
-                                <span className="nav-item" to="/main/resource">资源维护</span>
+                                <span className="nav-item">资源维护</span>
                             </Menu.Item>
-                            <Menu.Item key="4">
+                            <Menu.Item key="/main/mock">
                                 <Icon onClick={() => actions.routing.push('/main/mock')} className="nav-icon" type="api" />
-                                <span className="nav-item" to="/main/mock">Mock数据</span>
+                                <span className="nav-item">Mock数据</span>
                             </Menu.Item>
                         </Menu>
                         <div className="setting-tool">
