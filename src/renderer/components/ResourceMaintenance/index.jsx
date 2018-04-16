@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Empty from 'components/Empty';
 
 import './index.less';
 
@@ -6,7 +7,7 @@ class ResourceMaintenance extends Component {
     render() {
         return (
             <div>
-                ResourceMaintenance
+                <Empty title="资源维护" />
             </div>
         );
     }
