@@ -33,7 +33,6 @@ class MainPanel extends Component {
     }
     render() {
         let { match, location, toolbarHeight, title } = this.props;
-        console.log(location)
         return (
             <Layout className="main-wrap">
                 <Header style={{ 'borderBottom': '1px solid #ececec' }}>

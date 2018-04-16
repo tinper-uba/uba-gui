@@ -59,6 +59,7 @@
   },
   "devDependencies": {
     "ansi-html": "0.0.7",
+    "ansi-to-html": "^0.6.4",
     "autoprefixer": "^8.1.0",
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.4",

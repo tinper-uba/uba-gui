@@ -16,7 +16,6 @@ import tasks from 'main/tasks';
  * @param {string} item.path 启动路径
  */
 export default (event, item) => {
-    let ubaLog = '';
     let ubaLogErr = '';
     //切换运行目录
     process.chdir(item.path);
@@ -29,8 +28,7 @@ export default (event, item) => {
     });
     ubaserverTerm.stdout.on('data', data => {
         console.log(data.toString())
-        ubaLog += data.toString();
-        event.sender.send('uba::run::dev::on', ubaLog);
+        event.sender.send('uba::run::dev::on', data.toString());
     });
     ubaserverTerm.stderr.on('data', data => {
         console.log('uba-error:' + data);
@@ -44,8 +42,7 @@ export default (event, item) => {
             console.log('貌似结束了uba server     code : ' + code);
             if (code == null) {
                 resolve({ success: true, code });
-                ubaLog += '调试服务已关闭';
-                event.sender.send('uba::run::dev::on', ubaLog);
+                event.sender.send('uba::run::dev::on', '调试服务已关闭');
             } else {
                 reject({ success: false, code, ubaLogErr });
             }
