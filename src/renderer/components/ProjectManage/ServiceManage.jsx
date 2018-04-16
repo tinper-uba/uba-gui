@@ -18,10 +18,32 @@ ipc.on('uba::get::config::success::runProject', (event, obj) => {
     actions.main.save({ runProject: obj['runProject'] });
     runProject = obj['runProject'];
 });
-
+//调试服务日志
 ipc.on('uba::run::dev::on', (event, log) => {
     actions.main.addLog(convert.toHtml(log.replace(/\n/g, '<br>')));
 });
+//调试服务正常停止
+ipc.on('uba::run::stop::success', (event) => {
+    console.log('exit success');
+    actions.main.addLog(convert.toHtml(`调试服务已关闭</br>`));
+    actions.main.save({
+        devBtnLoading: false,
+        stopBtnState:true,
+        stopBtnLoading:false
+    });
+});
+//调试服务正常停止
+ipc.on('uba::run::stop::error', (event) => {
+    console.log('exit error')
+    actions.main.addLog(convert.toHtml("内部启动发生严重错误，请检查项目配置错误信息</br>"));
+    actions.main.save({
+        devBtnLoading: false,
+        stopBtnState: true
+    });
+});
+//uba::run::stop::success
+
+
 
 class ServiceManage extends Component {
     componentDidMount() {
@@ -33,22 +55,30 @@ class ServiceManage extends Component {
         ipc.send('uba::run::dev', {
             path: runProject
         });
-        actions.main.save({ devBtnLoading: true });
+        actions.main.save({ devBtnLoading: true, stopBtnState: false });
     }
-    handlerRunBuild = () => {
-        console.log('handlerRunBuild')
+    handlerRunStop = () => {
+        console.log('handlerRunStop');
+        // actions.main.save({ devBtnLoading: false, stopBtnState: true });
+        actions.main.save({ stopBtnLoading: true });
+        ipc.send('uba::run::stop', {
+            path: runProject
+        });
     }
     handlerClearLog = () => {
         console.log('clean log');
+        actions.main.save({
+            devLog: []
+        });
     }
     render() {
-        let { devLog, toolbarHeight, devBtnLoading, devBtnState, buildBtnState, buildBtnLoading } = this.props;
+        let { devLog, toolbarHeight, devBtnLoading, devBtnState, stopBtnState, stopBtnLoading } = this.props;
         return (
             <Row className="service-wrap">
                 <Col span={24}>
                     <ButtonGroup className="opeate-tool">
                         <Button onClick={this.handlerRunDev} icon="rocket" disabled={devBtnState} loading={devBtnLoading} >启&nbsp;动</Button>
-                        <Button onClick={this.handlerRunBuild} icon="close-circle-o" disabled={buildBtnState} loading={buildBtnLoading}>停&nbsp;止</Button>
+                        <Button onClick={this.handlerRunStop} icon="close-circle-o" disabled={stopBtnState} loading={stopBtnLoading}>停&nbsp;止</Button>
                         <Button onClick={this.handlerClearLog} icon="delete" >清&nbsp;空</Button>
                     </ButtonGroup>
                 </Col>

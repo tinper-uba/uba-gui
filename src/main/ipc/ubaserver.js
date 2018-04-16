@@ -22,9 +22,9 @@ export default () => {
         log(`接收启动调试消息 调试目录 ${item.path}`);
         let result = await devserver(event, item);
         if (result.success) {
-            event.sender.send('uba::run::stop::success');
+            // event.sender.send('uba::run::stop::success');
         }else{
-            event.sender.send('uba::run::stop::error');
+            // event.sender.send('uba::run::stop::error');
         }
     });
 }

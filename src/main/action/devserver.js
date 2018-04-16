@@ -42,9 +42,10 @@ export default (event, item) => {
             console.log('貌似结束了uba server     code : ' + code);
             if (code == null) {
                 resolve({ success: true, code });
-                event.sender.send('uba::run::dev::on', '调试服务已关闭');
+                event.sender.send('uba::run::stop::success');
             } else {
                 reject({ success: false, code, ubaLogErr });
+                event.sender.send('uba::run::stop::error');
             }
         });
     });
