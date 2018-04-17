@@ -91,6 +91,7 @@ export default {
       containers: resolve(__dirname, "../src/renderer/containers/"),
       services: resolve(__dirname, "../src/renderer/services/"),
       models: resolve(__dirname, "../src/renderer/models/"),
+      common: resolve(__dirname, "../src/renderer/common/"),      
       static: resolve(__dirname, "../static/")
     }
   },

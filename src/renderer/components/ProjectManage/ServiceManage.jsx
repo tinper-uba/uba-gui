@@ -3,6 +3,7 @@ import { Row, Col, Button } from 'antd';
 import mirror, { actions, connect } from 'mirrorx';
 import { ipcRenderer } from 'electron';
 import ansiHTML from 'ansi-html';
+import { getNowDate } from 'common';
 import Console from './Console';
 import './ServiceManage.less';
 
@@ -25,7 +26,7 @@ ipc.on('uba::run::dev::on', (event, log) => {
 //调试服务正常停止
 ipc.on('uba::run::stop::success', (event) => {
     console.log('exit success');
-    actions.main.addLog(convert.toHtml(`调试服务已关闭</br>`));
+    actions.main.addLog(`[${getNowDate()}] 调试服务已关闭</br>`);
     actions.main.save({
         devBtnLoading: false,
         stopBtnState:true,
@@ -35,7 +36,7 @@ ipc.on('uba::run::stop::success', (event) => {
 //调试服务正常停止
 ipc.on('uba::run::stop::error', (event) => {
     console.log('exit error')
-    actions.main.addLog(convert.toHtml("内部启动发生严重错误，请检查项目配置错误信息</br>"));
+    actions.main.addLog(`[${getNowDate()}] 内部启动发生严重错误，请检查项目配置错误信息</br>`);
     actions.main.save({
         devBtnLoading: false,
         stopBtnState: true
@@ -47,7 +48,6 @@ ipc.on('uba::run::stop::error', (event) => {
 
 class ServiceManage extends Component {
     componentDidMount() {
-        // console.log(this.props);
         ipc.send('uba::get::config', 'runProject');
     }
     handlerRunDev = () => {
@@ -55,6 +55,7 @@ class ServiceManage extends Component {
         ipc.send('uba::run::dev', {
             path: runProject
         });
+        actions.main.addLog(`[${getNowDate()}] 开始启动调试服务，请稍等……</br>`);
         actions.main.save({ devBtnLoading: true, stopBtnState: false });
     }
     handlerRunStop = () => {
@@ -79,7 +80,7 @@ class ServiceManage extends Component {
                     <ButtonGroup className="opeate-tool">
                         <Button onClick={this.handlerRunDev} icon="rocket" disabled={devBtnState} loading={devBtnLoading} >启&nbsp;动</Button>
                         <Button onClick={this.handlerRunStop} icon="close-circle-o" disabled={stopBtnState} loading={stopBtnLoading}>停&nbsp;止</Button>
-                        <Button onClick={this.handlerClearLog} icon="delete" >清&nbsp;空</Button>
+                        <Button onClick={this.handlerClearLog} icon="delete" disabled={!devLog.length} >清&nbsp;空</Button>
                     </ButtonGroup>
                 </Col>
                 <Col style={{ 'padding': '10px' }} span={24}>
