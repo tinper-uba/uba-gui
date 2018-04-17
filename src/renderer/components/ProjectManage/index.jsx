@@ -5,6 +5,8 @@ import ServiceManage from './ServiceManage';
 import BuildRes from './BuildRes';
 
 
+
+
 const TabPane = Tabs.TabPane;
 
 import './index.less';
@@ -18,9 +20,6 @@ class ProjectManage extends Component {
                 </TabPane>
                 <TabPane tab="构建资源" key="2">
                     <BuildRes />
-                </TabPane>
-                <TabPane tab="依赖管理" key="5">
-                    <Empty title="依赖管理" />
                 </TabPane>
                 <TabPane tab="测试质量" key="3">
                     <Empty title="测试质量" />
