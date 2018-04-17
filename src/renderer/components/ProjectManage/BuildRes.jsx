@@ -74,7 +74,7 @@ class BuildRes extends Component {
             </Row>
             <Row>
                 <Col style={{ 'padding': '10px' }} span={24}>
-                    <Console height={`${toolbarHeight - 120}`} inner={buildLog.join('')} />
+                    <Console height={`${toolbarHeight - 420}`} inner={buildLog.join('')} />
                 </Col>
             </Row>
         </div>);
