@@ -6,6 +6,7 @@ import React, { Component } from 'react';
 import { Steps, Icon, Row, Col, Select, Form, Input, Switch, Button } from 'antd';
 import mirror, { actions, connect } from 'mirrorx';
 import { ipcRenderer, remote } from 'electron';
+import path from 'path';
 import Waiting from '../Waiting';
 import './Setting.less';
 
@@ -109,6 +110,17 @@ class Setting extends Component {
     }
     //安装完成
     handlerFinish = () => {
+        // actions.welcome.save({
+        //     projectName: item.projectName,
+        //     projectPath: item.projectPath,
+        //     repositories: item.repositories,
+        //     organization: item.organization,
+        //     registry: item.registry
+        // });
+        ipc.send('uba::set::config',{
+            runProject : path.join(this.props.projectPath,this.props.projectName),
+            title:this.props.title
+        });
         actions.welcome.finish();
     }
     render() {

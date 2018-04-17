@@ -28,7 +28,6 @@ ipc.on('uba::view::project', (event, workSpace, lastpath) => {
 
 class HistoryProject extends Component {
     openHistoryHandler = (item, index) => () => {
-        console.log(item);
         actions.welcome.save({
             projectName: item.projectName,
             projectPath: item.projectPath,
@@ -36,8 +35,6 @@ class HistoryProject extends Component {
             organization: item.organization,
             registry: item.registry
         });
-        //ipc.send('uba::config::write', 'runProject', `${item.projectPath}/${item.projectName}`);
-        //ipc.send('uba::config::write', 'title', `${item.title}`);
         ipc.send('uba::set::config',{
             runProject : path.join(item.projectPath,item.projectName),
             title:item.title

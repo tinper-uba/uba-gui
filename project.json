@@ -13,13 +13,13 @@
                     "title": "NC综合系统",
                     "preview": "https://img.alicdn.com/tfs/TB1l_wWdHSYBuNjSspiXXXNzpXa-1920-1080.png",
                     "organization": "uba-templates",
-                    "repositories": "template-react-nc"
+                    "repositories": "template-react-single-pages"
                 },
                 {
                     "title": "完整参照组件系统",
                     "preview": "https://img.alicdn.com/tfs/TB1tnAWdHSYBuNjSspiXXXNzpXa-1920-1080.png",
                     "organization": "uba-templates",
-                    "repositories": "template-react-ref"
+                    "repositories": "template-react-single-pages"
                 }
             ]
         },
