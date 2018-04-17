@@ -60,34 +60,48 @@ class MainPanel extends Component {
                     </Row>
                 </Header>
                 <Layout>
-                    <Sider width={130} collapsed={true}>
+                    <Sider width={70} collapsed={false}>
                         <Menu selectedKeys={[location.pathname]} style={{ "height": toolbarHeight }} theme='dark' mode="inline">
-                            <Menu.Item key="/main/project">
-                                <Icon onClick={() => actions.routing.push('/main/project')} className="nav-icon" type="appstore-o" />
-                                <span className="nav-item" >项目管理</span>
+                            <Menu.Item className="menu-item" key="/main/project">
+                                <div>
+                                    <Icon onClick={() => actions.routing.push('/main/project')} className="nav-icon" type="appstore-o" />
+                                </div>
+                                <div>
+                                    <span onClick={() => actions.routing.push('/main/project')} className="nav-item">项目</span>
+                                </div>
                             </Menu.Item>
-                            <Menu.Item key="/main/design">
-                                <Icon onClick={() => actions.routing.push('/main/design')} className="nav-icon" type="flag" />
-                                <span className="nav-item">应用设计</span>
+                            <Menu.Item className="menu-item" key="/main/design">
+                                <div>
+                                    <Icon onClick={() => actions.routing.push('/main/design')} className="nav-icon" type="flag" />
+                                </div>
+                                <div>
+                                    <span onClick={() => actions.routing.push('/main/design')} className="nav-item">设计</span>
+                                </div>
                             </Menu.Item>
-                            <Menu.Item key="/main/resource">
-                                <Icon onClick={() => actions.routing.push('/main/resource')} className="nav-icon" type="folder" />
-                                <span className="nav-item">资源维护</span>
+                            <Menu.Item className="menu-item" key="/main/resource">
+                                <div>
+                                    <Icon onClick={() => actions.routing.push('/main/resource')} className="nav-icon" type="folder" />
+                                </div>
+                                <div>
+                                    <span onClick={() => actions.routing.push('/main/resource')} className="nav-item">维护</span>
+                                </div>
                             </Menu.Item>
-                            <Menu.Item key="/main/mock">
-                                <Icon onClick={() => actions.routing.push('/main/mock')} className="nav-icon" type="api" />
-                                <span className="nav-item">Mock数据</span>
+                            <Menu.Item className="menu-item" key="/main/mock">
+                                <div>
+                                    <Icon onClick={() => actions.routing.push('/main/mock')} className="nav-icon" type="api" />
+                                </div>
+                                <div>
+                                    <span onClick={() => actions.routing.push('/main/mock')} className="nav-item">Mock</span>
+                                </div>
                             </Menu.Item>
                         </Menu>
                         <div className="setting-tool">
                             <Menu theme='dark' mode="inline">
                                 <Menu.Item key="1">
-                                    <Icon type="setting" />
-                                    <span>设置</span>
+                                    <Icon style={{'fontSize':'24px'}} type="setting" />
                                 </Menu.Item>
                                 <Menu.Item key="2">
-                                    <Icon type="question-circle-o" />
-                                    <span>疑问</span>
+                                    <Icon style={{'fontSize':'22px'}} type="question-circle" />
                                 </Menu.Item>
                             </Menu>
                         </div>
