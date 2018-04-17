@@ -2,13 +2,12 @@ import React, { Component } from 'react';
 import { Row, Col, Button } from 'antd';
 import mirror, { actions, connect } from 'mirrorx';
 import { ipcRenderer } from 'electron';
-import ansiHTML from 'ansi-html';
+import Convert from 'ansi-to-html';
 import { getNowDate } from 'common';
 import Console from './Console';
 import './ServiceManage.less';
 
-var Convert = require('ansi-to-html');
-var convert = new Convert();
+let convert = new Convert();
 
 let runProject;
 
@@ -29,8 +28,8 @@ ipc.on('uba::run::stop::success', (event) => {
     actions.main.addLog(`[${getNowDate()}] 调试服务已关闭</br>`);
     actions.main.save({
         devBtnLoading: false,
-        stopBtnState:true,
-        stopBtnLoading:false
+        stopBtnState: true,
+        stopBtnLoading: false
     });
 });
 //调试服务正常停止
@@ -74,8 +73,8 @@ class ServiceManage extends Component {
     }
     render() {
         let { devLog, toolbarHeight, devBtnLoading, devBtnState, stopBtnState, stopBtnLoading } = this.props;
-        return (
-            <Row className="service-wrap">
+        return (<div className="service-wrap">
+            <Row>
                 <Col span={24}>
                     <ButtonGroup className="opeate-tool">
                         <Button onClick={this.handlerRunDev} icon="rocket" disabled={devBtnState} loading={devBtnLoading} >启&nbsp;动</Button>
@@ -83,11 +82,13 @@ class ServiceManage extends Component {
                         <Button onClick={this.handlerClearLog} icon="delete" disabled={!devLog.length} >清&nbsp;空</Button>
                     </ButtonGroup>
                 </Col>
+            </Row>
+            <Row>
                 <Col style={{ 'padding': '10px' }} span={24}>
                     <Console height={`${toolbarHeight - 120}`} inner={devLog.join('')} />
                 </Col>
             </Row>
-        );
+        </div>);
     }
 }
 

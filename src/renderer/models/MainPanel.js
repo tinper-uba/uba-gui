@@ -16,8 +16,9 @@ export default {
     buildLog: [], //uba build 时候的日志
     devBtnState: false, //调试按钮状态
     devBtnLoading: false, //调试中
-    stopBtnState: true, //构建按钮状态
-    stopBtnLoading: false, //构建中
+    stopBtnState: true, //停止按钮状态
+    stopBtnLoading: false, //停止中
+    buildBtnLoading: false, //构建状态
   },
   reducers: {
     save(state, data) {
@@ -38,6 +39,14 @@ export default {
       newLog.push(data);
       actions.main.save({
         devLog: devLog.concat(newLog)
+      });
+    },
+    addBuildLog(data, getState) {
+      let buildLog = getState().main.buildLog;
+      let newLog = [];
+      newLog.push(data);
+      actions.main.save({
+        buildLog: buildLog.concat(newLog)
       });
     }
   }

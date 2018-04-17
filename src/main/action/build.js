@@ -28,12 +28,13 @@ export default (event, item) => {
     });
     ubabuildTerm.stdout.on('data', data => {
         console.log(data.toString())
-        ubaLog += data.toString();
-        event.sender.send('uba::run::build::on', ubaLog);
+        // ubaLog += data.toString();
+        event.sender.send('uba::run::build::on', data.toString());
     });
     ubabuildTerm.stderr.on('data', data => {
         // console.log('uba-error:' + data);
         ubaLogErr += data;
+        //event.sender.send('uba::run::build::error-1', data);
     });
 
 
@@ -41,11 +42,12 @@ export default (event, item) => {
         ubabuildTerm.on('exit', code => {
             console.log('貌似结束了uba build     code : ' + code);
             if (code == 0) {
+                event.sender.send('uba::run::build::success', '构建资源服务完成');
                 resolve({ success: true, code });
-                ubaLog += '构建资源服务完成';
-                event.sender.send('uba::run::build::on', ubaLog);
-                event.sender.send('uba::run::build::end', ubaLog, '构建资源服务完成');
+                // ubaLog += '构建资源服务完成';
+                // event.sender.send('uba::run::build::on', '构建资源服务完成');
             } else {
+                event.sender.send('uba::run::build::error','构建资源出现问题');
                 reject({ success: false, code, ubaLogErr });
             }
         });

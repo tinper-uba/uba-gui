@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Tabs } from 'antd';
 import Empty from 'components/Empty';
 import ServiceManage from './ServiceManage';
+import BuildRes from './BuildRes';
+
 
 const TabPane = Tabs.TabPane;
 
@@ -15,7 +17,7 @@ class ProjectManage extends Component {
                     <ServiceManage />
                 </TabPane>
                 <TabPane tab="构建资源" key="2">
-                    <Empty title="构建资源" />
+                    <BuildRes />
                 </TabPane>
                 <TabPane tab="依赖管理" key="5">
                     <Empty title="依赖管理" />
