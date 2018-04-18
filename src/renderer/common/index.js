@@ -1,22 +1,21 @@
 import { lt, satisfies, validRange, diff } from 'semver';
 import { readJsonSync } from 'fs-extra';
-import { join } from 'path';
+import { join, resolve } from 'path';
 import axios from 'axios';
-import request from 'request';
+import request from './request';
 
-// nodeFetch('http://www.qq.com');
 const getNowDate = () => {
   let dt = new Date();
   return dt.getHours() + ':' + dt.getMinutes() + ':' + dt.getSeconds();
 }
 
-const diffVer = (localVersion,latesetVersion) => {
+const diffVer = (localVersion, latesetVersion) => {
   return lt(localVersion.toString().replace(/\^|\~/g, ''), latesetVersion)
 }
 
 const checkDiff = (latesetVersion, localVersion) => {
   return !satisfies(latesetVersion, `^${localVersion}`);
-//   return diff(latesetVersion, `${localVersion}`);
+  //   return diff(latesetVersion, `${localVersion}`);
 };
 
 /*
@@ -27,12 +26,16 @@ const checkDiff = (latesetVersion, localVersion) => {
   }
 * registry: url
 */
-const checkNpmLatest = async function (item, registry='https://registry.npmjs.com') {
-  const obj = await request(`${registry}/${item.name}/latest`);
-  console.log(obj);
-  // if (!err) {
-  //   console.log(data);
-  // }
+const checkNpmLatest = async function (item, registry = 'https://registry.npm.taobao.org') {
+  const { err, data } = await request(`${registry}/${item.name}/latest`);
+  if (!err) {
+    item['key'] = data.name;
+    item['latest'] = data.version;
+    item['name'] = data.name;
+    item['homepage'] = data.homepage;
+    item['description'] = data.description;
+    item['require'] = checkLocalVersion({ name: item.name }, item.path);
+  }
   return item;
 };
 
@@ -50,18 +53,17 @@ const checkLocalVersion = (item, folder) => {
   try {
     const pkg = readJsonSync(pkgPath);
 
-    return { ...item, installedVersion: pkg.version };
+    return pkg.version;
 
-    // return Object.assign(item, { installedVersion: pkg.version });
 
   } catch (e) {
 
     console.log(e.message);
 
-    return {...item, installedVersion: 'null'};
+    return 'null';
   }
 };
 
-export default { getNowDate,checkNpmLatest, checkLocalVersion, checkDiff, satisfies,diffVer };
+export default { getNowDate, checkNpmLatest, checkLocalVersion, checkDiff, satisfies, diffVer };
 
 

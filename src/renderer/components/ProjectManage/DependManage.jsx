@@ -64,11 +64,13 @@ class DependManage extends Component {
     componentDidMount() {
         console.log('依赖包组件 DidMount')
     }
-    updatePkg = (text, item, index) => () => {
+    updatePkg = (text, item, index) => async () => {
         //console.log(util.diffVer(item.require,item.latest));
-        util.checkNpmLatest({
-            name: 'uba'
+        let pkg = await util.checkNpmLatest({
+            name: 'moment',
+            path: this.props.runProject
         });
+        console.log(pkg);
         // console.log('update:', item.name);
         //console.log(util.checkDiff(item.latest,item.require));
         //let isUpdate = semver.lt(semver.clean(item.require), item.latest);
@@ -144,4 +146,4 @@ class DependManage extends Component {
     }
 }
 
-export default DependManage;
+export default connect((state) => state.main)(DependManage);

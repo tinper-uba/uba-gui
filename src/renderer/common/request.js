@@ -1,4 +1,5 @@
-const fetch = require('node-fetch');
+
+import fetch from 'node-fetch';
 
 function parseJSON(response) {
   return response.json();
@@ -23,9 +24,11 @@ function checkStatus(response) {
  */
 
 
-module.exports = (url, options) => fetch(url, options)
-  .then(checkStatus)
-  .then(parseJSON)
-  .then(data => ({ data }))
-  .catch(err => ({ err }));
+export default function (url, options) {
+  return fetch(url, options)
+    .then(checkStatus)
+    .then(parseJSON)
+    .then(data => ({ data }))
+    .catch(err => ({ err }));
+}
 
