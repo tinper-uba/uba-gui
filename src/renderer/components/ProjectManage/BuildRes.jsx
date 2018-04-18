@@ -3,7 +3,7 @@ import { Row, Col, Button } from 'antd';
 import mirror, { actions, connect } from 'mirrorx';
 import { ipcRenderer } from 'electron';
 import Convert from 'ansi-to-html';
-import { getNowDate } from 'common';
+import util from 'common';
 import Console from './Console';
 import './BuildRes.less';
 
@@ -25,7 +25,7 @@ ipc.on('uba::run::build::on', (event, log) => {
 //调试服务正常停止
 ipc.on('uba::run::build::success', (event) => {
     console.log('exit success');
-    actions.main.addBuildLog(`[${getNowDate()}] 资源构建成功</br>`);
+    actions.main.addBuildLog(`[${util.getNowDate()}] 资源构建成功</br>`);
     actions.main.save({
         buildBtnLoading: false
     });
@@ -33,7 +33,7 @@ ipc.on('uba::run::build::success', (event) => {
 //调试服务正常停止
 ipc.on('uba::run::build::error', (event,log) => {
     console.log('exit error')
-    actions.main.addBuildLog(`[${getNowDate()}] 内部构建发生严重错误，请检查项目配置错误信息</br>`);
+    actions.main.addBuildLog(`[${util.getNowDate()}] 内部构建发生严重错误，请检查项目配置错误信息</br>`);
     actions.main.save({
         buildBtnLoading: false
     });
@@ -52,7 +52,7 @@ class BuildRes extends Component {
         ipc.send('uba::run::build', {
             path: runProject
         });
-        actions.main.addBuildLog(`[${getNowDate()}] 开始启动构建资源服务，请稍等……</br>`);
+        actions.main.addBuildLog(`[${util.getNowDate()}] 开始启动构建资源服务，请稍等……</br>`);
         actions.main.save({ buildBtnLoading: true });
     }
     handlerClearLog = () => {
