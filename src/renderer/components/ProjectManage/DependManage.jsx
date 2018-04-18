@@ -1,66 +1,120 @@
 import React, { Component } from 'react';
-import { Card, Row, Col, Button, Table } from 'antd';
+import { Card, Row, Col, Button, Table, Popconfirm } from 'antd';
 import mirror, { actions, connect } from 'mirrorx';
 import { ipcRenderer } from 'electron';
 
 import './DependManage.less';
 const ipc = ipcRenderer;
 
-const columns = [{
-    title: 'Name',
-    dataIndex: 'name',
-}, {
-    title: 'Age',
-    dataIndex: 'age',
-}, {
-    title: 'Address',
-    dataIndex: 'address',
-}];
 const data = [{
     key: '1',
-    name: 'John Brown',
-    age: 32,
-    address: 'New York No. 1 Lake Park',
+    name: 'babel-plugin-transform-runtime',
+    require: '^6.23.0',
+    latest: '6.23.0',
 }, {
     key: '2',
-    name: 'Jim Green',
-    age: 42,
-    address: 'London No. 1 Lake Park',
+    name: 'uba',
+    require: '^2.3.6',
+    latest: '2.3.9',
 }, {
     key: '3',
-    name: 'Joe Black',
-    age: 32,
-    address: 'Sidney No. 1 Lake Park',
-}];
+    name: 'uba',
+    require: '^2.3.6',
+    latest: '2.3.9',
+}, {
+    key: '4',
+    name: 'uba',
+    require: '^2.3.6',
+    latest: '2.3.9',
+}, {
+    key: '5',
+    name: 'uba',
+    require: '^2.3.6',
+    latest: '2.3.9',
+}, {
+    key: '6',
+    name: 'uba',
+    require: '^2.3.6',
+    latest: '2.3.9',
+}, {
+    key: '7',
+    name: 'uba',
+    require: '^2.3.6',
+    latest: '2.3.9',
+}, {
+    key: '8',
+    name: 'uba',
+    require: '^2.3.6',
+    latest: '2.3.9',
+}, {
+    key: '9',
+    name: 'uba',
+    require: '^2.3.6',
+    latest: '2.3.9',
+}, {
+    key: '10',
+    name: 'uba',
+    require: '^2.3.6',
+    latest: '2.3.9',
+},];
 
 class DependManage extends Component {
+    componentDidMount() {
+        console.log('DidMount')
+    }
+    updatePkg = (text, item, index) => () => {
+        console.log('update:', item.name)
+    }
+    removePkg = (text, item, index) => () => {
+        console.log('remove:', item.name)
+    }
+    getColumns = () => {
+        return [{
+            title: '包名',
+            width: '50%',
+            dataIndex: 'name',
+        }, {
+            title: '要求',
+            width: '15%',
+            dataIndex: 'require',
+        }, {
+            title: '最新',
+            width: '15%',
+            dataIndex: 'latest',
+        }, {
+            title: '操作',
+            width: '20%',
+            dataIndex: 'op',
+            render: (text, record, index) => {
+                return (<span className="op-btn">
+                    <Button onClick={this.updatePkg(text, record, index)} type="primary" size="small">更新</Button>
+                    {/* <Button disabled size="small">最新</Button> */}
+                    <Popconfirm title="是否确认删除该包?" onConfirm={this.removePkg(text, record, index)} okText="删除" cancelText="取消">
+                        <Button type="danger" size="small">移除</Button>
+                    </Popconfirm>
+                </span>)
+            }
+        }];
+    }
     render() {
         return (
             <div className="depend-wrap">
                 <Row>
                     <Col span={12}>
-                        <Card title="Dependencies" extra={<Button size="small" icon="plus" shape="circle" />} style={{ width: '100%' }}>
+                        <Card bordered={false} title="Dependencies(22)" extra={<Button size="small" icon="plus" shape="circle" />} style={{ width: '100%' }}>
                             <div>
-                                <Table scroll={{ y: 160 }} pagination={false} dataSource={data} columns={columns} />
+                                <Table size="small" scroll={{ y: 160 }} bordered pagination={false} dataSource={data} columns={this.getColumns()} />
                             </div>
                         </Card>
                     </Col>
                     <Col span={12}>
-                        <Card title="devDependencies" extra={<Button size="small" icon="plus" shape="circle" />} style={{ width: '100%' }}>
-                            <div style={{ 'height': '190px', 'overflowY': 'auto' }}>
-                                <p>Card content</p>
-                                <p>Card content</p>
-                                <p>Card content</p>
-                                <p>Card content</p>
-                                <p>Card content</p>
-                                <p>Card content</p>
-                                <p>Card content</p>
+                        <Card bordered={false} title="devDependencies(5)" extra={<Button size="small" icon="plus" shape="circle" />} style={{ width: '100%' }}>
+                            <div>
+                                <Table size="small" scroll={{ y: 160 }} bordered pagination={false} dataSource={data} columns={this.getColumns()} />
                             </div>
                         </Card>
                     </Col>
-
                 </Row>
-
             </div>
         );
     }
