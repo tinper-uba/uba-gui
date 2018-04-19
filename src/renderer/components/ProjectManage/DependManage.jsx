@@ -55,7 +55,19 @@ class DependManage extends Component {
         }, 'updatePkg');
     }
     removePkg = (text, item, index) => () => {
-        console.log('remove:', item.name)
+        console.log('remove:', item);
+        console.log(util.checkDiff(item.latest, item.define));
+    }
+    renderOpeate = (text, record, index) => {
+        let isUpdate = util.diffVer(record.require, record.latest);
+        let isDanger = util.checkDiff(record.latest, record.define);
+        return (<span className="op-btn">
+            {isUpdate && <Button onClick={this.updatePkg(text, record, index)} type="primary" size="small">更新</Button>}
+            {!isUpdate && <Button disabled size="small">最新</Button>}
+            <Popconfirm title="是否确认删除该包?" onConfirm={this.removePkg(text, record, index)} okText="删除" cancelText="取消">
+                <Button type="danger" size="small">移除</Button>
+            </Popconfirm>
+        </span>)
     }
     getColumns = () => {
         return [{
@@ -83,16 +95,7 @@ class DependManage extends Component {
             title: '操作',
             width: '24%',
             dataIndex: 'op',
-            render: (text, record, index) => {
-                let isUpdate = util.diffVer(record.require, record.latest);
-                return (<span className="op-btn">
-                    {isUpdate && <Button onClick={this.updatePkg(text, record, index)} type="primary" size="small">更新</Button>}
-                    {!isUpdate && <Button disabled size="small">最新</Button>}
-                    <Popconfirm title="是否确认删除该包?" onConfirm={this.removePkg(text, record, index)} okText="删除" cancelText="取消">
-                        <Button type="danger" size="small">移除</Button>
-                    </Popconfirm>
-                </span>)
-            }
+            render: this.renderOpeate
         }];
     }
     render() {

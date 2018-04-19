@@ -14,7 +14,7 @@ const diffVer = (localVersion, latesetVersion) => {
 }
 
 const checkDiff = (latesetVersion, localVersion) => {
-  return !satisfies(latesetVersion, `^${localVersion}`);
+  return !satisfies(latesetVersion, `${localVersion}`);
   //   return diff(latesetVersion, `${localVersion}`);
 };
 
