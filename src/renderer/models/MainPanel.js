@@ -19,6 +19,11 @@ export default {
     stopBtnState: true, //停止按钮状态
     stopBtnLoading: false, //停止中
     buildBtnLoading: false, //构建状态
+    dependenciesTable: [],
+    devDependenciesTable: [],
+    dependenciesTableLoading: true,//depend loading
+    devDependenciesTableLoading: true,//devDepend loading
+
   },
   reducers: {
     save(state, data) {
