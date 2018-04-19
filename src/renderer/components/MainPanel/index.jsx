@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Row, Col, Layout, Menu, Button, Icon } from 'antd';
-import { ipcRenderer,shell } from 'electron';
+import { ipcRenderer, shell } from 'electron';
 import path from 'path';
 import { actions, Switch, Route, Link } from 'mirrorx';
 import Logo from '../Logo';
@@ -48,7 +48,7 @@ class MainPanel extends Component {
                             <ButtonGroup>
                                 <Button icon="code-o" />
                                 <Button icon="edit" />
-                                <Button onClick={()=>shell.showItemInFolder(`${path.join(this.props.runProject,'package.json')}`)} icon="folder-open" />
+                                <Button onClick={() => shell.showItemInFolder(`${path.join(this.props.runProject, 'package.json')}`)} icon="folder-open" />
                             </ButtonGroup>
                         </Col>
                         <Col span={3} style={{ 'textAlign': 'center' }}>
@@ -63,20 +63,28 @@ class MainPanel extends Component {
                 <Layout>
                     <Sider width={70} collapsed={false}>
                         <Menu selectedKeys={[location.pathname]} style={{ "height": toolbarHeight }} theme='dark' mode="inline">
-                            <Menu.Item className="menu-item" key="/main/project">
+                            <Menu.Item className="menu-item" key="/main/editor">
                                 <div>
-                                    <Icon onClick={() => actions.routing.push('/main/project')} className="nav-icon" type="appstore-o" />
+                                    <Icon onClick={() => actions.routing.push('/main/editor')} className="nav-icon" type="appstore-o" />
                                 </div>
                                 <div>
-                                    <span onClick={() => actions.routing.push('/main/project')} className="nav-item">项目</span>
+                                    <span onClick={() => actions.routing.push('/main/editor')} className="nav-item">项目</span>
+                                </div>
+                            </Menu.Item>
+                            <Menu.Item className="menu-item" key="/main/project">
+                                <div>
+                                    <Icon onClick={() => actions.routing.push('/main/project')} className="nav-icon" type="fork" />
+                                </div>
+                                <div>
+                                    <span onClick={() => actions.routing.push('/main/project')} className="nav-item">流程</span>
                                 </div>
                             </Menu.Item>
                             <Menu.Item className="menu-item" key="/main/design">
                                 <div>
-                                    <Icon onClick={() => actions.routing.push('/main/design')} className="nav-icon" type="flag" />
+                                    <Icon onClick={() => actions.routing.push('/main/design')} className="nav-icon" type="shop" />
                                 </div>
                                 <div>
-                                    <span onClick={() => actions.routing.push('/main/design')} className="nav-item">设计</span>
+                                    <span onClick={() => actions.routing.push('/main/design')} className="nav-item">小应用</span>
                                 </div>
                             </Menu.Item>
                             <Menu.Item className="menu-item" key="/main/resource">
@@ -84,7 +92,7 @@ class MainPanel extends Component {
                                     <Icon onClick={() => actions.routing.push('/main/resource')} className="nav-icon" type="folder" />
                                 </div>
                                 <div>
-                                    <span onClick={() => actions.routing.push('/main/resource')} className="nav-item">维护</span>
+                                    <span onClick={() => actions.routing.push('/main/resource')} className="nav-item">资源</span>
                                 </div>
                             </Menu.Item>
                             <Menu.Item className="menu-item" key="/main/mock">
@@ -92,23 +100,24 @@ class MainPanel extends Component {
                                     <Icon onClick={() => actions.routing.push('/main/mock')} className="nav-icon" type="api" />
                                 </div>
                                 <div>
-                                    <span onClick={() => actions.routing.push('/main/mock')} className="nav-item">Mock</span>
+                                    <span onClick={() => actions.routing.push('/main/mock')} className="nav-item">数据</span>
                                 </div>
                             </Menu.Item>
                         </Menu>
                         <div className="setting-tool">
                             <Menu theme='dark' mode="inline">
                                 <Menu.Item key="1">
-                                    <Icon style={{'fontSize':'24px'}} type="setting" />
+                                    <Icon style={{ 'fontSize': '24px' }} type="setting" />
                                 </Menu.Item>
                                 <Menu.Item key="2">
-                                    <Icon style={{'fontSize':'22px'}} type="question-circle" />
+                                    <Icon style={{ 'fontSize': '22px' }} type="question-circle" />
                                 </Menu.Item>
                             </Menu>
                         </div>
                     </Sider>
                     <Content>
                         <Route path={`${match.url}/welcome`} component={Gift} />
+                        <Route path={`${match.url}/editor`} component={ProjectManage} />
                         <Route path={`${match.url}/project`} component={ProjectManage} />
                         <Route path={`${match.url}/design`} component={AppDesign} />
                         <Route path={`${match.url}/resource`} component={ResourceMaintenance} />

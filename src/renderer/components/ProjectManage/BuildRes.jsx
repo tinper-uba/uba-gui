@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { Row, Col, Button } from 'antd';
+import path from 'path';
 import mirror, { actions, connect } from 'mirrorx';
-import { ipcRenderer } from 'electron';
+import { ipcRenderer, shell } from 'electron';
 import Convert from 'ansi-to-html';
 import util from 'common';
 import Console from './Console';
@@ -22,16 +23,17 @@ ipc.on('uba::get::config::success::runProject', (event, obj) => {
 ipc.on('uba::run::build::on', (event, log) => {
     actions.main.addBuildLog(convert.toHtml(log.replace(/\n/g, '<br>')));
 });
-//调试服务正常停止
+//构建服务成功
 ipc.on('uba::run::build::success', (event) => {
     console.log('exit success');
     actions.main.addBuildLog(`[${util.getNowDate()}] 资源构建成功</br>`);
     actions.main.save({
         buildBtnLoading: false
     });
+    shell.showItemInFolder(path.join(actions.main.getS().main.runProject, 'dist'));
 });
 //调试服务正常停止
-ipc.on('uba::run::build::error', (event,log) => {
+ipc.on('uba::run::build::error', (event, log) => {
     console.log('exit error')
     actions.main.addBuildLog(`[${util.getNowDate()}] 内部构建发生严重错误，请检查项目配置错误信息</br>`);
     actions.main.save({

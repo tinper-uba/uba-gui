@@ -33,8 +33,9 @@ ipc.on('uba::run::stop::success', (event) => {
     });
 });
 //调试服务正常停止
-ipc.on('uba::run::stop::error', (event) => {
-    console.log('exit error')
+ipc.on('uba::run::stop::error', (event,errLog) => {
+    console.log('exit error');
+    actions.main.addLog(convert.toHtml(errLog.replace(/\n/g, '<br>')));
     actions.main.addLog(`[${util.getNowDate()}] 内部启动发生严重错误，请检查项目配置错误信息</br>`);
     actions.main.save({
         devBtnLoading: false,

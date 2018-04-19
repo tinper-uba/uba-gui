@@ -20,7 +20,7 @@ export default (event, item) => {
     //切换运行目录
     process.chdir(item.path);
     //创建fork线程执行uba build
-    const ubabuildTerm = fork(UBA_BIN_PATH, ['build'], {
+    const ubabuildTerm = fork(UBA_BIN_PATH, ['build','--noProcess'], {
         cwd: item.path,
         silent: true,
         env,
@@ -34,6 +34,7 @@ export default (event, item) => {
     ubabuildTerm.stderr.on('data', data => {
         // console.log('uba-error:' + data);
         ubaLogErr += data;
+        // event.sender.send('uba::run::build::on', data);
         //event.sender.send('uba::run::build::error-1', data);
     });
 
@@ -47,7 +48,8 @@ export default (event, item) => {
                 // ubaLog += '构建资源服务完成';
                 // event.sender.send('uba::run::build::on', '构建资源服务完成');
             } else {
-                event.sender.send('uba::run::build::error','构建资源出现问题');
+                event.sender.send('uba::run::build::on', ubaLogErr);
+                event.sender.send('uba::run::build::error',ubaLogErr);
                 reject({ success: false, code, ubaLogErr });
             }
         });

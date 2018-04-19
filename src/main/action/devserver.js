@@ -45,7 +45,7 @@ export default (event, item) => {
                 event.sender.send('uba::run::stop::success');
             } else {
                 reject({ success: false, code, ubaLogErr });
-                event.sender.send('uba::run::stop::error');
+                event.sender.send('uba::run::stop::error',ubaLogErr);
             }
         });
     });
