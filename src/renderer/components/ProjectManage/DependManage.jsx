@@ -1,32 +1,23 @@
 import React, { Component } from 'react';
 import { Card, Row, Col, Button, Table, Popconfirm, Tooltip } from 'antd';
 import mirror, { actions, connect } from 'mirrorx';
-import { ipcRenderer,shell } from 'electron';
+import { ipcRenderer, shell } from 'electron';
 import util from 'common';
 import { lt, ltr, gtr, satisfies, validRange, diff, clean } from 'semver';
 
 import './DependManage.less';
 const ipc = ipcRenderer;
-
-// const data = [{
-//     key: '1',
-//     name: 'babel-plugin-transform-runtime',
-//     require: '^6.23.0',
-//     latest: '6.23.0',
-//     define:'^6.20.0'
-// }, {
-//     key: '2',
-//     name: 'uba',
-//     require: '^2.3.6',
-//     latest: '2.3.9',
-//     define:'^2.3.6'
-// }, {
-//     key: '3',
-//     name: 'lalala',
-//     require: '~2.2.6',
-//     latest: '2.4.0',
-//     define:'^2.1.0'
-// }];
+ipc.on('uba::install::package::one::updatePkg', (event) => {
+    setTimeout(async () => {
+        let pkg = await util.loadDependenciesPackage(actions.main.getS().main.runProject);
+        actions.main.save({
+            dependenciesTable: pkg.dependencies,
+            devDependenciesTable: pkg.devDependencies,
+            dependenciesTableLoading: false,
+            devDependenciesTableLoading: false
+        });
+    }, 200);
+});
 
 class DependManage extends Component {
     componentDidMount = () => {
@@ -49,8 +40,19 @@ class DependManage extends Component {
             devDependenciesTableLoading: true
         });
     }
-    updatePkg = (text, item, index) => async () => {
+    updatePkg = (text, item, index) => () => {
         console.log(item);
+        let { runProject, registry } = (actions.welcome.getInitParams());
+        actions.main.save({
+            dependenciesTableLoading: true,
+            devDependenciesTableLoading: true
+        });
+        ipc.send('uba::install::package::one', {
+            runProject,
+            registry,
+            name: item.name,
+            version: item.latest
+        }, 'updatePkg');
     }
     removePkg = (text, item, index) => () => {
         console.log('remove:', item.name)
@@ -62,7 +64,7 @@ class DependManage extends Component {
             dataIndex: 'name',
             render: (text, record, index) => {
                 return <Tooltip placement="right" title={record.description}>
-                    <a onClick={()=>shell.openExternal(record.homepage)} href="javascript:void(0)">{text}</a>
+                    <a onClick={() => shell.openExternal(record.homepage)} href="javascript:void(0)">{text}</a>
                 </Tooltip>
             }
         }, {

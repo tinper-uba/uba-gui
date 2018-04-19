@@ -82,7 +82,8 @@ export default {
         //获得安装的参数
         getInitParams(data, getState) {
             let { title, organization, repositories, projectName, projectPath, npmInstall, registry } = getState().welcome;
-            return { title, organization, repositories, projectName, projectPath, npmInstall, registry };
+            let {runProject} = getState().main;
+            return {runProject, title, organization, repositories, projectName, projectPath, npmInstall, registry };
         },
         //更新安装进度条
         setUpdateProcessState(data, getState) {

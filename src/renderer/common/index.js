@@ -37,7 +37,7 @@ const loadDependenciesPackage = async(runProject,registry = 'https://registry.np
         item['key'] = data.name;
         item['latest'] = data.version;
         item['name'] = data.name;
-        item['homepage'] = data.homepage;
+        item['homepage'] = `https://www.npmjs.com/package/${data.name}/`;
         item['description'] = data.description;
         item['require'] = checkLocalVersion({ name }, runProject);
         item['define'] = pkgs.dependencies[name];
@@ -53,7 +53,7 @@ const loadDependenciesPackage = async(runProject,registry = 'https://registry.np
         item['key'] = data.name;
         item['latest'] = data.version;
         item['name'] = data.name;
-        item['homepage'] = data.homepage;
+        item['homepage'] = `https://www.npmjs.com/package/${data.name}/`;
         item['description'] = data.description;
         item['require'] = checkLocalVersion({ name }, runProject);
         item['define'] = pkgs.devDependencies[name];

@@ -38,6 +38,9 @@ export default {
       let msg = await api.get();
       console.log(msg);
     },
+    getS(data, getState){
+      return getState();
+    },
     addLog(data, getState) {
       let devLog = getState().main.devLog;
       let newLog = [];
