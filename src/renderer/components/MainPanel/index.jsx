@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Row, Col, Layout, Menu, Button, Icon } from 'antd';
-import { ipcRenderer } from 'electron';
+import { ipcRenderer,shell } from 'electron';
+import path from 'path';
 import { actions, Switch, Route, Link } from 'mirrorx';
 import Logo from '../Logo';
 import Gift from './Gift';
@@ -47,7 +48,7 @@ class MainPanel extends Component {
                             <ButtonGroup>
                                 <Button icon="code-o" />
                                 <Button icon="edit" />
-                                <Button icon="folder-open" />
+                                <Button onClick={()=>shell.showItemInFolder(`${path.join(this.props.runProject,'package.json')}`)} icon="folder-open" />
                             </ButtonGroup>
                         </Col>
                         <Col span={3} style={{ 'textAlign': 'center' }}>
