@@ -41,6 +41,7 @@ const loadDependenciesPackage = async(runProject,registry = 'https://registry.np
         item['description'] = data.description;
         item['require'] = checkLocalVersion({ name }, runProject);
         item['define'] = pkgs.dependencies[name];
+        item['mode'] = '--save';
       }
       return item;
     })
@@ -57,6 +58,7 @@ const loadDependenciesPackage = async(runProject,registry = 'https://registry.np
         item['description'] = data.description;
         item['require'] = checkLocalVersion({ name }, runProject);
         item['define'] = pkgs.devDependencies[name];
+        item['mode'] = '--save-dev';
       }
       return item;
     })

@@ -10,7 +10,7 @@ import fs from 'fs';
 import { join, basename } from 'path';
 import co from 'co';
 import npminstall from 'npminstall';
-import { UBA_CONFIG_PATH,NPMINSTALL_PATH } from 'main/path';
+import { UBA_CONFIG_PATH,NPMINSTALL_PATH,NPMUNINSTALL_PATH } from 'main/path';
 import { fork } from 'child_process';
 import { log, readFileJSON, writeFileJSON, isExistPath } from 'main/util';
 
@@ -83,7 +83,7 @@ export default () => {
         //发送消息提醒开始npm install
         //event.sender.send('uba::install::start');
         //创建fork线程执行npm install
-        const npminstallTerm = fork(NPMINSTALL_PATH, ['install',argv.name, '--registry', argv.registry,argv.mode], {
+        const npminstallTerm = fork(NPMINSTALL_PATH, [argv.name, '--registry', argv.registry,argv.mode], {
             cwd: installPath,
             silent: true,
             detached: true
@@ -103,6 +103,42 @@ export default () => {
                 event.sender.send(`uba::install::one::success::${cb}`,npmLog);
             } else {
                 event.sender.send(`uba::install::one::error::${cb}`,npmLogErr);
+            }
+        });
+    });
+    /**
+     * 单独删除一个包，包含 --save-dev --save
+     */
+    ipcMain.on('uba::uninstall::one', (event,argv,cb) => {
+        let npmLog, npmLogErr;
+        //组织完整的安装路径
+        let installPath = argv.runProject;
+        console.log('npm uninstall 路径 ' ,installPath);
+        //切换运行目录
+        process.chdir(installPath);
+        //发送消息提醒开始npm install
+        //event.sender.send('uba::install::start');
+        //创建fork线程执行npm install
+        const npminstallTerm = fork(NPMUNINSTALL_PATH, [argv.name,argv.mode], {
+            cwd: installPath,
+            silent: true,
+            detached: true
+        });
+        npminstallTerm.stdout.on('data', data => {
+            console.log(data.toString());
+            npmLog += data.toString();
+        });
+        npminstallTerm.stderr.on('data', data => {
+            console.log(data.toString());
+            npmLogErr += data;
+        });
+    
+        npminstallTerm.on('exit', code => {
+            console.log('貌似结束了npm uninstall code : ' + code);
+            if (code == 0) {
+                event.sender.send(`uba::uninstall::one::success::${cb}`,npmLog);
+            } else {
+                event.sender.send(`uba::uninstall::one::error::${cb}`,npmLogErr);
             }
         });
     });

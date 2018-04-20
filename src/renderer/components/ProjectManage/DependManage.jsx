@@ -45,6 +45,27 @@ ipc.on('uba::install::one::error::modalInstall',(event,log) => {
     message.error('输入的包名不存在，请检查！');
 });
 
+//单独删除一个包成功后
+ipc.on('uba::uninstall::one::success::modalUninstall', async(event,log) => {
+    actions.main.save({
+        dependenciesTableLoading: true,
+        devDependenciesTableLoading: true
+    });
+    let pkg = await util.loadDependenciesPackage(actions.main.getS().main.runProject);
+    actions.main.save({
+        dependenciesTable: pkg.dependencies,
+        devDependenciesTable: pkg.devDependencies,
+        dependenciesTableLoading: false,
+        devDependenciesTableLoading: false
+    });
+});
+ipc.on('uba::uninstall::one::error::modalInstall',(event,log) => {
+    message.error('删除依赖包失败！');
+    actions.main.save({
+        dependenciesTableLoading: false,
+        devDependenciesTableLoading: false
+    });
+});
 
 class DependManage extends Component {
     constructor(props){
@@ -92,6 +113,12 @@ class DependManage extends Component {
     }
     removePkg = (text, item, index) => () => {
         console.log('remove:', item);
+        let { runProject } = (actions.welcome.getInitParams());
+        ipc.send('uba::uninstall::one',{
+            name : item.name,
+            runProject,
+            mode:item.mode
+        },'modalUninstall');
     }
     renderOpeate = (text, record, index) => {
         let isUpdate = util.diffVer(record.require, record.latest);

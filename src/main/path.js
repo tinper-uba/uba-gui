@@ -26,3 +26,5 @@ export const NPM_BIN_PATH = join(APP_PATH, 'node_modules', '.bin');
 export const UBA_BIN_PATH = join(APP_PATH, 'node_modules', 'uba','bin','uba.js');
 //npminstall 执行路径
 export const NPMINSTALL_PATH = join(APP_PATH, 'node_modules', 'npminstall', 'bin', 'install.js');
+//npmuninstall 执行路径
+export const NPMUNINSTALL_PATH = join(APP_PATH, 'node_modules', 'npminstall', 'bin', 'uninstall.js');
