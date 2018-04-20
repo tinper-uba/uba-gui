@@ -1,6 +1,7 @@
 import { lt, satisfies, validRange, diff } from 'semver';
 import { readJsonSync } from 'fs-extra';
 import { join, resolve } from 'path';
+import uuid from 'uuid';
 import axios from 'axios';
 import request from './request';
 
@@ -42,6 +43,15 @@ const loadDependenciesPackage = async(runProject,registry = 'https://registry.np
         item['require'] = checkLocalVersion({ name }, runProject);
         item['define'] = pkgs.dependencies[name];
         item['mode'] = '--save';
+      }else{
+        item['key'] = uuid();
+        item['latest'] = '-';
+        item['name'] = name;
+        item['homepage'] = `https://www.npmjs.com/package/${name}/`;
+        item['description'] = '-';
+        item['require'] = '-';
+        item['define'] = pkgs.dependencies[name];
+        item['mode'] = '--save';
       }
       return item;
     })
@@ -57,6 +67,15 @@ const loadDependenciesPackage = async(runProject,registry = 'https://registry.np
         item['homepage'] = `https://www.npmjs.com/package/${data.name}/`;
         item['description'] = data.description;
         item['require'] = checkLocalVersion({ name }, runProject);
+        item['define'] = pkgs.devDependencies[name];
+        item['mode'] = '--save-dev';
+      }else{
+        item['key'] = uuid();
+        item['latest'] = '-';
+        item['name'] = name;
+        item['homepage'] = `https://www.npmjs.com/package/${name}/`;
+        item['description'] = '-';
+        item['require'] = '-';
         item['define'] = pkgs.devDependencies[name];
         item['mode'] = '--save-dev';
       }

@@ -121,6 +121,9 @@ class DependManage extends Component {
         },'modalUninstall');
     }
     renderOpeate = (text, record, index) => {
+        if (record.latest == '-') {
+            return <div>-</div>
+        }
         let isUpdate = util.diffVer(record.require, record.latest);
         let isDanger = util.checkDiff(record.latest, record.define);
         return (<span className="op-btn">
