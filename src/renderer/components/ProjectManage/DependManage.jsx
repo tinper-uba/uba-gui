@@ -99,14 +99,13 @@ class DependManage extends Component {
     }
     updatePkg = (text, item, index) => () => {
         console.log(item);
-        let { runProject, registry } = (actions.welcome.getInitParams());
+        let { runProject } = (actions.welcome.getInitParams());
         actions.main.save({
             dependenciesTableLoading: true,
             devDependenciesTableLoading: true
         });
         ipc.send('uba::install::package::one', {
             runProject,
-            registry,
             name: item.name,
             version: item.latest
         }, 'updatePkg');
@@ -171,7 +170,7 @@ class DependManage extends Component {
         });
     }
     handleInstallOk = () => {
-        let { runProject, registry } = (actions.welcome.getInitParams());
+        let { runProject } = (actions.welcome.getInitParams());
         this.setState({
             confirmLoading : true
         });
@@ -179,7 +178,6 @@ class DependManage extends Component {
         ipc.send('uba::install::one',{
             name : this.state.packageName,
             runProject,
-            registry,
             mode:this.state.mode
         },'modalInstall');
     }

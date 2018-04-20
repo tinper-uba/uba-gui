@@ -57,7 +57,7 @@ export default () => {
                 // link bin to specific directory (for global install)
                 // binDir: '/home/admin/.global/bin',
                 // registry, default is https://registry.npmjs.org
-                registry: argv.registry,
+                registry : 'https://registry.npm.taobao.org/',
                 // debug: false,
                 // storeDir: root + 'node_modules',
                 ignoreScripts: true, // ignore pre/post install scripts, default is `false`
@@ -83,7 +83,7 @@ export default () => {
         //发送消息提醒开始npm install
         //event.sender.send('uba::install::start');
         //创建fork线程执行npm install
-        const npminstallTerm = fork(NPMINSTALL_PATH, [argv.name, '--registry', argv.registry,argv.mode], {
+        const npminstallTerm = fork(NPMINSTALL_PATH, [argv.name, '--registry', 'https://registry.npm.taobao.org/',argv.mode], {
             cwd: installPath,
             silent: true,
             detached: true
