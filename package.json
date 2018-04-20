@@ -93,7 +93,7 @@
     "less-loader": "^4.1.0",
     "node-fetch": "^2.1.2",
     "npm-run-path": "^2.0.2",
-    "npminstall": "^3.3.0",
+    "npminstall": "^3.5.0",
     "postcss-loader": "^2.1.2",
     "semver": "^5.5.0",
     "semver-regex": "^1.0.0",

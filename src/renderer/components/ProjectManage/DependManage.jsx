@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Card, Row, Col, Button, Table, Popconfirm, Tooltip } from 'antd';
+import { Card, Row, Col, Button, Table, Popconfirm, Tooltip,Modal,Input,message } from 'antd';
 import mirror, { actions, connect } from 'mirrorx';
 import { ipcRenderer, shell } from 'electron';
 import util from 'common';
@@ -7,6 +7,7 @@ import { lt, ltr, gtr, satisfies, validRange, diff, clean } from 'semver';
 
 import './DependManage.less';
 const ipc = ipcRenderer;
+let self;
 ipc.on('uba::install::package::one::updatePkg', (event) => {
     setTimeout(async () => {
         let pkg = await util.loadDependenciesPackage(actions.main.getS().main.runProject);
@@ -18,9 +19,45 @@ ipc.on('uba::install::package::one::updatePkg', (event) => {
         });
     }, 200);
 });
+//单独安装一个包成功后
+ipc.on('uba::install::one::success::modalInstall', async(event,log) => {
+    actions.main.save({
+        dependenciesTableLoading: true,
+        devDependenciesTableLoading: true
+    });
+    self.setState({
+        confirmLoading : false,
+        visible : false,
+        packageName:''
+    });
+    let pkg = await util.loadDependenciesPackage(actions.main.getS().main.runProject);
+    actions.main.save({
+        dependenciesTable: pkg.dependencies,
+        devDependenciesTable: pkg.devDependencies,
+        dependenciesTableLoading: false,
+        devDependenciesTableLoading: false
+    });
+});
+ipc.on('uba::install::one::error::modalInstall',(event,log) => {
+    self.setState({
+        confirmLoading : false
+    });
+    message.error('输入的包名不存在，请检查！');
+});
+
 
 class DependManage extends Component {
+    constructor(props){
+        super(props);
+        this.state = {
+            mode:'',
+            visible:false,
+            confirmLoading:false,
+            packageName:''
+        }
+    }
     componentDidMount = () => {
+        self = this;
         setTimeout(async () => {
             let pkg = await util.loadDependenciesPackage(this.props.runProject);
             actions.main.save({
@@ -30,7 +67,6 @@ class DependManage extends Component {
                 devDependenciesTableLoading: false
             });
         }, 1000);
-
     }
     componentWillUnmount = () => {
         actions.main.save({
@@ -56,7 +92,6 @@ class DependManage extends Component {
     }
     removePkg = (text, item, index) => () => {
         console.log('remove:', item);
-        console.log(util.checkDiff(item.latest, item.define));
     }
     renderOpeate = (text, record, index) => {
         let isUpdate = util.diffVer(record.require, record.latest);
@@ -98,13 +133,56 @@ class DependManage extends Component {
             render: this.renderOpeate
         }];
     }
+    //安装单独的包
+    handlerInstallOnecPkg = (mode) => () => {
+        this.setState({
+            visible : true,
+            mode
+        });
+    }
+    handleInstallOk = () => {
+        let { runProject, registry } = (actions.welcome.getInitParams());
+        this.setState({
+            confirmLoading : true
+        });
+        console.log(this.state.packageName);
+        ipc.send('uba::install::one',{
+            name : this.state.packageName,
+            runProject,
+            registry,
+            mode:this.state.mode
+        },'modalInstall');
+    }
+    handleInstallCancel = () => {
+        this.setState({
+            visible : false,
+            confirmLoading:false,
+            packageName:''
+        });
+    }
+    handlerChangePackage = (e) => {
+        this.setState({
+            packageName : e.target.value
+        });
+    }
     render() {
+        let {visible,confirmLoading,packageName} = this.state;
         let { dependenciesTable, devDependenciesTable, dependenciesTableLoading, devDependenciesTableLoading } = this.props;
         return (
             <div className="depend-wrap">
                 <Row>
                     <Col span={12}>
-                        <Card bordered={false} title={`Dependencies(${dependenciesTable.length})`} extra={<Button size="small" icon="plus" shape="circle" />} style={{ width: '100%' }}>
+                    <Modal title="安装依赖包"
+                        visible={visible}
+                        okText="安装"
+                        cancelText="取消"
+                        onOk={this.handleInstallOk}
+                        confirmLoading={confirmLoading}
+                        onCancel={this.handleInstallCancel}
+                        >
+                        <p><Input onChange={this.handlerChangePackage} value={packageName} placeholder="输入包名例如：react@16.3.0 或 react" /></p>
+                    </Modal>
+                        <Card bordered={false} title={`Dependencies(${dependenciesTable.length})`} extra={<Button onClick={this.handlerInstallOnecPkg('--save')} size="small" icon="plus" shape="circle" />} style={{ width: '100%' }}>
                             <div>
                                 <Table
                                     size="small"
@@ -119,7 +197,7 @@ class DependManage extends Component {
                         </Card>
                     </Col>
                     <Col span={12}>
-                        <Card bordered={false} title={`devDependencies(${devDependenciesTable.length})`} extra={<Button size="small" icon="plus" shape="circle" />} style={{ width: '100%' }}>
+                        <Card bordered={false} title={`devDependencies(${devDependenciesTable.length})`} extra={<Button onClick={this.handlerInstallOnecPkg('--save-dev')} size="small" icon="plus" shape="circle" />} style={{ width: '100%' }}>
                             <div>
                                 <Table
                                     size="small"

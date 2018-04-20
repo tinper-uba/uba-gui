@@ -15,6 +15,7 @@
   "license": "MIT",
   "dependencies": {
     "npm": "^5.8.0",
+    "npminstall": "^3.5.0",
     "uba": "^2.3.10"
   }
 }
