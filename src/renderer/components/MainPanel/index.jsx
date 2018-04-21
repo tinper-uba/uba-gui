@@ -10,7 +10,7 @@ import ProjectManage from '../ProjectManage';
 import AppDesign from '../AppDesign';
 import ResourceMaintenance from '../ResourceMaintenance';
 import MockData from '../MockData';
-import Setting from '../Setting';
+import Setting from 'containers/Setting';
 const { Header, Footer, Sider, Content } = Layout;
 const ButtonGroup = Button.Group;
 const ipc = ipcRenderer;
