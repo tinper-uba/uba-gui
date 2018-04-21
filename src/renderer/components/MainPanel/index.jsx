@@ -5,10 +5,12 @@ import path from 'path';
 import { actions, Switch, Route, Link } from 'mirrorx';
 import Logo from '../Logo';
 import Gift from './Gift';
+import Editor from '../Editor';
 import ProjectManage from '../ProjectManage';
 import AppDesign from '../AppDesign';
 import ResourceMaintenance from '../ResourceMaintenance';
 import MockData from '../MockData';
+import Setting from '../Setting';
 const { Header, Footer, Sider, Content } = Layout;
 const ButtonGroup = Button.Group;
 const ipc = ipcRenderer;
@@ -105,9 +107,9 @@ class MainPanel extends Component {
                             </Menu.Item>
                         </Menu>
                         <div className="setting-tool">
-                            <Menu theme='dark' mode="inline">
-                                <Menu.Item key="1">
-                                    <Icon style={{ 'fontSize': '24px' }} type="setting" />
+                            <Menu selectedKeys={[location.pathname]} theme='dark' mode="inline">
+                                <Menu.Item key="/main/setting">
+                                    <Icon onClick={() => actions.routing.push('/main/setting')} style={{ 'fontSize': '24px' }} type="setting" />
                                 </Menu.Item>
                                 <Menu.Item key="2">
                                     <Icon style={{ 'fontSize': '22px' }} type="question-circle" />
@@ -117,11 +119,12 @@ class MainPanel extends Component {
                     </Sider>
                     <Content>
                         <Route path={`${match.url}/welcome`} component={Gift} />
-                        <Route path={`${match.url}/editor`} component={ProjectManage} />
+                        <Route path={`${match.url}/editor`} component={Editor} />
                         <Route path={`${match.url}/project`} component={ProjectManage} />
                         <Route path={`${match.url}/design`} component={AppDesign} />
                         <Route path={`${match.url}/resource`} component={ResourceMaintenance} />
                         <Route path={`${match.url}/mock`} component={MockData} />
+                        <Route path={`${match.url}/setting`} component={Setting} />
                     </Content>
                 </Layout>
             </Layout>
