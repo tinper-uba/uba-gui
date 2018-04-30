@@ -140,6 +140,10 @@ const getLocalPkgs = (folder) => {
   return newPkg;
 }
 
-export default {loadDependenciesPackage,getLocalPkgs, getNowDate, checkNpmLatest, checkLocalVersion, checkDiff, satisfies, diffVer };
+const getUbarc = (folder) => {
+  return readJsonSync(resolve(folder,'.ubarc'));
+}
+
+export default {getUbarc,loadDependenciesPackage,getLocalPkgs, getNowDate, checkNpmLatest, checkLocalVersion, checkDiff, satisfies, diffVer };
 
 

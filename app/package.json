@@ -16,6 +16,6 @@
   "dependencies": {
     "npm": "^6.0.0",
     "npminstall": "^3.5.0",
-    "uba": "^2.3.10"
+    "uba": "^4.0.0-rc.1"
   }
 }

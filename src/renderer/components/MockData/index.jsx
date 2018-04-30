@@ -1,45 +1,70 @@
 import React, { Component } from 'react';
 import mirror, { actions, connect } from 'mirrorx';
+import { Row, Col, Button, Icon, Table } from 'antd';
 import { ipcRenderer, remote } from 'electron';
+import util from 'common';
+
 import './index.less';
 
 const ipc = ipcRenderer;
 
-ipc.on('uba::test::end', (event, ss) => {
-    console.log(ss);
-});
+const columns = [{
+  title: 'Name',
+  dataIndex: 'name',
+  key: 'name',
+  render: text => <a href="javascript:;">{text}</a>,
+}, {
+  title: 'Age',
+  dataIndex: 'age',
+  key: 'age',
+}, {
+  title: 'Address',
+  dataIndex: 'address',
+  key: 'address',
+}, {
+  title: 'Action',
+  key: 'action',
+  render: (text, record) => (
+    <span>
+      <a href="javascript:;">Action 一 {record.name}</a>
+    </span>
+  ),
+}];
+const data = [{
+  key: '1',
+  name: 'John Brown',
+  age: 32,
+  address: 'New York No. 1 Lake Park',
+}, {
+  key: '2',
+  name: 'Jim Green',
+  age: 42,
+  address: 'London No. 1 Lake Park',
+}, {
+  key: '3',
+  name: 'Joe Black',
+  age: 32,
+  address: 'Sidney No. 1 Lake Park',
+}];
 
 class MockData extends Component {
-    componentDidMount() {
-        let webview = document.querySelector("#foo");
-        webview.addEventListener('dom-ready', () => {
-            // webview.openDevTools();
-            // let session = webview.getWebContents().session;
-            // session.cookies.get({ url: 'https://mock.yonyoucloud.com/' }, function (error, cookies) {
-            //     console.log(cookies);
-            //     let cookieStr = ''
-            //     for (var i = 0; i < cookies.length; i++) {
-            //         let info = cookies[i];
-            //         cookieStr += `${info.name}=${info.value};`;
-            //         console.log(info.name,'=', info.value);
-            //     }
-            //     console.log(cookieStr);
-            // });
-        });
-        console.log('webview');
-        // ipc.send('uba::test');
-        // setTimeout(() => {
-        // console.log('mock');
-
-        //     ipc.send('uba::test');
-        // }, 5000);
-    }
-    render() {
-        let { toolbarHeight } = this.props;
-        return (
-            <webview useragent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.181 Safari/537.36" style={{ 'height': toolbarHeight }} id="foo" src="https://mock.yonyoucloud.com/"></webview>
-        );
-    }
+  componentDidMount() {
+    setTimeout(() => {
+      console.log(util.getUbarc(this.props.runProject));
+    }, 500);
+  }
+  render() {
+    let { toolbarHeight } = this.props;
+    return (
+      <div className="mock-wrap">
+        <Row>
+          <Col span={24}>
+            <Table columns={columns} dataSource={data} />
+          </Col>
+        </Row>
+      </div>
+    );
+  }
 }
 
 export default connect((state) => state.main)(MockData);

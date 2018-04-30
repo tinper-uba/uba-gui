@@ -11,11 +11,16 @@ import { ipcRenderer } from 'electron';
 const ipc = ipcRenderer;
 
 mirror.model(MainPanelModel);
-
+ipc.on('uba::get::config::success::mainpanel', (event,config) => {
+  let ubaConfig = config.runProject;
+  actions.main.save({
+    runProject:ubaConfig
+  });
+});
 mirror.hook((action, getState) => {
   const { routing: { location } } = getState();
-  if (action.type === '@@router/LOCATION_CHANGE' && location.pathname === '/main/welcome') {
-
+  if (action.type === '@@router/LOCATION_CHANGE' && location.pathname === '/main/mock') {
+    ipc.send('uba::get::config','mainpanel');
   }
 
 });
