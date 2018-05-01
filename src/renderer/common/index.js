@@ -141,7 +141,12 @@ const getLocalPkgs = (folder) => {
 }
 
 const getUbarc = (folder) => {
-  return readJsonSync(resolve(folder,'.ubarc'));
+  try {
+    return readJsonSync(resolve(folder,'.ubarc'));
+  } catch (error) {
+    console.error(error);
+  }
+  
 }
 
 export default {getUbarc,loadDependenciesPackage,getLocalPkgs, getNowDate, checkNpmLatest, checkLocalVersion, checkDiff, satisfies, diffVer };

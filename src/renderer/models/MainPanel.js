@@ -22,7 +22,8 @@ export default {
     dependenciesTable: [],
     devDependenciesTable: [],
     dependenciesTableLoading: true,//depend loading
-    devDependenciesTableLoading: true,//devDepend loading
+    devDependenciesTableLoading: true,//devDepend loading,
+    mockTableData : [],//Mock数据的表格数据
 
   },
   reducers: {
