@@ -3,6 +3,7 @@ import { Tabs, Row, Col } from 'antd';
 import Empty from 'components/Empty';
 import ServiceManage from './ServiceManage';
 import BuildRes from './BuildRes';
+import ProxySetting from './ProxySetting';
 import DependManage from './DependManage';
 
 
@@ -22,10 +23,13 @@ class ProjectManage extends Component {
                         <TabPane tab="构建资源" key="2">
                             <BuildRes />
                         </TabPane>
-                        <TabPane tab="测试质量" key="3">
+                        <TabPane tab="代理设置" key="3">
+                            <ProxySetting />
+                        </TabPane>
+                        <TabPane tab="测试质量" key="4">
                             <Empty title="测试质量" />
                         </TabPane>
-                        <TabPane tab="发布集成" key="4">
+                        <TabPane tab="发布集成" key="5">
                             <Empty title="发布集成" />
                         </TabPane>
                     </Tabs>
