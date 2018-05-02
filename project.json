@@ -4,22 +4,10 @@
             "title": "中后台应用(蜂巢)",
             "sub": [
                 {
-                    "title": "蜂巢业务系统",
+                    "title": "完整参照组件系统",
                     "preview": "https://img.alicdn.com/tfs/TB1NKRzdY9YBuNjy0FgXXcxcXXa-1920-1080.png",
                     "organization": "uba-templates",
-                    "repositories": "template-react-single-pages"
-                },
-                {
-                    "title": "NC综合系统",
-                    "preview": "https://img.alicdn.com/tfs/TB1l_wWdHSYBuNjSspiXXXNzpXa-1920-1080.png",
-                    "organization": "uba-templates",
-                    "repositories": "template-react-single-pages"
-                },
-                {
-                    "title": "完整参照组件系统",
-                    "preview": "https://img.alicdn.com/tfs/TB1tnAWdHSYBuNjSspiXXXNzpXa-1920-1080.png",
-                    "organization": "uba-templates",
-                    "repositories": "template-react-single-pages"
+                    "repositories": "template-react-single-pages#v2"
                 }
             ]
         },
@@ -30,18 +18,7 @@
                     "title": "具备状态管理的脚手架",
                     "preview": "https://img.alicdn.com/tfs/TB1tnAWdHSYBuNjSspiXXXNzpXa-1920-1080.png",
                     "organization": "uba-templates",
-                    "repositories": "template-react-single-pages"
-                }
-            ]
-        },
-        {
-            "title": "主题",
-            "sub": [
-                {
-                    "title": "西瓜UI主题工程",
-                    "preview": "https://img.alicdn.com/tfs/TB1tnAWdHSYBuNjSspiXXXNzpXa-1920-1080.png",
-                    "organization": "uba-templates",
-                    "repositories": "template-react-single-pages"
+                    "repositories": "template-react-single-pages#v2"
                 }
             ]
         }
