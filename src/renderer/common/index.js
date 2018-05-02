@@ -1,5 +1,5 @@
 import { lt, satisfies, validRange, diff } from 'semver';
-import { readJsonSync } from 'fs-extra';
+import { readJsonSync, writeJsonSync } from 'fs-extra';
 import { join, resolve } from 'path';
 import uuid from 'uuid';
 import axios from 'axios';
@@ -20,18 +20,18 @@ const checkDiff = (latesetVersion, localVersion) => {
 };
 
 
-  // {
-  //       key: '3',
-  //       name: 'lalala',
-  //       require: '~2.2.6',
-  //       latest: '2.4.0',
-  //       define:'^2.1.0'
-  //   }
-const loadDependenciesPackage = async(runProject,registry = 'https://registry.npm.taobao.org') => {
-  let pkgs = readJsonSync(resolve(runProject,'package.json'));
+// {
+//       key: '3',
+//       name: 'lalala',
+//       require: '~2.2.6',
+//       latest: '2.4.0',
+//       define:'^2.1.0'
+//   }
+const loadDependenciesPackage = async (runProject, registry = 'https://registry.npm.taobao.org') => {
+  let pkgs = readJsonSync(resolve(runProject, 'package.json'));
   const allPkg = {};
   let dependenciesArr = await Promise.all(
-    Object.keys(pkgs.dependencies).map(async(name)=>{
+    Object.keys(pkgs.dependencies).map(async (name) => {
       let { err, data } = await request(`${registry}/${name}/latest`);
       let item = {};
       if (!err) {
@@ -43,7 +43,7 @@ const loadDependenciesPackage = async(runProject,registry = 'https://registry.np
         item['require'] = checkLocalVersion({ name }, runProject);
         item['define'] = pkgs.dependencies[name];
         item['mode'] = '--save';
-      }else{
+      } else {
         item['key'] = uuid();
         item['latest'] = '-';
         item['name'] = name;
@@ -57,7 +57,7 @@ const loadDependenciesPackage = async(runProject,registry = 'https://registry.np
     })
   );
   let devDependenciesArr = await Promise.all(
-    Object.keys(pkgs.devDependencies).map(async(name)=>{
+    Object.keys(pkgs.devDependencies).map(async (name) => {
       let { err, data } = await request(`${registry}/${name}/latest`);
       let item = {};
       if (!err) {
@@ -69,7 +69,7 @@ const loadDependenciesPackage = async(runProject,registry = 'https://registry.np
         item['require'] = checkLocalVersion({ name }, runProject);
         item['define'] = pkgs.devDependencies[name];
         item['mode'] = '--save-dev';
-      }else{
+      } else {
         item['key'] = uuid();
         item['latest'] = '-';
         item['name'] = name;
@@ -124,14 +124,14 @@ const checkLocalVersion = (item, folder) => {
     return pkg.version;
   } catch (e) {
     console.log(e.message);
-    return 'null';
+    return '0.0.0';
   }
 };
 /**
  * 获取当前运行项目目录下的package.json
  */
 const getLocalPkgs = (folder) => {
-  let pkgs = readJsonSync(resolve(folder,'package.json'));
+  let pkgs = readJsonSync(resolve(folder, 'package.json'));
   let newPkg = {};
   let dependencies = Object.keys(pkgs.dependencies).map(name => ({ name, defineVersion: pkgs.dependencies[name] }));
   newPkg['dependencies'] = dependencies;
@@ -142,13 +142,26 @@ const getLocalPkgs = (folder) => {
 
 const getUbarc = (folder) => {
   try {
-    return readJsonSync(resolve(folder,'.ubarc'));
+    return readJsonSync(resolve(folder, '.ubarc'));
   } catch (error) {
     console.error(error);
   }
-  
 }
 
-export default {getUbarc,loadDependenciesPackage,getLocalPkgs, getNowDate, checkNpmLatest, checkLocalVersion, checkDiff, satisfies, diffVer };
+const setUbarc = (folder, key, value) => {
+  try {
+    let UbaRcPath = resolve(folder, '.ubarc');
+    let UbaRcFile = readJsonSync(UbaRcPath);
+    UbaRcFile[key] = value;
+    writeJsonSync(UbaRcPath,UbaRcFile,{
+      spaces : 2
+    });
+    return true;
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+export default { setUbarc, getUbarc, loadDependenciesPackage, getLocalPkgs, getNowDate, checkNpmLatest, checkLocalVersion, checkDiff, satisfies, diffVer };
 
 
