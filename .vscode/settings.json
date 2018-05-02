@@ -1,2 +1,12 @@
 {
+    "workbench.iconTheme": "vscode-great-icons",
+    "window.zoomLevel": 0,
+    "editor.fontSize": 13,
+    "editor.snippetSuggestions": "top",
+    "workbench.colorTheme": "One Dark Pro Vivid",
+    "explorer.confirmDragAndDrop": false,
+    "workbench.statusBar.feedback.visible": false,
+    "files.associations": {
+        ".ubarc": "json"
+    }
 }

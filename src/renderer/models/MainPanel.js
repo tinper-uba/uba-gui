@@ -21,9 +21,10 @@ export default {
     buildBtnLoading: false, //构建状态
     dependenciesTable: [],
     devDependenciesTable: [],
-    dependenciesTableLoading: true,//depend loading
-    devDependenciesTableLoading: true,//devDepend loading,
-    mockTableData : [],//Mock数据的表格数据
+    dependenciesTableLoading: true, //depend loading
+    devDependenciesTableLoading: true, //devDepend loading,
+    mockTableData: [], //Mock数据的表格数据
+    proxyTableData: [], //Proxy数据表格数据
 
   },
   reducers: {
@@ -39,7 +40,7 @@ export default {
       let msg = await api.get();
       console.log(msg);
     },
-    getS(data, getState){
+    getS(data, getState) {
       return getState();
     },
     addLog(data, getState) {

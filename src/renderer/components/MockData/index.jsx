@@ -224,7 +224,6 @@ class MockData extends Component {
     }
     //写入配置
     util.setUbarc(this.props.runProject, 'mock', ubarcMock);
-
   }
 
   handleAddMock = () => {
@@ -241,7 +240,6 @@ class MockData extends Component {
     actions.main.save({
       mockTableData: newData
     });
-
   }
   render() {
     let { toolbarHeight, mockTableData } = this.props;
