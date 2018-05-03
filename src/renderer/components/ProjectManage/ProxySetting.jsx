@@ -7,8 +7,6 @@ import util from 'common';
 import uuid from 'uuid';
 import './ProxySetting.less';
 
-
-
 const ipc = ipcRenderer;
 
 const EditableCell = ({ editable, value, onChange }) => (
@@ -33,8 +31,18 @@ class ProxySetting extends Component {
             title: '代理路径',
             dataIndex: 'url',
             key: 'url',
-            width: '30%',
+            width: '20%',
             render: (text, record) => this.renderColumns(text, record, 'url')
+        }, {
+            title: '访问地址',
+            dataIndex: 'other',
+            key: 'other',
+            width: '30%',
+            render: (text, record) => {
+                return <soan>
+                    protocol://domain:port{record.url}
+                </soan>
+            }
         }, {
             title: '操作',
             width: '20%',
