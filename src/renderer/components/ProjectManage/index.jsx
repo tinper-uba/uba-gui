@@ -5,6 +5,7 @@ import ServiceManage from './ServiceManage';
 import BuildRes from './BuildRes';
 import ProxySetting from './ProxySetting';
 import DependManage from './DependManage';
+import Publish from './Publish';
 
 
 const TabPane = Tabs.TabPane;
@@ -16,7 +17,7 @@ class ProjectManage extends Component {
         return (<div className="project-wrap">
             <Row>
                 <Col span={24}>
-                    <Tabs style={{'minHeight':'280px'}} defaultActiveKey="1">
+                    <Tabs style={{ 'minHeight': '280px' }} defaultActiveKey="1">
                         <TabPane tab="服务管理" key="1">
                             <ServiceManage />
                         </TabPane>
@@ -30,7 +31,7 @@ class ProjectManage extends Component {
                             <Empty title="测试质量" />
                         </TabPane>
                         <TabPane tab="发布集成" key="5">
-                            <Empty title="发布集成" />
+                            <Publish />
                         </TabPane>
                     </Tabs>
                 </Col>
