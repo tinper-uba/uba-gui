@@ -10,7 +10,16 @@
 2. [windows](http://iuap-design-cdn.oss-cn-beijing.aliyuncs.com/static/uba/gui/download/0.2.0/Uba-GUI%20Setup%200.2.0.exe)
 
 
-![uba-gui](http://iuap-design-cdn.oss-cn-beijing.aliyuncs.com/static/uba/gui/img/uba-gui.gif)
+![uba-gui](https://raw.githubusercontent.com/tinper-uba/uba-gui/develop/screenshot/uba-gui-1.gif)
+![uba-gui](https://raw.githubusercontent.com/tinper-uba/uba-gui/develop/screenshot/uba-gui-2.gif)
+![uba-gui](https://raw.githubusercontent.com/tinper-uba/uba-gui/develop/screenshot/uba-gui-3.gif)
+![uba-gui](https://raw.githubusercontent.com/tinper-uba/uba-gui/develop/screenshot/uba-gui-4.gif)
+![uba-gui](https://raw.githubusercontent.com/tinper-uba/uba-gui/develop/screenshot/uba-gui-5.gif)
+![uba-gui](https://raw.githubusercontent.com/tinper-uba/uba-gui/develop/screenshot/uba-gui-6.gif)
+![uba-gui](https://raw.githubusercontent.com/tinper-uba/uba-gui/develop/screenshot/uba-gui-7.gif)
+![uba-gui](https://raw.githubusercontent.com/tinper-uba/uba-gui/develop/screenshot/uba-gui-8.gif)
+![uba-gui](https://raw.githubusercontent.com/tinper-uba/uba-gui/develop/screenshot/uba-gui-9.gif)
+
 
 ## 启动命令
 
