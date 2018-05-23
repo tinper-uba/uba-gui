@@ -4,12 +4,13 @@
 
 ## 如何下载
 
-1. [MacOs](https://github.com/tinper-uba/uba-gui/releases/download/v0.0.2/Uba-GUI-0.0.2.dmg)
-2. [Windows](https://github.com/tinper-uba/uba-gui/releases/download/v0.0.2/Uba-GUI.Setup.0.0.2.exe)
-3. [Windows绿色版](https://github.com/tinper-uba/uba-gui/releases/download/v0.0.2/Uba-GUI-0.0.2.zip)
+通过[Releases](https://github.com/tinper-uba/uba-gui/releases)页面下的提示下载使用
+
+1. [macOSX](http://iuap-design-cdn.oss-cn-beijing.aliyuncs.com/static/uba/gui/download/0.2.0/Uba-GUI-0.2.0.dmg)
+2. [windows](http://iuap-design-cdn.oss-cn-beijing.aliyuncs.com/static/uba/gui/download/0.2.0/Uba-GUI%20Setup%200.2.0.exe)
 
 
-![uba-gui](https://user-images.githubusercontent.com/3817644/38476761-0ed633bc-3be2-11e8-93ef-72175bb6b70c.gif)
+![uba-gui](http://iuap-design-cdn.oss-cn-beijing.aliyuncs.com/static/uba/gui/img/uba-gui.gif)
 
 ## 启动命令
 
