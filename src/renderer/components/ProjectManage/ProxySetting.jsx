@@ -205,14 +205,14 @@ class ProxySetting extends Component {
             <Row>
                 <Col span={24}>
                     <Table
-                        style={{ 'height': toolbarHeight - 368 }}
+                        style={{ 'height': toolbarHeight - 110 }}
                         loading={!proxyTableData.length}
                         pagination={false}
                         size="small"
                         columns={this.columns}
                         dataSource={proxyTableData}
                         title={() => <Button onClick={this.handleAddProxy} type="" style={{ 'marginLeft': '5px' }}>添加数据</Button>}
-                        scroll={{ y: toolbarHeight - 472 }}
+                        scroll={{ y: toolbarHeight - 150 }}
                         rowKey={record => record.key}
                     />
                 </Col>

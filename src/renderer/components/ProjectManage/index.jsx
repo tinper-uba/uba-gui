@@ -4,7 +4,7 @@ import Empty from 'components/Empty';
 import ServiceManage from './ServiceManage';
 import BuildRes from './BuildRes';
 import ProxySetting from './ProxySetting';
-import DependManage from './DependManage';
+// import DependManage from './DependManage';
 import Publish from './Publish';
 
 
@@ -36,11 +36,11 @@ class ProjectManage extends Component {
                     </Tabs>
                 </Col>
             </Row>
-            <Row>
+            {/* <Row>
                 <Col span={24}>
                     <DependManage />
                 </Col>
-            </Row>
+            </Row> */}
         </div>);
     }
 }

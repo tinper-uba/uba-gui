@@ -86,7 +86,7 @@ class ServiceManage extends Component {
             </Row>
             <Row>
                 <Col style={{ 'padding': '10px' }} span={24}>
-                    <Console height={`${toolbarHeight - 420}`} inner={devLog.join('')} />
+                    <Console height={`${toolbarHeight - 120}`} inner={devLog.join('')} />
                 </Col>
             </Row>
         </div>);

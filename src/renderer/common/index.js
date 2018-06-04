@@ -27,7 +27,7 @@ const checkDiff = (latesetVersion, localVersion) => {
 //       latest: '2.4.0',
 //       define:'^2.1.0'
 //   }
-const loadDependenciesPackage = async (runProject, registry = 'https://registry.npmjs.com') => {
+const loadDependenciesPackage = async (runProject, registry = 'https://registry.npm.taobao.org') => {
   let pkgs = readJsonSync(resolve(runProject, 'package.json'));
   const allPkg = {};
   let dependenciesArr = await Promise.all(
@@ -96,7 +96,7 @@ const loadDependenciesPackage = async (runProject, registry = 'https://registry.
   }
 * registry: url
 */
-const checkNpmLatest = async function (item, registry = 'https://registry.npmjs.com') {
+const checkNpmLatest = async function (item, registry = 'https://registry.npm.taobao.org') {
   const { err, data } = await request(`${registry}/${item.name}/latest`);
   if (!err) {
     item['key'] = data.name;

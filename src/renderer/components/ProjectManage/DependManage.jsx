@@ -214,7 +214,7 @@ class DependManage extends Component {
                             <div>
                                 <Table
                                     size="small"
-                                    scroll={{ y: 160 }}
+                                    scroll={{ y: 480 }}
                                     bordered
                                     loading={dependenciesTableLoading}
                                     pagination={false}
@@ -229,7 +229,7 @@ class DependManage extends Component {
                             <div>
                                 <Table
                                     size="small"
-                                    scroll={{ y: 160 }}
+                                    scroll={{ y: 480 }}
                                     bordered
                                     loading={devDependenciesTableLoading}
                                     pagination={false}
