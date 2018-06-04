@@ -9,7 +9,8 @@ import Editor from '../Editor';
 import ProjectManage from '../ProjectManage';
 import AppDesign from '../AppDesign';
 import ResourceMaintenance from '../ResourceMaintenance';
-import MockData from '../MockData';
+// import MockData from '../MockData';
+import MockYonyou from '../MockData/MockYonyou';
 import Setting from 'containers/Setting';
 const { Header, Footer, Sider, Content } = Layout;
 const ButtonGroup = Button.Group;
@@ -123,7 +124,7 @@ class MainPanel extends Component {
                         <Route path={`${match.url}/project`} component={ProjectManage} />
                         <Route path={`${match.url}/design`} component={AppDesign} />
                         <Route path={`${match.url}/resource`} component={ResourceMaintenance} />
-                        <Route path={`${match.url}/mock`} component={MockData} />
+                        <Route path={`${match.url}/mock`} component={MockYonyou} />
                         <Route path={`${match.url}/setting`} component={Setting} />
                     </Content>
                 </Layout>
