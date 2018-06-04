@@ -43,7 +43,7 @@ export default (event, item) => {
         ubabuildTerm.on('exit', code => {
             console.log('貌似结束了uba build     code : ' + code);
             if (code == 0) {
-                event.sender.send('uba::run::build::success', '构建资源服务完成');
+                event.sender.send('uba::run::build::success', '命令执行完毕');
                 resolve({ success: true, code });
                 // ubaLog += '构建资源服务完成';
                 // event.sender.send('uba::run::build::on', '构建资源服务完成');

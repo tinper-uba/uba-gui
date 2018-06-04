@@ -26,7 +26,7 @@ ipc.on('uba::run::build::on', (event, log) => {
 //构建服务成功
 ipc.on('uba::run::build::success', (event) => {
     console.log('exit success');
-    actions.main.addBuildLog(`[${util.getNowDate()}] 资源构建成功</br>`);
+    actions.main.addBuildLog(`[${util.getNowDate()}] 命令执行完毕</br>`);
     actions.main.save({
         buildBtnLoading: false
     });

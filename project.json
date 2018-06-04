@@ -1,21 +1,18 @@
 {
     "project": [
         {
-            "title": "中后台应用(蜂巢)",
+            "title": "最佳实践工程",
             "sub": [
                 {
-                    "title": "完整参照组件系统",
+                    "title": "中后台业务-SPA单页架构",
+                    "descripton": "基于tinper-bee组件库以及mirrorx状态管理并带有一些实例组件的工程",
                     "preview": "https://img.alicdn.com/tfs/TB1NKRzdY9YBuNjy0FgXXcxcXXa-1920-1080.png",
                     "organization": "uba-templates",
                     "repositories": "template-react-single-pages#v2"
-                }
-            ]
-        },
-        {
-            "title": "脚手架、模板工程",
-            "sub": [
+                },
                 {
-                    "title": "具备状态管理的脚手架",
+                    "title": "中后台业务-多页架构",
+                    "descripton": "基于tinper-bee组件库以及mirrorx状态管理并带有一些实例组件的多页工程可以一键切换单页、多页",
                     "preview": "https://img.alicdn.com/tfs/TB1tnAWdHSYBuNjSspiXXXNzpXa-1920-1080.png",
                     "organization": "uba-templates",
                     "repositories": "template-react-single-pages#v2"
