@@ -18,7 +18,7 @@ class Gift extends Component {
                     <h4>让时光不在一行行代码中流逝</h4>
                 </Col>
                 <Col span={24}>
-                    <h2>uba-gui 只为让你离梦想更快一些</h2>
+                    <h2>只为让你离梦想更快一些</h2>
                 </Col>
             </Row>
         );

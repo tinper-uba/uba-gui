@@ -1,7 +1,7 @@
 {
   "name": "uba-gui",
   "productName": "uba-gui",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "description": "A tool for uba developement",
   "main": "./main.js",
   "keywords": [],
@@ -14,8 +14,8 @@
   },
   "license": "MIT",
   "dependencies": {
-    "npm": "^6.0.0",
-    "npminstall": "^3.5.0",
-    "uba": "^4.0.0-rc.1"
+    "npm": "^6.1.0",
+    "npminstall": "^3.6.2",
+    "uba": "4.0.1"
   }
 }

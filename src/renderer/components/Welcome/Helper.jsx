@@ -36,7 +36,7 @@ class Helper extends Component {
                         <img className="banner" src={bannerPng} />
                     </Col>
                     <Col className="col-center" span={24} >
-                        <div className="title">Welcome to UBA-GUI</div>
+                        <div className="title">应用平台开发者工具</div>
                         <div className="version">Version {pkg.version}</div>
                     </Col>
                     <Col span={24} >
@@ -51,7 +51,7 @@ class Helper extends Component {
                             <List.Item>
                                 <List.Item.Meta
                                     avatar={<Avatar shape="square" src={welcome_news} />}
-                                    title={<a onClick={this.openDocument} href="javascript:;">uba 使用文档</a>}
+                                    title={<a onClick={this.openDocument} href="javascript:;">使用文档</a>}
                                     description="各种功能介绍和文档"
                                 />
                             </List.Item>

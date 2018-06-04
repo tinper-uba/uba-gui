@@ -6,8 +6,8 @@
 
 通过[Releases](https://github.com/tinper-uba/uba-gui/releases)页面下的提示下载使用
 
-1. [macOSX](http://iuap-design-cdn.oss-cn-beijing.aliyuncs.com/static/uba/gui/download/0.2.0/Uba-GUI-0.2.0.dmg)
-2. [windows](http://iuap-design-cdn.oss-cn-beijing.aliyuncs.com/static/uba/gui/download/0.2.0/Uba-GUI%20Setup%200.2.0.exe)
+1. [macOSX](http://iuap-design-cdn.oss-cn-beijing.aliyuncs.com/static/uba/gui/download/0.3.0/Uba-GUI-0.3.0.dmg)
+2. [windows](http://iuap-design-cdn.oss-cn-beijing.aliyuncs.com/static/uba/gui/download/0.3.0/Uba-GUI%20Setup%200.3.0.exe)
 
 
 ![uba-gui](https://raw.githubusercontent.com/tinper-uba/uba-gui/develop/screenshot/uba-gui-1.gif)

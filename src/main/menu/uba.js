@@ -7,7 +7,7 @@
 
 export default function ubaMenu({ app }) {
     return {
-        label: 'Uba-GUI',
+        label: '应用平台开发者工具',
         submenu: [{
             label: 'About uba GUI',
             role: 'about'
